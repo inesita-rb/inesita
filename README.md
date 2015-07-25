@@ -30,10 +30,10 @@ require 'inesita'
 
 class CounterNumber
   include Inesita::Component
-  attr_reader :number
+  attr_accessor :number
 
-  def initialize(number)
-    @number = number
+  def initialize
+    @number = 0
   end
 
   def random_style
@@ -42,8 +42,13 @@ class CounterNumber
     }
   end
 
+  def reset
+    @number = 0
+    update
+  end
+
   def render
-    span style: random_style do
+    span style: random_style, onclick: -> { reset } do
       text number
     end
   end
@@ -52,18 +57,19 @@ end
 class Counter
   include Inesita::Component
   attr_reader :count
+  component :number, CounterNumber.new
 
-  def initialize(count = 0)
-    @count = count
+  def initialize
+    @count = 0
   end
 
   def inc
-    @count += 1
+    number.number += 1
     update
   end
 
   def dec
-    @count -= 1
+    number.number -= 1
     update
   end
 
@@ -72,7 +78,7 @@ class Counter
       button onclick: -> { dec } do
         text '-'
       end
-      component CounterNumber.new(count)
+      component number
       button onclick: -> { inc } do
         text '+'
       end
