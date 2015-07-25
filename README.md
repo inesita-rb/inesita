@@ -28,12 +28,33 @@ require 'virtual-dom' # required by opal-virtual-dom javascript library
 require 'browser'     # not required
 require 'inesita'
 
+class CounterNumber
+  include Inesita::Component
+  attr_reader :number
+
+  def initialize(number)
+    @number = number
+  end
+
+  def random_style
+    {
+      color: %w(red green blue).sample
+    }
+  end
+
+  def render
+    span style: random_style do
+      text number
+    end
+  end
+end
+
 class Counter
   include Inesita::Component
   attr_reader :count
 
-  def initialize(elements)
-    @count = 0
+  def initialize(count = 0)
+    @count = count
   end
 
   def inc
@@ -46,20 +67,12 @@ class Counter
     update
   end
 
-  def random_style
-    {
-      color: %w(red green blue).sample
-    }
-  end
-
   def render
     div do
       button onclick: -> { dec } do
         text '-'
       end
-      span style: random_style do
-        text count
-      end
+      component CounterNumber.new(count)
       button onclick: -> { inc } do
         text '+'
       end
