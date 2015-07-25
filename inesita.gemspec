@@ -14,5 +14,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'opal'
   s.add_dependency 'opal-virtual-dom'
+  s.add_dependency 'slim'
+  s.add_dependency 'sass'
   s.add_development_dependency 'rake'
 end
