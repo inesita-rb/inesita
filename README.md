@@ -53,17 +53,15 @@ class Counter
   end
 
   def render
-    virtual_dom do
-      div do
-        button onclick: -> { dec } do
-          text '-'
-        end
-        span style: random_style do
-          text count
-        end
-        button onclick: -> { inc } do
-          text '+'
-        end
+    div do
+      button onclick: -> { dec } do
+        text '-'
+      end
+      span style: random_style do
+        text count
+      end
+      button onclick: -> { inc } do
+        text '+'
       end
     end
   end
