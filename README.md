@@ -1,5 +1,7 @@
 # Inesita [![Gem Version](https://badge.fury.io/rb/inesita.svg)](http://badge.fury.io/rb/inesita) [![Code Climate](https://codeclimate.com/github/fazibear/opal-virtual-dom/badges/gpa.svg)](https://codeclimate.com/github/fazibear/inesita)
 
+!!! WORK IN PROGRESS !!!
+
 Frontend web framework for Opal
 
 ## requiments
