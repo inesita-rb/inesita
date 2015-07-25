@@ -58,12 +58,7 @@ end
 
 class Counter
   include Inesita::Component
-  attr_reader :count
   component :number, CounterNumber.new
-
-  def initialize
-    @count = 0
-  end
 
   def inc
     number.number += 1
