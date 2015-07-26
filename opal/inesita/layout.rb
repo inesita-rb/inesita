@@ -7,7 +7,7 @@ module Inesita
     attr_reader :outlet
 
     def initialize(outlet)
-      @outlet = outlet
+      self.class.component :outlet, outlet
     end
   end
 end
