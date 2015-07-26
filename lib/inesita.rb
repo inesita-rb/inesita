@@ -4,7 +4,7 @@ Opal.use_gem 'opal-virtual-dom'
 
 require 'slim'
 require 'sass'
-require 'rails-assets-virtual-dom'
+require 'thor'
 
 require 'inesita/server'
-
+require 'inesita/cli/server'

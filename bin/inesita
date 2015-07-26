@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require 'thor'
+require 'rack'
+require 'inesita/cli/server'
+
+InesitaCLI.start(ARGV)
