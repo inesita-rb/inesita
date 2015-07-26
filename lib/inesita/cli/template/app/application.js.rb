@@ -3,8 +3,20 @@ require 'opal'
 require 'browser'
 require 'inesita'
 
-require_tree './components'
+require 'components/navbar'
+require 'components/layout'
+require 'components/home'
+require 'components/welcome'
+require 'components/goodbye'
 
 $document.ready do
-  WelcomeComponent.new.mount($document['app'])
+  Inesita::Application.new(
+    routes: {
+      '/' => Home,
+      '/welcome' => Welcome,
+      '/goodbye' => Goodbye
+    },
+    mount: $document.body,
+    layout: Layout
+  ).run
 end

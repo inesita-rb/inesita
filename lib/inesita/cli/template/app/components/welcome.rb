@@ -1,4 +1,4 @@
-class WelcomeComponent
+class Welcome
   include Inesita::Component
   def render
     div class: 'jumbotron text-center' do

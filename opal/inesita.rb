@@ -1,3 +1,6 @@
 require 'virtual_dom'
 require 'virtual_dom_extension'
 require 'inesita/component'
+require 'inesita/router'
+require 'inesita/application'
+require 'inesita/layout'
