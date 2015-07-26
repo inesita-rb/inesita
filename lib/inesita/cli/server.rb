@@ -7,7 +7,7 @@ class InesitaCLI < Thor
   desc "server [OPTIONS]", "Starts Inesita server"
   method_option :port,
                 aliases: '-p',
-                default: 4000,
+                default: 9292,
                 desc: 'The port Inesita will listen on'
 
   method_option :host,
