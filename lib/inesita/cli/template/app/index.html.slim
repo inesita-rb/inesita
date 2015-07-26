@@ -3,8 +3,11 @@ html
   head
     title Inesita
     link href='application.css' rel='stylesheet' type='text/css'
-    - $SCRIPT_FILES.each do |file|
-      script src=file
+    - if $SCRIPT_FILES
+      - $SCRIPT_FILES.each do |file|
+        script src=file
+    - else
+        script src='application.js'
     javascript:
      #{{$LOAD_ASSETS_CODE}}
   body

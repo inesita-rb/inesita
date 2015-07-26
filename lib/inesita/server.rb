@@ -1,9 +1,11 @@
 module Inesita
-  module_function
+  module Server
+    SOURCE_MAP_PREFIX = '/__OPAL_MAPS__'
 
-  def server
-    Rack::Builder.new do
-      sprockets = Sprockets::Environment.new.tap do |s|
+    module_function
+
+    def assets
+      Sprockets::Environment.new.tap do |s|
         # register engines
         s.register_engine '.slim', Slim::Template
         s.register_engine '.rb', Opal::Processor
@@ -27,22 +29,33 @@ module Inesita
           end
         end
       end
+    end
 
-      if Opal::Processor.source_map_enabled
-        source_maps_prefix =  '/__OPAL_MAPS__'
-        source_maps = Opal::SourceMapServer.new(sprockets, source_maps_prefix)
-        ::Opal::Sprockets::SourceMapHeaderPatch.inject!(source_maps_prefix)
-
-        map source_maps_prefix do
-          run source_maps
-        end
+    def set_global_vars(assets, debug = false)
+      $LOAD_ASSETS_CODE = Opal::Processor.load_asset_code(assets, 'application.js')
+      if debug
+        $SCRIPT_FILES = (assets['application.js'].dependencies + [assets['application.self.js']]).map(&:logical_path)
       end
+    end
 
-      $LOAD_ASSETS_CODE = Opal::Processor.load_asset_code(sprockets, 'application.js')
-      $SCRIPT_FILES = (sprockets['application.js'].dependencies + [sprockets['application.self.js']]).map(&:logical_path)
+    def source_maps(sprockets)
+      ::Opal::Sprockets::SourceMapHeaderPatch.inject!(SOURCE_MAP_PREFIX)
+      Opal::SourceMapServer.new(sprockets, SOURCE_MAP_PREFIX)
+    end
 
-      map '/' do
-        run sprockets
+    def create
+      assets_app = assets
+      source_maps_app = source_maps(assets_app)
+      set_global_vars(assets_app, true)
+
+      Rack::Builder.new do
+        map '/' do
+          run assets_app
+        end
+
+        map SOURCE_MAP_PREFIX do
+          run source_maps_app
+        end
       end
     end
   end
