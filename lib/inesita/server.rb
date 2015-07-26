@@ -38,8 +38,8 @@ module Inesita
         end
       end
 
-      $LOAD_ASSETS_CODE = Opal::Processor.load_asset_code(sprockets, 'application')
-      $SCRIPT_FILES = (sprockets['application'].dependencies + [sprockets['application.self']]).map(&:logical_path)
+      $LOAD_ASSETS_CODE = Opal::Processor.load_asset_code(sprockets, 'application.js')
+      $SCRIPT_FILES = (sprockets['application.js'].dependencies + [sprockets['application.self.js']]).map(&:logical_path)
 
       map '/' do
         run sprockets
