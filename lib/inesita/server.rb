@@ -1,6 +1,9 @@
+require 'rack/rewrite'
+
 module Inesita
   module Server
     SOURCE_MAP_PREFIX = '/__OPAL_MAPS__'
+    ASSETS_PREFIX = '/__ASSETS__'
 
     module_function
 
@@ -25,7 +28,7 @@ module Inesita
 
         s.context_class.class_eval do
           def asset_path(path, options = {})
-            "#{path}"
+            $DEVELOPMENT_MODE ? "#{ASSETS_PREFIX}/#{path}" : path
           end
         end
       end
@@ -33,7 +36,7 @@ module Inesita
 
     def set_global_vars(assets, debug = false)
       $LOAD_ASSETS_CODE = Opal::Processor.load_asset_code(assets, 'application.js')
-      if debug
+      if $DEVELOPMENT_MODE
         $SCRIPT_FILES = (assets['application.js'].dependencies + [assets['application.self.js']]).map(&:logical_path)
       end
     end
@@ -43,13 +46,22 @@ module Inesita
       Opal::SourceMapServer.new(sprockets, SOURCE_MAP_PREFIX)
     end
 
+    def development_mode
+      $DEVELOPMENT_MODE = ENV['DEVELOPMENT_MODE'] || true
+    end
+
     def create
+      development_mode
       assets_app = assets
       source_maps_app = source_maps(assets_app)
       set_global_vars(assets_app, true)
 
       Rack::Builder.new do
-        map '/' do
+        use Rack::Rewrite do
+          rewrite %r[^(?!#{ASSETS_PREFIX}|#{SOURCE_MAP_PREFIX}).*], ASSETS_PREFIX
+        end
+
+        map ASSETS_PREFIX do
           run assets_app
         end
 

@@ -2,11 +2,12 @@ doctype html
 html
   head
     title Inesita
-    link href='application.css' rel='stylesheet' type='text/css'
-    - if $SCRIPT_FILES
+    - if $DEVELOPMENT_MODE
+      link href=asset_path('application.css') rel='stylesheet' type='text/css'
       - $SCRIPT_FILES.each do |file|
-        script src=file
+        script src=asset_path(file)
     - else
+        link href='application.css' rel='stylesheet' type='text/css'
         script src='application.js'
     javascript:
      #{{$LOAD_ASSETS_CODE}}
