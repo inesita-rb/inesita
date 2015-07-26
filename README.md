@@ -27,6 +27,6 @@ $ bundle exec inesita server
 
 Go to [http://localhost:9292/](http://localhost:9292/)
 
-## example
+## examples
 
-[More detailed example Inesita app](https://github.com/fazibear/inesita-example)
+[More detailed example](https://github.com/fazibear/inesita-example)
