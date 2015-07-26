@@ -25,6 +25,12 @@ $ cd my_app
 $ bundle exec inesita server
 ```
 
+To build your application to `public` dir
+
+```sh
+$ bundle exec inesita build
+```
+
 Go to [http://localhost:9292/](http://localhost:9292/)
 
 ## examples
