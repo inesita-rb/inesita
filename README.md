@@ -1,89 +1,32 @@
-# Inesita [![Gem Version](https://badge.fury.io/rb/inesita.svg)](http://badge.fury.io/rb/inesita) [![Code Climate](https://codeclimate.com/github/fazibear/opal-virtual-dom/badges/gpa.svg)](https://codeclimate.com/github/fazibear/inesita)
-
 !!! WORK IN PROGRESS !!!
+
+# Inesita [![Gem Version](https://badge.fury.io/rb/inesita.svg)](http://badge.fury.io/rb/inesita) [![Code Climate](https://codeclimate.com/github/fazibear/opal-virtual-dom/badges/gpa.svg)](https://codeclimate.com/github/fazibear/inesita)
 
 Frontend web framework for Opal
 
-## requiments
-
-This wrapper require to load [virtual-dom](https://github.com/Matt-Esch/virtual-dom) first. For example you can use rails assets.
-
-```ruby
-source 'https://rails-assets.org' do
-  gem 'rails-assets-virtual-dom'
-end
-```
-
 ## usage
 
-Server side (config.ru, Rakefile, Rails, Sinatra, etc.)
+Install Inesita
 
-```ruby
-require 'inesita'
+```sh
+$ gem install inesita
 ```
 
-Browser side
+Generate Inesita new app
 
-```ruby
-require 'opal'
-require 'virtual-dom' # required by opal-virtual-dom javascript library
-require 'browser'     # not required
-require 'inesita'
-
-class CounterNumber
-  include Inesita::Component
-  attr_accessor :number
-
-  def initialize
-    @number = 0
-  end
-
-  def random_style
-    {
-      color: %w(red green blue).sample
-    }
-  end
-
-  def reset
-    @number = 0
-    update
-  end
-
-  def render
-    span style: random_style, onclick: -> { reset } do
-      text number
-    end
-  end
-end
-
-class Counter
-  include Inesita::Component
-  component :number, CounterNumber.new
-
-  def inc
-    number.number += 1
-    update
-  end
-
-  def dec
-    number.number -= 1
-    update
-  end
-
-  def render
-    div do
-      button onclick: -> { dec } do
-        text '-'
-      end
-      component number
-      button onclick: -> { inc } do
-        text '+'
-      end
-    end
-  end
-end
-
-$document.ready do
-  Counter.new.mount($document.body)
-end
+```sh
+$ inesita new my_app
 ```
+
+Launch Inesita server
+
+```sh
+$ cd my_app
+$ bundle exec inesita server
+```
+
+Go to [http://localhost:9292/](http://localhost:9292/)
+
+## example
+
+[More detailed example Inesita app](https://github.com/fazibear/inesita-example)
