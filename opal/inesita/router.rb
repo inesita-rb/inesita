@@ -1,6 +1,7 @@
 module Inesita
   class Router
     include Inesita::Component
+    class << self; attr_accessor :initialized; end
     attr_reader :routes
 
     def initialize(routes)
@@ -13,12 +14,17 @@ module Inesita
         @routes[route].parent(self)
       end
 
-      `window.onpopstate = function(){#{update}}`
-      `window.addEventListener("hashchange", function(){#{update}})`
+      handle_browser_history
+      self.class.initialized = true
     end
 
     def render
       component routes[url]
+    end
+
+    def handle_browser_history
+      `window.onpopstate = function(){#{update}}`
+      `window.addEventListener("hashchange", function(){#{update}})`
     end
 
     def self.handle_link(path, component)
