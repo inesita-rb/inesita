@@ -23,6 +23,10 @@ module Inesita
       end
     end
 
+    def url
+      `document.location.pathname`
+    end
+
     def self.included(base)
       base.extend(ClassMethods)
     end

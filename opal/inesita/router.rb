@@ -18,10 +18,6 @@ module Inesita
       component routes[url]
     end
 
-    def url
-      `document.location.pathname`
-    end
-
     def mount
       `window.onpopstate = function(){#{self.handle_link}}`
       `window.addEventListener("hashchange", function(){#{self.handle_link}})`
