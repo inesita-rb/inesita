@@ -24,7 +24,7 @@ module Inesita
         # add paths from rails-assets
         RailsAssets.load_paths.each do |p|
           s.append_path p
-        end
+        end if defined?(RailsAssets)
 
         s.context_class.class_eval do
           def asset_path(path, options = {})
