@@ -16,7 +16,6 @@ $document.ready do
       '/welcome' => Welcome,
       '/goodbye' => Goodbye
     },
-    mount: $document.body,
     layout: Layout
-  ).run
+  ).mount($document.body)
 end

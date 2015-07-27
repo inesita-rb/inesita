@@ -5,11 +5,9 @@ module Inesita
     attr_reader :layout
 
     def initialize(options)
-      raise 'Mount point missing' unless options[:mount]
       raise 'Routes missing' unless options[:routes]
 
       @router = Router.new(options[:routes])
-      @mount = options[:mount]
       @layout = options[:layout]
 
       if @layout
@@ -20,11 +18,7 @@ module Inesita
     end
 
     def render
-        component layout ? layout_component : router_component
-    end
-
-    def run
-      mount(@mount)
+      component layout ? layout_component : router_component
     end
   end
 end
