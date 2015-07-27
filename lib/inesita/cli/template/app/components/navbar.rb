@@ -24,11 +24,6 @@ class NavBar
                 text 'Goodbye'
               end
             end
-            li class: "#{"active" if url == '/counter'}" do
-              a href: '/counter' do
-                text 'Counter'
-              end
-            end
           end
         end
       end
