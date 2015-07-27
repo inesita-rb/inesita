@@ -7,7 +7,7 @@ module Inesita
       default_component = routes.values.first.new
       default_component.parent(self)
 
-      @routes = Hash.new(routes['/'].new)
+      @routes = Hash.new(default_component)
       routes.map do |route, component|
         @routes[route] = component.new
         @routes[route].parent(self)
@@ -19,11 +19,10 @@ module Inesita
     end
 
     def mount
-      `window.onpopstate = function(){#{self.handle_link}}`
-      `window.addEventListener("hashchange", function(){#{self.handle_link}})`
+      `window.onpopstate = function(){#{handle_link}}`
+      `window.addEventListener("hashchange", function(){#{handle_link}})`
       super
     end
-
 
     def self.handle_link(path, component)
       `window.history.pushState({}, null, #{path})`
