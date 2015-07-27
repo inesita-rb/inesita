@@ -1,7 +1,9 @@
 class Layout
   include Inesita::Layout
 
-  component :navbar, NavBar.new
+  def initialize
+    component :navbar, NavBar.new
+  end
 
   def render
     div do

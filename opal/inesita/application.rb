@@ -10,15 +10,11 @@ module Inesita
       @router = Router.new(options[:routes])
       @layout = options[:layout]
 
-      if @layout
-        self.class.component :layout_component, @layout.new(@router)
-      else
-        self.class.component :router_component, @router
-      end
+      component :parent, @layout ? @layout.create(@router) : @router
     end
 
     def render
-      component layout ? layout_component : router_component
+      component parent
     end
   end
 end

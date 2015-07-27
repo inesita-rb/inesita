@@ -27,19 +27,13 @@ module Inesita
       `document.location.pathname`
     end
 
-    def self.included(base)
-      base.extend(ClassMethods)
-    end
-
-    module ClassMethods
-      def component(name, instance)
-        define_method name do
-          unless instance_variable_get(:"@#{name}")
-            instance_variable_set(:"@#{name}", instance)
-            instance_variable_get(:"@#{name}").parent(self)
-          end
-          instance_variable_get(:"@#{name}")
+    def component(name, instance)
+      self.class.define_method name do
+        unless instance_variable_get(:"@#{name}")
+          instance_variable_set(:"@#{name}", instance)
+          instance_variable_get(:"@#{name}").parent(self)
         end
+        instance_variable_get(:"@#{name}")
       end
     end
   end

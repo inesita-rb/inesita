@@ -2,12 +2,15 @@ module Inesita
   module Layout
     def self.included(base)
       base.include(Component)
+      base.extend(ClassMethods)
     end
 
-    attr_reader :outlet
-
-    def initialize(outlet)
-      self.class.component :outlet, outlet
+    module ClassMethods
+      def create(outlet)
+        new.tap do |l|
+          l.component :outlet, outlet
+        end
+      end
     end
   end
 end
