@@ -3,11 +3,11 @@ html
   head
     title Inesita
     - if $DEVELOPMENT_MODE
-      link href=asset_path('application.css') rel='stylesheet' type='text/css'
+      link href=asset_path('stylesheet.css') rel='stylesheet' type='text/css'
       - $SCRIPT_FILES.each do |file|
         script src=asset_path(file)
     - else
-        link href='application.css' rel='stylesheet' type='text/css'
+        link href='stylesheet.css' rel='stylesheet' type='text/css'
         script src='application.js'
     javascript:
      #{{$LOAD_ASSETS_CODE}}
