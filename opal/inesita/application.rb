@@ -1,7 +1,6 @@
 module Inesita
   class Application
     include Inesita::Component
-    class << self; attr_accessor :main; end
 
     attr_reader :layout
 
@@ -25,7 +24,6 @@ module Inesita
     end
 
     def run
-      Application.main = self
       mount(@mount)
     end
   end

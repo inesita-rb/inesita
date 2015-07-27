@@ -29,9 +29,9 @@ module Inesita
     end
 
 
-    def self.handle_link(path)
+    def self.handle_link(path, component)
       `window.history.pushState({}, null, #{path})`
-      Application.main.update
+      component.update
       false
     end
 

@@ -5,7 +5,8 @@ module VirtualDOM
     end
 
     def a(params, &block)
-      params = { onclick: -> { Inesita::Router.handle_link(params[:href]) } }.merge(params) if params[:href]
+      #TODO: Only if router is configured
+      params = { onclick: -> { Inesita::Router.handle_link(params[:href], @parent) } }.merge(params) if params[:href]
       @nodes << VirtualNode.new(
         'a',
         process_params(params),
