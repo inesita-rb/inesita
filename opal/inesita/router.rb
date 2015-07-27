@@ -12,16 +12,13 @@ module Inesita
         @routes[route] = component.new
         @routes[route].parent(self)
       end
+
+      `window.onpopstate = function(){#{update}}`
+      `window.addEventListener("hashchange", function(){#{update}})`
     end
 
     def render
       component routes[url]
-    end
-
-    def mount
-      `window.onpopstate = function(){#{handle_link}}`
-      `window.addEventListener("hashchange", function(){#{handle_link}})`
-      super
     end
 
     def self.handle_link(path, component)
