@@ -4,6 +4,7 @@ module Inesita
 
     def parent(component)
       @parent = component
+      self
     end
 
     def mount(element)
@@ -28,10 +29,14 @@ module Inesita
     end
 
     def component(name, instance)
+      var name, instance.parent(self)
+    end
+
+    def var(name, instance)
+      raise "Forbidden var name '#{name}' in #{self.class} component" if VirtualDOM::NodeFactory::HTML_TAGS.include?(name)
       self.class.define_method name do
         unless instance_variable_get(:"@#{name}")
           instance_variable_set(:"@#{name}", instance)
-          instance_variable_get(:"@#{name}").parent(self)
         end
         instance_variable_get(:"@#{name}")
       end
