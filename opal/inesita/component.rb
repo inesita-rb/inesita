@@ -38,7 +38,13 @@ module Inesita
 
     module ClassMethods
       def components(*attrs)
-        #fail "Forbidden component name '#{name}' in #{self.class} component" if VirtualDOM::NodeFactory::HTML_TAGS.include?(name)
+        attrs.flatten.each do |component|
+          if VirtualDOM::NodeFactory::HTML_TAGS.include?(component)
+            fail "Forbidden component name '#{component}' in #{self} component"
+          else
+            attr_reader component
+          end
+        end
         attr_reader *attrs.flatten
       end
     end
