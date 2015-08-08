@@ -11,20 +11,27 @@ module Inesita
       NodeFactory.new(block, self).nodes.first
     end
 
+    def setup; end
+
+    def setup_and_render
+      setup
+      render
+    end
+
     def mount(element)
-      @virtual_dom = render
+      @virtual_dom = setup_and_render
       @mount_point = VirtualDOM.create(@virtual_dom)
       element.inner_dom = @mount_point
     end
 
-    def update
+    def update_dom!
       if @virtual_dom && @mount_point
-        new_virtual_dom = render
+        new_virtual_dom = setup_and_render
         diff = VirtualDOM.diff(@virtual_dom, new_virtual_dom)
         VirtualDOM.patch(@mount_point, diff)
         @virtual_dom = new_virtual_dom
       else
-        @parent.update
+        @parent.update_dom!
       end
     end
 

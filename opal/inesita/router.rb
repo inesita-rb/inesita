@@ -23,14 +23,14 @@ module Inesita
     end
 
     def handle_browser_history
-      `window.onpopstate = function(){#{update}}`
-      `window.addEventListener("hashchange", function(){#{update}})`
+      `window.onpopstate = function(){#{update_dom!}}`
+      `window.addEventListener("hashchange", function(){#{update_dom!}})`
       self.class.handle_browser_history = true
     end
 
     def self.handle_link(path, component)
       `window.history.pushState({}, null, #{path})`
-      component.update
+      component.update_dom!
       false
     end
 
