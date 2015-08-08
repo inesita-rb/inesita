@@ -11,8 +11,6 @@ module Inesita
       @layout = options[:layout]
 
       @parent = @layout ? @layout.create(@router) : @router
-      puts @layout.create(@router).inspect
-
     end
 
     def render
