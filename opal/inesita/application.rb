@@ -2,7 +2,7 @@ module Inesita
   class Application
     include Inesita::Component
 
-    attr_reader :layout
+    components :parent
 
     def initialize(options)
       raise 'Routes missing' unless options[:routes]
@@ -10,11 +10,15 @@ module Inesita
       @router = Router.new(options[:routes])
       @layout = options[:layout]
 
-      component :parent, @layout ? @layout.create(@router) : @router
+      @parent = @layout ? @layout.create(@router) : @router
+      puts @layout.create(@router).inspect
+
     end
 
     def render
-      component parent
+      dom do
+        component parent
+      end
     end
   end
 end

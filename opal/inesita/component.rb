@@ -2,20 +2,24 @@ module Inesita
   module Component
     include VirtualDOM
 
-    def parent(component)
+    def with_parent(component)
       @parent = component
       self
     end
 
+    def dom(&block)
+      NodeFactory.new(block, self).nodes.first
+    end
+
     def mount(element)
-      @virtual_dom = NodeFactory.new(method(:render), self).nodes.first
+      @virtual_dom = render
       @mount_point = VirtualDOM.create(@virtual_dom)
       element.inner_dom = @mount_point
     end
 
     def update
       if @virtual_dom && @mount_point
-        new_virtual_dom =  NodeFactory.new(method(:render), self).nodes.first
+        new_virtual_dom = render
         diff = VirtualDOM.diff(@virtual_dom, new_virtual_dom)
         VirtualDOM.patch(@mount_point, diff)
         @virtual_dom = new_virtual_dom
@@ -28,17 +32,14 @@ module Inesita
       `document.location.pathname`
     end
 
-    def component(name, instance)
-      var name, instance.parent(self)
+    def self.included(base)
+      base.extend(ClassMethods)
     end
 
-    def var(name, instance)
-      raise "Forbidden var name '#{name}' in #{self.class} component" if VirtualDOM::NodeFactory::HTML_TAGS.include?(name)
-      self.class.define_method name do
-        unless instance_variable_get(:"@#{name}")
-          instance_variable_set(:"@#{name}", instance)
-        end
-        instance_variable_get(:"@#{name}")
+    module ClassMethods
+      def components(*attrs)
+        #fail "Forbidden component name '#{name}' in #{self.class} component" if VirtualDOM::NodeFactory::HTML_TAGS.include?(name)
+        attr_reader *attrs.flatten
       end
     end
   end

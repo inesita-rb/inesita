@@ -3,13 +3,17 @@ module Inesita
     def self.included(base)
       base.include(Component)
       base.extend(ClassMethods)
+      base.components :outlet
+    end
+
+    def with_outlet(outlet)
+      @outlet = outlet
+      self
     end
 
     module ClassMethods
       def create(outlet)
-        new.tap do |l|
-          l.component :outlet, outlet
-        end
+        new.with_outlet(outlet)
       end
     end
   end

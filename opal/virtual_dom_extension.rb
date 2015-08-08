@@ -1,7 +1,8 @@
 module VirtualDOM
   class NodeFactory
     def component(comp)
-      @nodes << NodeFactory.new(comp.method(:render), comp).nodes.first
+      fail "Component is nil in #{@parent.class} class" if comp.nil?
+      @nodes << comp.with_parent(@parent).render
     end
 
     def a(params, &block)
