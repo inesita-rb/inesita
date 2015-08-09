@@ -31,4 +31,5 @@ $ bundle exec inesita build
 ```
 ## examples
 
-[More detailed example](https://github.com/fazibear/inesita-example)
+ - [My own playground](https://github.com/fazibear/inesita-example)
+ - [TodoMVC example](https://github.com/fazibear/inesita-todomvc)
