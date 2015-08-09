@@ -25,11 +25,11 @@ class InesitaCLI < Thor
 
     index = assets['index.html']
     javascript = assets['application.js']
-    stylesheet = assets['application.css']
+    stylesheet = assets['stylesheet.css']
 
     empty_directory build_dir, force: options[:force]
     create_file File.join(build_dir, 'index.html'),      index.source,      force: options[:force]
     create_file File.join(build_dir, 'application.js'),  javascript.source, force: options[:force]
-    create_file File.join(build_dir, 'application.css'), stylesheet.source, force: options[:force]
+    create_file File.join(build_dir, 'stylesheet.css'), stylesheet.source, force: options[:force]
   end
 end
