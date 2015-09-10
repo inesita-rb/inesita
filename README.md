@@ -1,6 +1,6 @@
 !!! WORK IN PROGRESS !!!
 
-# Inesita [![Gem Version](https://badge.fury.io/rb/inesita.svg)](http://badge.fury.io/rb/inesita) [![Code Climate](https://codeclimate.com/github/fazibear/opal-virtual-dom/badges/gpa.svg)](https://codeclimate.com/github/fazibear/inesita)
+# Inesita [![Gem Version](https://badge.fury.io/rb/inesita.svg)](http://badge.fury.io/rb/inesita) [![Code Climate](https://codeclimate.com/github/inesita-rb/inesita/badges/gpa.svg)](https://codeclimate.com/github/inesita-rb/inesita)
 
 Frontend web framework for Opal
 
@@ -31,5 +31,5 @@ $ bundle exec inesita build
 ```
 ## examples
 
- - [My own playground](https://github.com/fazibear/inesita-example)
- - [TodoMVC example](https://github.com/fazibear/inesita-todomvc)
+ - [My own playground](https://github.com/inesita-rb/playground)
+ - [TodoMVC example](https://github.com/inesita-rb/todomvc)

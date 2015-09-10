@@ -3,7 +3,7 @@ Gem::Specification.new do |s|
   s.version     = '0.0.12'
   s.authors     = [ 'Michał Kalbarczyk' ]
   s.email       = 'fazibear@gmail.com'
-  s.homepage    = 'http://github.com/fazibear/inesita'
+  s.homepage    = 'http://github.com/inesita-rb/inesita'
   s.summary     = 'Frontend web framework for Opal'
   s.description = 'Frontent web framework for Opal'
 
