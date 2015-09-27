@@ -5,6 +5,7 @@ module Inesita
 
     def dom(&block)
       nodes = NodeFactory.new(block, self).nodes
+      @cache_component_counter = nil
       if nodes.length == 1
         nodes.first
       else
@@ -30,6 +31,13 @@ module Inesita
 
     def update!
       @root_component.update_root_component!
+    end
+
+    def cache_component(component, &block)
+      @cache_component ||= {}
+      @cache_component_counter ||= 0
+      @cache_component_counter += 1
+      @cache_component["#{component}-#{@cache_component_counter}"] || @cache_component["#{component}-#{@cache_component_counter}"] = block.call
     end
 
     def self.included(base)
