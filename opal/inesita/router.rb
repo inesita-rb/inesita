@@ -23,11 +23,10 @@ module Inesita
       @routes.routes.each do |route|
         if params = path.match(route[:regex])
           @params = @url_params.merge(Hash[route[:params].zip(params[1..-1])])
-          return route[:component]
+          return route[:component].new(route[:component_params])
         end
       end
-      puts 'not_found'
-      @routes.routes.first
+      fail 'not_found'
     end
 
     def render
@@ -47,7 +46,7 @@ module Inesita
       url_query[1..-1].split('&').each do |param|
         key, value = param.split('=')
         params[decode_uri(key)] = decode_uri(value)
-      end
+      end unless url_query.length == 0
       params
     end
   end
