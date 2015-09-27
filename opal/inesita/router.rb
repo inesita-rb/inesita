@@ -49,5 +49,19 @@ module Inesita
       end unless url_query.length == 0
       params
     end
+
+    def url_for(name)
+      route = case name
+              when String
+                @routes.routes.find { |route| route[:name] == name }
+              when Object
+                @routes.routes.find { |route| route[:component] == name }
+              end
+      if route
+        route[:path]
+      else
+        raise "Route '#{name}' not found."
+      end
+    end
   end
 end

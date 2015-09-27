@@ -23,7 +23,7 @@ module Inesita
         path: path,
         component: component,
         component_params: component_params,
-        name: name || component.class.to_s.downcase
+        name: name || component.to_s.downcase
       }.merge(params_and_regex(path))
     end
 
