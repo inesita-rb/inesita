@@ -1,38 +1,53 @@
 module Inesita
-  class Router
+  module Router
+    include Inesita::JSHelpers
     include Inesita::Component
-    class << self; attr_accessor :handle_browser_history; end
 
-    components :routes
+    attr_reader :params
 
-    def initialize(routes)
-      default_component = routes.values.first.new
+    def initialize
+      on_popstate method(:update!)
+      on_hashchange method(:update!)
+      @routes = Routes.new
+      @url_params = parse_url_params
+      routes
+    end
 
-      @routes = Hash.new(default_component)
-      routes.map do |route, component|
-        @routes[route] = component.new
+    def routes; end
+
+    def route(*params, &block)
+      @routes.route(*params, &block)
+    end
+
+    def find_component
+      @routes.routes.each do |route|
+        if params = path.match(route[:regex])
+          @params = @url_params.merge(Hash[route[:params].zip(params[1..-1])])
+          return route[:component].new(route[:component_params])
+        end
       end
-
-      handle_browser_history
+      fail 'not_found'
     end
 
     def render
       dom do
-        component routes[url]
+        component find_component
       end
     end
 
-    def handle_browser_history
-      `window.onpopstate = function(){#{update_dom!}}`
-      `window.addEventListener("hashchange", function(){#{update_dom!}})`
-      self.class.handle_browser_history = true
-    end
-
-    def self.handle_link(path, component)
-      `window.history.pushState({}, null, #{path})`
-      component.update_dom!
+    def handle_link(path)
+      push_state path
+      update!
       false
     end
 
+    def parse_url_params
+      params = {}
+      url_query[1..-1].split('&').each do |param|
+        key, value = param.split('=')
+        params[decode_uri(key)] = decode_uri(value)
+      end unless url_query.length == 0
+      params
+    end
   end
 end
