@@ -2,41 +2,51 @@ module Inesita
   module Component
     include VirtualDOM
 
-    def with_parent(component)
-      @parent = component
+    attr_reader :root_component
+    def with_root_component(component)
+      @root_component = component
+      self
+    end
+
+    attr_reader :router
+    def with_router(router)
+      @router = router
+      self
+    end
+
+    attr_reader :store
+    def with_store(store)
+      @store = store
       self
     end
 
     def dom(&block)
-      NodeFactory.new(block, self).nodes.first
-    end
-
-    def setup; end
-
-    def setup_and_render
-      setup
-      render
-    end
-
-    def mount(element)
-      @virtual_dom = setup_and_render
-      @mount_point = VirtualDOM.create(@virtual_dom)
-      element.inner_dom = @mount_point
-    end
-
-    def update_dom!
-      if @virtual_dom && @mount_point
-        new_virtual_dom = setup_and_render
-        diff = VirtualDOM.diff(@virtual_dom, new_virtual_dom)
-        VirtualDOM.patch(@mount_point, diff)
-        @virtual_dom = new_virtual_dom
+      nodes = NodeFactory.new(block, self).nodes
+      if nodes.length == 1
+        nodes.first
       else
-        @parent.update_dom!
+        VirtualNode.new('div', {}, nodes)
       end
     end
 
-    def url
-      `document.location.pathname`
+    def mount!(element)
+      @root_component = self
+      @virtual_dom = render
+      @root_node = VirtualDOM.create(@virtual_dom)
+      element.inner_dom = @root_node
+    end
+
+    def update_root_component!
+      if @virtual_dom && @root_node
+        new_virtual_dom = render
+        diff = VirtualDOM.diff(@virtual_dom, new_virtual_dom)
+        VirtualDOM.patch(@root_node, diff)
+        @virtual_dom = new_virtual_dom
+      end
+    end
+
+    def update!
+      @root_component.update_root_component!
     end
 
     def self.included(base)

@@ -5,12 +5,12 @@ module Inesita
     components :parent
 
     def initialize(options)
-      raise 'Routes missing' unless options[:routes]
+      raise 'Router missing' unless options[:router]
 
-      @router = Router.new(options[:routes])
+      @router = options[:router]
       @layout = options[:layout]
 
-      @parent = @layout ? @layout.create(@router) : @router
+      @parent = @layout ? @layout.with_outlet(@router) : @router
     end
 
     def render

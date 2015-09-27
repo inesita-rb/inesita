@@ -1,38 +1,37 @@
 module Inesita
-  class Router
+  module Router
+    include Inesita::JSHelpers
     include Inesita::Component
-    class << self; attr_accessor :handle_browser_history; end
 
-    components :routes
+    def initialize
+      on_popstate method(:update!)
+      on_hashchange method(:update!)
+      @routes = Routes.new
+      routes
+      puts @routes.routes
+      puts @routes.route_names
+    end
 
-    def initialize(routes)
-      default_component = routes.values.first.new
+    def routes; end
 
-      @routes = Hash.new(default_component)
-      routes.map do |route, component|
-        @routes[route] = component.new
-      end
+    def route(*params, &block)
+      @routes.route(*params, &block)
+    end
 
-      handle_browser_history
+    def find_component
+      @routes.routes[path]
     end
 
     def render
       dom do
-        component routes[url]
+        component find_component
       end
     end
 
-    def handle_browser_history
-      `window.onpopstate = function(){#{update_dom!}}`
-      `window.addEventListener("hashchange", function(){#{update_dom!}})`
-      self.class.handle_browser_history = true
-    end
-
-    def self.handle_link(path, component)
-      `window.history.pushState({}, null, #{path})`
-      component.update_dom!
+    def handle_link(path)
+      push_state path
+      update!
       false
     end
-
   end
 end

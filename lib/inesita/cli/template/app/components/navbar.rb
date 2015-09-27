@@ -9,17 +9,17 @@ class NavBar
             text 'Inesita'
           end
           ul class: 'nav navbar-nav' do
-            li class: "#{"active" if url == '/'}" do
+            li class: "#{"active" if router.url == '/'}" do
               a href: '/' do
                 text 'Home'
               end
             end
-            li class: "#{"active" if url == '/welcome'}" do
+            li class: "#{"active" if router.url == '/welcome'}" do
               a href: '/welcome' do
                 text 'Welcome'
               end
             end
-            li class: "#{"active" if url == '/goodbye'}" do
+            li class: "#{"active" if router.url == '/goodbye'}" do
               a href: '/goodbye' do
                 text 'Goodbye'
               end
