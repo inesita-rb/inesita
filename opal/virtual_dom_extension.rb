@@ -1,11 +1,13 @@
 module VirtualDOM
   class NodeFactory
-    def component(comp)
+    def component(comp, params = nil)
       fail "Component is nil in #{@parent.class} class" if comp.nil?
-      @nodes << comp
+      component = comp.is_a?(Class) ? comp.new : comp
+      @nodes << component
         .with_root_component(@parent.root_component)
         .with_router(@parent.router)
         .with_store(@parent.store)
+        .with_params(params)
         .render
     end
 
