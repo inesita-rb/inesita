@@ -7,8 +7,7 @@ module VirtualDOM
           .with_root_component(@parent.root_component)
           .with_router(@parent.router)
           .with_store(@parent.store)
-          .with_params(params)
-      end.render
+      end.with_params(params).render
     end
 
     def a(params, &block)
