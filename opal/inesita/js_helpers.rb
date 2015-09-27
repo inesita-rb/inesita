@@ -15,5 +15,13 @@ module Inesita
     def path
       `document.location.pathname`
     end
+
+    def decode_uri(string)
+      `decodeURIComponent(#{string})`
+    end
+
+    def url_query
+      `location.search`
+    end
   end
 end

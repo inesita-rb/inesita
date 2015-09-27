@@ -4,12 +4,10 @@ module Inesita
 
     def initialize(parent = nil)
       @parent = parent
+      @routes = []
     end
 
     def route(*params, &block)
-      @routes ||= {}
-      @route_names ||= {}
-
       path = params.first.delete('/')
       path = @parent ? "#{@parent}/#{path}" : "/#{path}"
       component = params.last[:to]
@@ -20,15 +18,42 @@ module Inesita
     end
 
     def add_route(path, component, name)
-      @routes[path] = component
-      @route_names[name || component.class.to_s.downcase] = path
+      @routes << {
+        path: path,
+        component: component,
+        name: name || component.class.to_s.downcase
+      }.merge(params_and_regex(path))
     end
 
     def add_subroutes(path, &block)
       subroutes = Routes.new(path)
       subroutes.instance_exec(&block)
-      @routes = @routes.merge(subroutes.routes)
-      @route_names = @route_names.merge(subroutes.route_names)
+      @routes += subroutes.routes
+    end
+
+    def params_and_regex(path)
+      regex = ['^']
+      params = []
+      parts = path.split('/')
+      if parts.empty?
+        regex << '\/'
+      else
+        parts.each do |part|
+          next if part.empty?
+          regex << '\/'
+          if part[0] == ':'
+            params << part[1..-1]
+            regex << '([^\/]+)'
+          else
+            regex << part
+          end
+        end
+      end
+      regex << '$'
+      {
+        regex: Regexp.new(regex.join),
+        params: params
+      }
     end
   end
 end
