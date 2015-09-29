@@ -12,17 +12,17 @@ module Inesita
       path = @parent ? "#{@parent}/#{path}" : "/#{path}"
       component = params.last[:to]
       name = params.last[:as]
-      component_params = params.last[:params]
+      component_props = params.last[:props]
 
       add_subroutes(path, &block) if block_given?
-      add_route(name, path, component, component_params) if component
+      add_route(name, path, component, component_props) if component
     end
 
-    def add_route(name, path, component, component_params)
+    def add_route(name, path, component, component_props)
       @routes << {
         path: path,
         component: component,
-        component_params: component_params,
+        component_props: component_props,
         name: name || component.to_s.downcase
       }.merge(params_and_regex(path))
     end

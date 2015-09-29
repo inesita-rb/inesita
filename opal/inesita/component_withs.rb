@@ -1,5 +1,5 @@
 module Inesita
-  module ComponentProps
+  module ComponentWiths
     attr_reader :root_component
     def with_root_component(component)
       @root_component = component
@@ -18,9 +18,9 @@ module Inesita
       self
     end
 
-    attr_reader :params
-    def with_params(params)
-      @params = params
+    attr_reader :props
+    def with_props(props)
+      @props = props
       self
     end
   end

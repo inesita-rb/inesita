@@ -2,20 +2,22 @@ module Inesita
   class Application
     include Inesita::Component
 
-    components :parent
+    components :layout
 
     def initialize(options)
       raise 'Router missing' unless options[:router]
 
       @router = options[:router].new
-      @layout = options[:layout].new
-
-      @parent = @layout ? @layout.with_outlet(@router) : @router
+      @layout = options[:layout]
     end
 
     def render
       dom do
-        component parent
+        if layout
+          component layout
+        else
+          component router
+        end
       end
     end
   end

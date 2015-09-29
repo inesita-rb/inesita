@@ -1,7 +1,7 @@
 module Inesita
   module Component
     include VirtualDOM
-    include ComponentProps
+    include ComponentWiths
 
     def dom(&block)
       nodes = NodeFactory.new(block, self).nodes
