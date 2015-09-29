@@ -7,8 +7,8 @@ module Inesita
     def initialize(options)
       raise 'Router missing' unless options[:router]
 
-      @router = options[:router]
-      @layout = options[:layout]
+      @router = options[:router].new
+      @layout = options[:layout].new
 
       @parent = @layout ? @layout.with_outlet(@router) : @router
     end

@@ -23,7 +23,8 @@ module Inesita
       @routes.routes.each do |route|
         if params = path.match(route[:regex])
           @params = @url_params.merge(Hash[route[:params].zip(params[1..-1])])
-          return route[:component].new(route[:component_params])
+          @component_params = route[:component_params]
+          return route[:component]
         end
       end
       fail 'not_found'
@@ -31,7 +32,7 @@ module Inesita
 
     def render
       dom do
-        component find_component
+        component find_component, @component_params
       end
     end
 
