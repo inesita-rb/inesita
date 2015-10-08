@@ -20,7 +20,7 @@ module Inesita
       element.inner_dom = @root_node
     end
 
-    def update_root_component!
+    def render_if_root
       if @virtual_dom && @root_node
         new_virtual_dom = render
         diff = VirtualDOM.diff(@virtual_dom, new_virtual_dom)
@@ -30,7 +30,7 @@ module Inesita
     end
 
     def update!
-      @root_component.update_root_component!
+      @root_component.render_if_root
     end
 
     def cache_component(component, &block)
