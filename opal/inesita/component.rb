@@ -13,7 +13,7 @@ module Inesita
       end
     end
 
-    def mount!(element)
+    def mount_to(element)
       @root_component = self
       @virtual_dom = render
       @root_node = VirtualDOM.create(@virtual_dom)
