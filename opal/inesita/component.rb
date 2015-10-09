@@ -29,7 +29,7 @@ module Inesita
       end
     end
 
-    def update!
+    def update_dom
       @root_component.render_if_root
     end
 

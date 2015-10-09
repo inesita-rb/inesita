@@ -5,7 +5,7 @@ module Inesita
     end
 
     def update_dom
-      root_component.update!
+      root_component.update_dom
     end
 
     attr_reader :root_component

@@ -6,8 +6,8 @@ module Inesita
     attr_reader :params
 
     def initialize
-      on_popstate method(:update!)
-      on_hashchange method(:update!)
+      on_popstate method(:update_dom)
+      on_hashchange method(:update_dom)
       @routes = Routes.new
       @url_params = parse_url_params
       routes
@@ -38,7 +38,7 @@ module Inesita
 
     def handle_link(path)
       push_state path
-      update!
+      update_dom
       false
     end
 
