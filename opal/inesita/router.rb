@@ -64,5 +64,9 @@ module Inesita
         raise "Route '#{name}' not found."
       end
     end
+
+    def current_url?(name)
+      path == url_for(name)
+    end
   end
 end
