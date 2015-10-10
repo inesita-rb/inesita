@@ -13,11 +13,10 @@ class InesitaCLI < Thor
                 desc: 'force overwrite'
 
   def new(project_dir)
-    Dir.glob("#{File.dirname(__FILE__)}/template/**/*",  File::FNM_DOTMATCH).each do |file|
-      next if File.directory?(file)
-      path = file.split('/')
-      copy_file file, File.join(project_dir, path[path.index('template')+1..-1].join('/')), force: options[:force]
-    end
+    puts 'x'
+    directory('template', project_dir, {
+      project_name: project_dir
+    })
 
     inside project_dir do
       run 'bundle install'
