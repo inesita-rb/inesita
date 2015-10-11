@@ -2,7 +2,7 @@ module Inesita
   class Application
     include Inesita::Component
 
-    components :root
+    attr_reader :root
 
     def initialize(options)
       router = options[:router]

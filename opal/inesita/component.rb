@@ -39,22 +39,5 @@ module Inesita
       @cache_component_counter += 1
       @cache_component["#{component}-#{@cache_component_counter}"] || @cache_component["#{component}-#{@cache_component_counter}"] = block.call
     end
-
-    def self.included(base)
-      base.extend(ClassMethods)
-    end
-
-    module ClassMethods
-      def components(*attrs)
-        attrs.flatten.each do |component|
-          if VirtualDOM::NodeFactory::HTML_TAGS.include?(component)
-            fail "Forbidden component name '#{component}' in #{self} component"
-          else
-            attr_reader component
-          end
-        end
-        attr_reader *attrs.flatten
-      end
-    end
   end
 end
