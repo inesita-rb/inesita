@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'inesita'
-  s.version     = '0.2.0'
+  s.version     = '0.2.1'
   s.authors     = [ 'Michał Kalbarczyk' ]
   s.email       = 'fazibear@gmail.com'
   s.homepage    = 'http://github.com/inesita-rb/inesita'
@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_dependency 'opal', '~> 0.8'
-  s.add_dependency 'opal-virtual-dom', '~> 0.0.5'
+  s.add_dependency 'opal-virtual-dom', '~> 0.1.0'
   s.add_dependency 'slim', '~> 3.0'
   s.add_dependency 'sass', '~> 3.4'
   s.add_dependency 'thor', '~> 0.19'
