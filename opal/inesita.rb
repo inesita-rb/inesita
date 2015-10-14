@@ -1,5 +1,4 @@
 require 'virtual_dom'
-require 'virtual_dom_extension'
 require 'inesita/js_helpers'
 require 'inesita/component_withs'
 require 'inesita/component'

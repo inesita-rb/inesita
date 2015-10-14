@@ -22,9 +22,7 @@ module Inesita
     end
 
     def render
-      dom do
-        component root
-      end
+      component root
     end
   end
 end

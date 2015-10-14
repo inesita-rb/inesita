@@ -5,3 +5,4 @@
  - [ ] `router.current_url?` should supports also path
  - [ ] helper for dom class
  - [ ] add comments to new application template
+ - [x] remove `dom` block from render

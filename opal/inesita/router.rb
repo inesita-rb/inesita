@@ -31,9 +31,7 @@ module Inesita
     end
 
     def render
-      dom do
-        component find_component, props: @component_props
-      end
+      component find_component, props: @component_props
     end
 
     def handle_link(path)
