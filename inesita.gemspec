@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'inesita'
-  s.version     = '0.1.0'
+  s.version     = '0.2.0'
   s.authors     = [ 'Michał Kalbarczyk' ]
   s.email       = 'fazibear@gmail.com'
   s.homepage    = 'http://github.com/inesita-rb/inesita'
