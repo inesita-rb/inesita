@@ -22,7 +22,7 @@ module Inesita
     def render_virtual_dom
       @__virtual_nodes__ = []
       render
-      if @__virtual_nodes__.length == 0
+      if @__virtual_nodes__.length == 1
         @__virtual_nodes__.first
       else
         VirtualDOM::VirtualNode.new('div', {}, @__virtual_nodes__).vnode
