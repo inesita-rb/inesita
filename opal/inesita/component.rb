@@ -4,6 +4,7 @@ module Inesita
     include ComponentWiths
 
     def mount_to(element)
+      fail "Can't mount #{self.class}, target element not found!" unless element
       @root_component = self
       @virtual_dom = render_virtual_dom
       @root_node = VirtualDOM.create(@virtual_dom)
