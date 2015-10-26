@@ -8,5 +8,5 @@ More detailed description [here](https://inesita-rb.github.io).
 
 ## Examples
 
- - [Example application](https://github.com/inesita-rb/playground)
- - [TodoMVC application](https://github.com/inesita-rb/todomvc)
+ - [Example application](https://github.com/inesita-rb/playground) [DEMO](http://inesita-playground.netlify.com/)
+ - [TodoMVC application](https://github.com/inesita-rb/todomvc) [DEMO](http://inesita-todomvc.netlify.com/)
