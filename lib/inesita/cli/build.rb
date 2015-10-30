@@ -28,8 +28,8 @@ class InesitaCLI < Thor
     stylesheet = assets['stylesheet.css']
 
     empty_directory build_dir, force: options[:force]
-    create_file File.join(build_dir, 'index.html'),      index.source,      force: options[:force]
-    create_file File.join(build_dir, 'application.js'),  javascript.source, force: options[:force]
+    create_file File.join(build_dir, 'index.html'),     index.source,      force: options[:force]
+    create_file File.join(build_dir, 'application.js'), javascript.source, force: options[:force]
     create_file File.join(build_dir, 'stylesheet.css'), stylesheet.source, force: options[:force]
   end
 end
