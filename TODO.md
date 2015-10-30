@@ -8,3 +8,6 @@
  - [x] remove `dom` block from render
  - [ ] make props a struct
  - [ ] don't override a onclick behaviour
+ - [ ] Inesita.env
+ - [ ] Minifications
+
