@@ -1,9 +1,6 @@
 require 'opal'
 Opal.append_path File.expand_path('../../opal', __FILE__)
 
-# TODO: wait for opal fix
-# Opal.use_gem 'opal-virtual-dom'
-
 require 'opal-virtual-dom'
 require 'slim'
 require 'sass'
