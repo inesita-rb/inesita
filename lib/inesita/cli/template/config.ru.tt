@@ -1,4 +1,4 @@
 require 'bundler'
 Bundler.require
 
-run Inesita::Server.create
+run Inesita::Server.new

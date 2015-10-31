@@ -2,13 +2,5 @@ doctype html
 html
   head
     title <%= config[:project_name] %>
-    - if $DEVELOPMENT_MODE
-      link href=asset_path('stylesheet.css') rel='stylesheet' type='text/css'
-      - $SCRIPT_FILES.each do |file|
-        script src=asset_path(file)
-    - else
-        link href='stylesheet.css' rel='stylesheet' type='text/css'
-        script src='application.js'
-    javascript:
-     #{{$LOAD_ASSETS_CODE}}
+    == Inesita.assets_code
   body
