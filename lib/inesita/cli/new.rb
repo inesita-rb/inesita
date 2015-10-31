@@ -13,7 +13,6 @@ class InesitaCLI < Thor
                 desc: 'force overwrite'
 
   def new(project_dir)
-    puts 'x'
     directory('template', project_dir, {
       project_name: project_dir
     })

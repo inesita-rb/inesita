@@ -1,60 +1,30 @@
 require 'rack/rewrite'
 
 module Inesita
-  module Server
+  class Server
     SOURCE_MAP_PREFIX = '/__OPAL_MAPS__'
     ASSETS_PREFIX = '/__ASSETS__'
 
-    module_function
+    attr_reader :assets_app
 
-    def assets
-      Sprockets::Environment.new.tap do |s|
-        # register engines
-        s.register_engine '.slim', Slim::Template
-        s.register_engine '.rb', Opal::Processor
-
-        # add folders
-        s.append_path 'app'
-
-        # add paths from opal
-        Opal.paths.each do |p|
-          s.append_path p
-        end
-
-        # add paths from rails-assets
-        RailsAssets.load_paths.each do |p|
-          s.append_path p
-        end if defined?(RailsAssets)
-
-        s.context_class.class_eval do
-          def asset_path(path, options = {})
-            $DEVELOPMENT_MODE ? "#{ASSETS_PREFIX}/#{path}" : path
-          end
-        end
-      end
+    def initialize
+      @assets_app = create_assets_app
+      @source_maps_app = create_source_maps_app
+      @app = create_app
+      Inesita.assets_code = assets_code
     end
 
-    def set_global_vars(assets, debug = false)
-      $LOAD_ASSETS_CODE = Opal::Processor.load_asset_code(assets, 'application.js')
-      if $DEVELOPMENT_MODE
-        $SCRIPT_FILES = (assets['application.js'].dependencies + [assets['application.self.js']]).map(&:logical_path)
-      end
+    def assets_code
+      assets_prefix = Inesita.env == :development ? ASSETS_PREFIX : nil
+      %{
+      <link rel="stylesheet" type="text/css" href="#{assets_prefix}/stylesheet.css">
+      #{Opal::Sprockets.javascript_include_tag('application', sprockets: @assets_app, prefix: assets_prefix, debug: Inesita.env == :development)}
+      }
     end
 
-    def source_maps(sprockets)
-      ::Opal::Sprockets::SourceMapHeaderPatch.inject!(SOURCE_MAP_PREFIX)
-      Opal::SourceMapServer.new(sprockets, SOURCE_MAP_PREFIX)
-    end
-
-    def development_mode
-      $DEVELOPMENT_MODE = ENV['DEVELOPMENT_MODE'] || true
-    end
-
-    def create
-      development_mode
-      assets_app = assets
-      source_maps_app = source_maps(assets_app)
-      set_global_vars(assets_app, true)
+    def create_app
+      assets_app = @assets_app
+      source_maps_app = @source_maps_app
 
       Rack::Builder.new do
         use Rack::Rewrite do
@@ -69,6 +39,38 @@ module Inesita
           run source_maps_app
         end
       end
+    end
+
+    def create_assets_app
+      Sprockets::Environment.new.tap do |s|
+        s.register_engine '.slim', Slim::Template
+        s.register_engine '.rb', Opal::Processor
+
+        s.append_path 'app'
+
+        Opal.paths.each do |p|
+          s.append_path p
+        end
+
+        RailsAssets.load_paths.each do |p|
+          s.append_path p
+        end if defined?(RailsAssets)
+
+        s.context_class.class_eval do
+          def asset_path(path, options = {})
+            path
+          end
+        end
+      end
+    end
+
+    def create_source_maps_app
+      ::Opal::Sprockets::SourceMapHeaderPatch.inject!(SOURCE_MAP_PREFIX)
+      Opal::SourceMapServer.new(@assets_app, SOURCE_MAP_PREFIX)
+    end
+
+    def call(env)
+      @app.call(env)
     end
   end
 end
