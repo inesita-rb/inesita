@@ -21,6 +21,7 @@ module Inesita
     end
 
     def render_virtual_dom
+      @cache_component_counter = 0
       @__virtual_nodes__ = []
       render
       if @__virtual_nodes__.length == 1
