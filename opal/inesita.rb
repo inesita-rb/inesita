@@ -1,5 +1,6 @@
+require 'js'
+require 'console'
 require 'virtual_dom'
-require 'inesita/js_helpers'
 require 'inesita/component_withs'
 require 'inesita/component'
 require 'inesita/routes'

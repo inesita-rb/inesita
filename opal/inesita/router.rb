@@ -1,13 +1,12 @@
 module Inesita
   module Router
-    include Inesita::JSHelpers
     include Inesita::Component
 
     attr_reader :params
 
     def initialize
-      on_popstate method(:update_dom)
-      on_hashchange method(:update_dom)
+      JS.global.JS[:onpopstate] = method(:update_dom)
+      JS.global.JS.addEventListener(:haschange, method(:update_dom))
       @routes = Routes.new
       @url_params = parse_url_params
       routes
@@ -35,16 +34,17 @@ module Inesita
     end
 
     def handle_link(path)
-      push_state path
+      JS.global.JS[:history].JS.pushState({}, nil, path)
       update_dom
       false
     end
 
     def parse_url_params
       params = {}
+      url_query = JS.global.JS[:location].JS[:search]
       url_query[1..-1].split('&').each do |param|
         key, value = param.split('=')
-        params[decode_uri(key)] = decode_uri(value)
+        params[JS.decodeURIComponent(key)] = JS.decodeURIComponent(value)
       end unless url_query.length == 0
       params
     end
@@ -56,11 +56,11 @@ module Inesita
               when Object
                 @routes.routes.find { |route| route[:component] == name }
               end
-      if route
-        route[:path]
-      else
-        raise "Route '#{name}' not found."
-      end
+      route ? route[:path] : fail("Route '#{name}' not found.")
+    end
+
+    def path
+      JS.global.JS[:document].JS[:location].JS[:pathname]
     end
 
     def current_url?(name)
