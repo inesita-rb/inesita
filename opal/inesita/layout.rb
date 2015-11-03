@@ -1,8 +1,6 @@
 module Inesita
   module Layout
-    def self.included(base)
-      base.include(Component)
-    end
+    include Component
 
     def outlet
       @router
