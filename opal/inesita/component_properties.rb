@@ -1,5 +1,5 @@
 module Inesita
-  module ComponentWiths
+  module ComponentProperties
     attr_reader :root_component
     def with_root_component(component)
       @root_component = component
