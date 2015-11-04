@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'inesita'
   s.version     = '0.2.3'
-  s.authors     = [ 'Michał Kalbarczyk' ]
+  s.authors     = ['Michał Kalbarczyk']
   s.email       = 'fazibear@gmail.com'
   s.homepage    = 'http://github.com/inesita-rb/inesita'
   s.summary     = 'Frontend web framework for Opal'
@@ -18,5 +18,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'sass', '~> 3.4'
   s.add_dependency 'thor', '~> 0.19'
   s.add_dependency 'rack-rewrite', '~> 1.5'
+  s.add_dependency 'listen', '~> 3.0'
+  s.add_dependency 'rubame', '~> 0.0.2'
+
   s.add_development_dependency 'rake', '~> 10.4'
 end

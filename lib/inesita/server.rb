@@ -4,6 +4,7 @@ module Inesita
   class Server
     SOURCE_MAP_PREFIX = '/__OPAL_MAPS__'
     ASSETS_PREFIX = '/__ASSETS__'
+    APP_DIR = 'app'
 
     attr_reader :assets_app
 
@@ -46,7 +47,7 @@ module Inesita
         s.register_engine '.slim', Slim::Template
         s.register_engine '.rb', Opal::Processor
 
-        s.append_path 'app'
+        s.append_path APP_DIR
 
         Opal.paths.each do |p|
           s.append_path p
