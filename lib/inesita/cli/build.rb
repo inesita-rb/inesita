@@ -28,8 +28,8 @@ class InesitaCLI < Thor
     stylesheet = assets['stylesheet.css']
 
     empty_directory build_dir, force: options[:force]
-    create_file File.join(build_dir, 'index.html'),     Minify.html(index.source),     force: options[:force]
-    create_file File.join(build_dir, 'application.js'), Minify.js(javascript.source),  force: options[:force]
-    create_file File.join(build_dir, 'stylesheet.css'), Minify.css(stylesheet.source), force: options[:force]
+    create_file File.join(build_dir, 'index.html'),     Inesita::Minify.html(index.source),     force: options[:force]
+    create_file File.join(build_dir, 'application.js'), Inesita::Minify.js(javascript.source),  force: options[:force]
+    create_file File.join(build_dir, 'stylesheet.css'), Inesita::Minify.css(stylesheet.source), force: options[:force]
   end
 end
