@@ -5,6 +5,12 @@ require 'opal-virtual-dom'
 require 'slim'
 require 'sass'
 
+require 'singleton'
+require 'listen'
+require 'rubame'
+
+require 'inesita/app_files_listener'
+require 'inesita/live_reload'
 require 'inesita/server'
 
 module Inesita
