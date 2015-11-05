@@ -4,6 +4,10 @@ module Inesita
     include ComponentProperties
     include ComponentVirtualDomExtension
 
+    def render
+      fail Error, "Implement #render in #{self.class.to_s} component"
+    end
+
     def mount_to(element)
       fail Error, "Can't mount #{self.class}, target element not found!" unless element
       @root_component = self
