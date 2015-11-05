@@ -8,8 +8,12 @@ describe Inesita::Application do
     Class.new do
       include Inesita::Router
 
+      class TestComponent
+        include Inesita::Component
+      end
+
       def routes
-        route '/', to: Class
+        route '/', to: TestComponent
       end
     end
   end
