@@ -5,13 +5,17 @@ module Inesita
     attr_reader :params
 
     def initialize
-      JS.global.JS[:onpopstate] = method(:update_dom)
-      JS.global.JS.addEventListener(:haschange, method(:update_dom))
       @routes = Routes.new
       @url_params = parse_url_params
       fail Error, 'Add #routes method to router!' unless respond_to?(:routes)
       routes
       fail Error, 'Add #route to your #routes method!' if @routes.routes.empty?
+      add_js_listeners
+    end
+
+    def add_js_listeners
+      JS.global.JS[:onpopstate] = method(:update_dom)
+      JS.global.JS.addEventListener(:haschange, method(:update_dom))
     end
 
     def route(*params, &block)
