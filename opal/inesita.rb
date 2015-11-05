@@ -1,6 +1,7 @@
 require 'js'
 require 'console'
 require 'virtual_dom'
+require 'inesita/error'
 require 'inesita/component_virtual_dom_extension'
 require 'inesita/component_properties'
 require 'inesita/component'

@@ -31,7 +31,7 @@ module Inesita
       when 'css'
         replace_css(filename)
       else
-        fail "unknown extension #{ext}"
+        fail Error, "Don't know how to reload #{ext} file!"
       end
     end
 

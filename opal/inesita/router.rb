@@ -9,10 +9,10 @@ module Inesita
       JS.global.JS.addEventListener(:haschange, method(:update_dom))
       @routes = Routes.new
       @url_params = parse_url_params
+      fail Error, 'Add #routes method to router!' unless respond_to?(:routes)
       routes
+      fail Error, 'Add #route to your #routes method!' if @routes.routes.empty?
     end
-
-    def routes; end
 
     def route(*params, &block)
       @routes.route(*params, &block)
@@ -26,7 +26,7 @@ module Inesita
           return route[:component]
         end
       end
-      fail 'not_found'
+      fail Error, "Can't find route for url"
     end
 
     def render
@@ -56,7 +56,7 @@ module Inesita
               when Object
                 @routes.routes.find { |route| route[:component] == name }
               end
-      route ? route[:path] : fail("Route '#{name}' not found.")
+      route ? route[:path] : fail(Error, "Route '#{name}' not found.")
     end
 
     def path
