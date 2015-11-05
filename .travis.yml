@@ -1,0 +1,9 @@
+language: ruby
+
+sudo: false
+
+cache:
+  bundler: true
+
+rvm:
+  - 2.2.3
