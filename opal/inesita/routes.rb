@@ -15,11 +15,13 @@ module Inesita
       component_props = params.last[:props]
 
       add_subroutes(path, &block) if block_given?
+      validate_component(component)
+      add_route(name, path, component, component_props)
+    end
 
+    def validate_component(component)
       fail Error, 'Component not exists' unless component
       fail Error, "Invalid #{component} class, should mixin Inesita::Component" unless component.include?(Inesita::Component)
-
-      add_route(name, path, component, component_props) if component
     end
 
     def add_route(name, path, component, component_props)

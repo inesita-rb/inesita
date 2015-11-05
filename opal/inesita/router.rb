@@ -24,11 +24,11 @@ module Inesita
 
     def find_component
       @routes.routes.each do |route|
-        if params = path.match(route[:regex])
-          @params = @url_params.merge(Hash[route[:params].zip(params[1..-1])])
-          @component_props = route[:component_props]
-          return route[:component]
-        end
+        params = path.match(route[:regex])
+        next unless params
+        @params = @url_params.merge(Hash[route[:params].zip(params[1..-1])])
+        @component_props = route[:component_props]
+        return route[:component]
       end
       fail Error, "Can't find route for url"
     end
@@ -56,9 +56,9 @@ module Inesita
     def url_for(name)
       route = case name
               when String
-                @routes.routes.find { |route| route[:name] == name }
+                @routes.routes.find { |r| r[:name] == name }
               when Object
-                @routes.routes.find { |route| route[:component] == name }
+                @routes.routes.find { |r| r[:component] == name }
               end
       route ? route[:path] : fail(Error, "Route '#{name}' not found.")
     end
