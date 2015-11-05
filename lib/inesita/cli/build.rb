@@ -19,17 +19,17 @@ class InesitaCLI < Thor
 
   def build
     Inesita.env = :production
-    build_dir = options[:destination]
-
     assets = Inesita::Server.new.assets_app
 
-    index = assets['index.html']
-    javascript = assets['application.js']
-    stylesheet = assets['stylesheet.css']
+    build_dir = options[:destination]
+    html = assets['index.html'].source
+    javascript = assets['application.js'].source
+    stylesheet = assets['stylesheet.css'].source
+    force = options[:force]
 
-    empty_directory build_dir, force: options[:force]
-    create_file File.join(build_dir, 'index.html'),     Inesita::Minify.html(index.source),     force: options[:force]
-    create_file File.join(build_dir, 'application.js'), Inesita::Minify.js(javascript.source),  force: options[:force]
-    create_file File.join(build_dir, 'stylesheet.css'), Inesita::Minify.css(stylesheet.source), force: options[:force]
+    empty_directory build_dir, force: force
+    create_file File.join(build_dir, 'index.html'),     Inesita::Minify.html(html),      force: force
+    create_file File.join(build_dir, 'application.js'), Inesita::Minify.js(javascript),  force: force
+    create_file File.join(build_dir, 'stylesheet.css'), Inesita::Minify.css(stylesheet), force: force
   end
 end
