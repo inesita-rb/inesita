@@ -5,6 +5,8 @@ Bundler::GemHelper.install_tasks
 require 'rspec/core/rake_task'
 require 'opal/rspec/rake_task'
 
+ENV['SPEC_OPTS'] = '--color'
+
 RSpec::Core::RakeTask.new(:spec_lib) do |t|
   t.pattern = 'spec/lib/**/*_spec.rb'
 end
