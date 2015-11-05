@@ -27,7 +27,7 @@ module Inesita
         path: path,
         component: component,
         component_props: component_props,
-        name: name || component.to_s.downcase
+        name: name || component.to_s.gsub(/(.)([A-Z])/, '\1_\2').downcase
       }.merge(params_and_regex(path))
     end
 
