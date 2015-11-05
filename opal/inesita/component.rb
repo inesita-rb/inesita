@@ -5,7 +5,7 @@ module Inesita
     include ComponentVirtualDomExtension
 
     def render
-      fail Error, "Implement #render in #{self.class.to_s} component"
+      fail Error, "Implement #render in #{self.class} component"
     end
 
     def mount_to(element)
@@ -17,12 +17,11 @@ module Inesita
     end
 
     def render_if_root
-      if @virtual_dom && @root_node
-        new_virtual_dom = render_virtual_dom
-        diff = VirtualDOM.diff(@virtual_dom, new_virtual_dom)
-        VirtualDOM.patch(@root_node, diff)
-        @virtual_dom = new_virtual_dom
-      end
+      return unless @virtual_dom && @root_node
+      new_virtual_dom = render_virtual_dom
+      diff = VirtualDOM.diff(@virtual_dom, new_virtual_dom)
+      VirtualDOM.patch(@root_node, diff)
+      @virtual_dom = new_virtual_dom
     end
 
     def render_virtual_dom
