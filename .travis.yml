@@ -4,3 +4,6 @@ cache:
   bundler: true
 rvm:
   - 2.2.3
+notifications:
+  webhooks:
+    urls: https://webhooks.gitter.im/e/04c689326f7cd8e4d499
