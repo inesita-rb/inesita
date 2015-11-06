@@ -5,7 +5,7 @@ class InesitaCLI < Thor
 
   namespace :build
 
-  desc "build [OPTIONS]", "Build Inesita app"
+  desc 'build [OPTIONS]', 'Build Inesita app'
 
   method_option :force,
                 aliases: ['-f'],

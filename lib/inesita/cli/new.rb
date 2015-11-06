@@ -5,7 +5,7 @@ class InesitaCLI < Thor
 
   namespace :new
 
-  desc "new PROJECT_NAME", "Create Inesita app"
+  desc 'new PROJECT_NAME', 'Create Inesita app'
 
   method_option :force,
                 aliases: ['-f'],
@@ -13,9 +13,7 @@ class InesitaCLI < Thor
                 desc: 'force overwrite'
 
   def new(project_dir)
-    directory('template', project_dir, {
-      project_name: project_dir
-    })
+    directory('template', project_dir, project_name: project_dir)
 
     inside project_dir do
       run 'bundle install'

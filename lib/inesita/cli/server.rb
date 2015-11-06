@@ -1,10 +1,9 @@
 class InesitaCLI < Thor
-
   check_unknown_options!
 
   namespace :server
 
-  desc "server [OPTIONS]", "Starts Inesita server"
+  desc 'server [OPTIONS]', 'Starts Inesita server'
   method_option :port,
                 aliases: '-p',
                 default: 9292,

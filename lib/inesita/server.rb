@@ -17,10 +17,10 @@ module Inesita
 
     def assets_code
       assets_prefix = Inesita.env == :development ? ASSETS_PREFIX : nil
-      %{
-      <link rel="stylesheet" type="text/css" href="#{assets_prefix}/stylesheet.css">
-      #{Opal::Sprockets.javascript_include_tag('application', sprockets: @assets_app, prefix: assets_prefix, debug: Inesita.env == :development)}
-      }
+      %(
+        <link rel="stylesheet" type="text/css" href="#{assets_prefix}/stylesheet.css">
+        #{Opal::Sprockets.javascript_include_tag('application', sprockets: @assets_app, prefix: assets_prefix, debug: Inesita.env == :development)}
+       )
     end
 
     def create_app
@@ -29,7 +29,7 @@ module Inesita
 
       Rack::Builder.new do
         use Rack::Rewrite do
-          rewrite %r[^(?!#{ASSETS_PREFIX}|#{SOURCE_MAP_PREFIX}).*], ASSETS_PREFIX
+          rewrite(/^(?!#{ASSETS_PREFIX}|#{SOURCE_MAP_PREFIX}).*/, ASSETS_PREFIX)
         end
 
         map ASSETS_PREFIX do
@@ -58,7 +58,7 @@ module Inesita
         end if defined?(RailsAssets)
 
         s.context_class.class_eval do
-          def asset_path(path, options = {})
+          def asset_path(path, _options = {})
             path
           end
         end
