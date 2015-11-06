@@ -1,7 +1,6 @@
 require 'virtual-dom'
 require 'opal'
 require 'browser'
-require 'browser/interval'
 require 'inesita'
 
 require 'router'

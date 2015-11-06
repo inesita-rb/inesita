@@ -19,4 +19,4 @@ Opal::RSpec::RakeTask.new(:spec_opal) do |s, t|
   end if defined?(RailsAssets)
 end
 
-task :default => [:spec_lib, :spec_opal]
+task default: [:spec_lib, :spec_opal]

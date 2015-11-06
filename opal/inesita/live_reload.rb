@@ -4,12 +4,15 @@ module Inesita
   module Component
     alias_method :old_mount_to, :mount_to
     def mount_to(element)
-      `window.addEventListener('inesita:refresh', function(){ #{update_dom} }, false)`
+      JS.global.JS.addEventListener('inesita:refresh', method(:update_dom), false)
       old_mount_to(element)
     end
   end
 
   class LiveReload
+
+    webSocket = JS.global.JS["WebSocket"]
+
     def initialize
       connect
     end
