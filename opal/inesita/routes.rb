@@ -43,18 +43,15 @@ module Inesita
       regex = ['^']
       params = []
       parts = path.split('/')
-      if parts.empty?
+      regex << '\/' if parts.empty?
+      parts.each do |part|
+        next if part.empty?
         regex << '\/'
-      else
-        parts.each do |part|
-          next if part.empty?
-          regex << '\/'
-          if part[0] == ':'
-            params << part[1..-1]
-            regex << '([^\/]+)'
-          else
-            regex << part
-          end
+        if part[0] == ':'
+          params << part[1..-1]
+          regex << '([^\/]+)'
+        else
+          regex << part
         end
       end
       regex << '$'
