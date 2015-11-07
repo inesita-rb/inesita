@@ -1,9 +1,9 @@
 require 'inesita'
 
 module Inesita
-  WebSocket = JS.global.JS['WebSocket']
-  Document = JS.global.JS['document']
-  Head = Document.JS['head']
+  WebSocket = JS.global.JS[:WebSocket]
+  Document = JS.global.JS[:document]
+  Head = Document.JS[:head]
   Window = JS.global
 
   module Component
@@ -20,11 +20,13 @@ module Inesita
     end
 
     def connect
-      `
-      var ws = new WebSocket('ws://0.0.0.0:23654');
-      ws.onmessage = function(e){ #{on_file_change(`e.data`) }}
-      ws.onclose = function(e){ setTimeout(function(){ #{connect} }, 1000); }
-      `
+      ws = `new WebSocket('ws://0.0.0.0:23654')`
+      ws.JS[:onmessage] = ->(e) { on_file_change(e.JS[:data]) }
+      ws.JS[:onclose] = -> { reconnect }
+    end
+
+    def reconnect
+      JS.setTimeout(-> { connect }, 1000)
     end
 
     def on_file_change(filename)
