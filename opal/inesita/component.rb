@@ -31,7 +31,7 @@ module Inesita
       if @__virtual_nodes__.length == 1
         @__virtual_nodes__.first
       else
-        VirtualDOM::VirtualNode.new('div', {}, @__virtual_nodes__).vnode
+        VirtualDOM::VirtualNode.new('div', {}, @__virtual_nodes__).to_n
       end
     end
 

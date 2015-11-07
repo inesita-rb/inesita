@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_dependency 'opal', '~> 0.9beta'
-  s.add_dependency 'opal-virtual-dom', '~> 0.1.0'
+  s.add_dependency 'opal-virtual-dom', '~> 0.2.0'
   s.add_dependency 'slim', '~> 3.0'
   s.add_dependency 'sass', '~> 3.4'
   s.add_dependency 'thor', '~> 0.19'
