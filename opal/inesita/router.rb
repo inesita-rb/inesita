@@ -14,7 +14,7 @@ module Inesita
     end
 
     def add_js_listeners
-      JS.global.JS[:onpopstate] = method(:update_dom)
+      JS.global.JS[:onpopstate] = -> { update_dom }
       JS.global.JS.addEventListener(:haschange, method(:update_dom))
     end
 
