@@ -19,5 +19,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'thor', '~> 0.19'
   s.add_dependency 'rack-rewrite', '~> 1.5'
   s.add_dependency 'listen', '~> 3.0'
-  s.add_dependency 'rubame', '~> 0.0.2'
+  s.add_dependency 'websocket', '~> 1.0'
 end

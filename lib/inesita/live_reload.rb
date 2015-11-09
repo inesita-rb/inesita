@@ -1,3 +1,5 @@
+require 'rubame'
+
 module Inesita
   class LiveReload
     INJECT_CODE = Opal.compile(File.read(File.expand_path('../../../opal/inesita/live_reload.rb', __FILE__)))
