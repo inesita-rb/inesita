@@ -36,6 +36,7 @@ module Inesita
     end
 
     def update_dom
+      puts @root_component.inspect
       @root_component.render_if_root
     end
 

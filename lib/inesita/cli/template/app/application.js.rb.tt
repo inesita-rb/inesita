@@ -5,6 +5,8 @@ require 'inesita'
 
 require 'router'
 require 'store'
+require 'layout'
+
 require_tree './components'
 
 $document.ready do

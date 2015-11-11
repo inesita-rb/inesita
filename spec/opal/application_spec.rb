@@ -22,10 +22,6 @@ describe Inesita::Application do
     expect(application.new(router: router)).to respond_to(:render)
   end
 
-  it 'should fail without :router' do
-    expect { application.new }.to raise_error Inesita::Error
-  end
-
   it 'should fail with wrong :router class' do
     expect { application.new(router: Class) }.to raise_error Inesita::Error
   end
@@ -39,7 +35,7 @@ describe Inesita::Application do
   end
 
   it 'should not fail with :layout class' do
-    expect { application.new(router: router, layout: layout) }.not_to raise_error
+    expect { application.new(layout: layout) }.not_to raise_error
   end
 
   it 'should fail with wrong :store class' do
@@ -47,6 +43,6 @@ describe Inesita::Application do
   end
 
   it 'should not fail with :layout class' do
-    expect { application.new(router: router, store: store) }.not_to raise_error
+    expect { application.new(router: router) }.not_to raise_error
   end
 end
