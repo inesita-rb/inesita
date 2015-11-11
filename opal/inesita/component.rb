@@ -36,8 +36,7 @@ module Inesita
     end
 
     def update_dom
-      puts @root_component.inspect
-      @root_component.render_if_root
+      @root_component.render_if_root if @root_component
     end
 
     def cache_component(component, &block)
