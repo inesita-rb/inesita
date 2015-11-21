@@ -14,8 +14,8 @@ module Inesita
     end
 
     def add_js_listeners
-      JS.global.JS[:onpopstate] = -> { update_dom }
-      JS.global.JS.addEventListener(:haschange, method(:update_dom))
+      $window.on(:popstate) { update_dom }
+      $window.on(:hashchange) { update_dom }
     end
 
     def route(*params, &block)
@@ -38,17 +38,17 @@ module Inesita
     end
 
     def handle_link(path)
-      JS.global.JS[:history].JS.pushState({}, nil, path)
+      $window.history.push(path)
       update_dom
       false
     end
 
     def parse_url_params
       params = {}
-      url_query = JS.global.JS[:location].JS[:search]
+      url_query = $window.location.query.to_s
       url_query[1..-1].split('&').each do |param|
         key, value = param.split('=')
-        params[JS.decodeURIComponent(key)] = JS.decodeURIComponent(value)
+        params[key.decode_uri_component] = value.decode_uri_component
       end unless url_query.length == 0
       params
     end
@@ -64,7 +64,7 @@ module Inesita
     end
 
     def path
-      JS.global.JS[:document].JS[:location].JS[:pathname]
+      $window.location.path
     end
 
     def current_url?(name)

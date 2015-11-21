@@ -1,6 +1,12 @@
 require 'js'
 require 'console'
+
 require 'virtual_dom'
+
+require 'browser'
+require 'browser/history'
+require 'browser/animation_frame'
+
 require 'inesita/error'
 require 'inesita/component_virtual_dom_extension'
 require 'inesita/component_properties'

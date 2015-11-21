@@ -36,7 +36,9 @@ module Inesita
     end
 
     def update_dom
-      @root_component.render_if_root if @root_component
+      animation_frame do
+        @root_component.render_if_root if @root_component
+      end
     end
 
     def cache_component(component, &block)
