@@ -1,11 +1,12 @@
+require 'opal'
 require 'js'
 require 'console'
-
-require 'virtual_dom'
 
 require 'browser'
 require 'browser/history'
 require 'browser/animation_frame'
+
+require 'virtual_dom'
 
 require 'inesita/error'
 require 'inesita/component_virtual_dom_extension'
