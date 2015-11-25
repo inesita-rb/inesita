@@ -3,7 +3,7 @@ module Inesita
     module_function
 
     def html(source)
-      if defined? HtmlCompressor && HtmlCompressor::Compressor
+      if defined?(HtmlCompressor) && defined?(HtmlCompressor::Compressor)
         HtmlCompressor::Compressor.new.compress(source)
       else
         source
@@ -11,7 +11,7 @@ module Inesita
     end
 
     def js(source)
-      if defined? Uglifier
+      if defined?(Uglifier)
         Uglifier.compile(source)
       else
         source
@@ -19,7 +19,7 @@ module Inesita
     end
 
     def css(source)
-      if defined? Sass && Sass::Engine
+      if defined?(Sass) && defined?(Sass::Engine)
         Sass::Engine.new(source,
                          syntax:     :scss,
                          cache:      false,
