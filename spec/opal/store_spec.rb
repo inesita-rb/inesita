@@ -7,8 +7,8 @@ describe Inesita::Store do
     expect(store.new).to respond_to(:store)
   end
 
-  it 'should respond to #update_dom' do
-    expect(store.new).to respond_to(:update_dom)
+  it 'should respond to #render!' do
+    expect(store.new).to respond_to(:render!)
   end
 
   it 'should respond to #with_root_component' do

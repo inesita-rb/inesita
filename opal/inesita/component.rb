@@ -47,6 +47,11 @@ module Inesita
     end
 
     def update_dom
+      $console.warn "Use 'render!' instead of 'update_dom'"
+      render!
+    end
+
+    def render!
       animation_frame do
         if @root_component
           @root_component.render_if_root

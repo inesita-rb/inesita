@@ -5,7 +5,12 @@ module Inesita
     end
 
     def update_dom
-      root_component.update_dom
+      $console.warn "Use 'render!' instead of 'update_dom'"
+      render!
+    end
+
+    def render!
+      root_component.render!
     end
 
     attr_reader :root_component

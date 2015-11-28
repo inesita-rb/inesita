@@ -9,7 +9,7 @@ module Inesita
   module Component
     alias_method :old_mount_to, :mount_to
     def mount_to(element)
-      Window.JS.addEventListener('inesita:refresh', -> { update_dom }, false)
+      Window.JS.addEventListener('inesita:refresh', -> { render! }, false)
       old_mount_to(element)
     end
   end

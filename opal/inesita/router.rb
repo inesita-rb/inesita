@@ -14,8 +14,8 @@ module Inesita
     end
 
     def add_js_listeners
-      $window.on(:popstate) { update_dom }
-      $window.on(:hashchange) { update_dom }
+      $window.on(:popstate) { render! }
+      $window.on(:hashchange) { render! }
     end
 
     def route(*params, &block)
@@ -39,7 +39,7 @@ module Inesita
 
     def handle_link(path)
       $window.history.push(path)
-      update_dom
+      render!
       false
     end
 
