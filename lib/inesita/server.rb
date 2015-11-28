@@ -53,6 +53,12 @@ module Inesita
         RailsAssets.load_paths.each do |p|
           s.append_path p
         end if defined?(RailsAssets)
+
+        s.sprockets.context_class.class_eval do
+          def asset_path(path, _options = {})
+            path
+          end
+        end
       end.sprockets
     end
 
