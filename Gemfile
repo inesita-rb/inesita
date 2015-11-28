@@ -7,7 +7,3 @@ gem 'rspec', '~> 3.0'
 gem 'opal-rspec', '~> 0.5.0beta'
 gem 'rake', '~> 10.4'
 gem 'opal-browser', '~> 0.2'
-
-source 'https://rails-assets.org' do
-  gem 'rails-assets-virtual-dom'
-end
