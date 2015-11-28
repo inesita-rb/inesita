@@ -42,8 +42,6 @@ module Inesita
 
     def create_assets_app
       Opal::Server.new do |s|
-        s.sprockets.register_engine '.slim', Slim::Template
-
         s.append_path Config::APP_DIR
 
         Opal.paths.each do |p|
@@ -54,12 +52,17 @@ module Inesita
           s.append_path p
         end if defined?(RailsAssets)
 
-        s.sprockets.context_class.class_eval do
-          def asset_path(path, _options = {})
-            path
-          end
-        end
+        configure_sprockets(s.sprockets)
       end.sprockets
+    end
+
+    def configure_sprockets(sprockets)
+      sprockets.register_engine '.slim', Slim::Template
+      sprockets.context_class.class_eval do
+        def asset_path(path, _options = {})
+          path
+        end
+      end
     end
 
     def create_source_maps_app
