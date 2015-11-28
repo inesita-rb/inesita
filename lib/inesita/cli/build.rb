@@ -22,19 +22,33 @@ class InesitaCLI < Thor
     assets = Inesita::Server.new.assets_app
 
     build_dir = options[:destination]
-    html = assets['index.html'].source
-    javascript = assets['application.js'].source
-    stylesheet = assets['stylesheet.css'].source
     force = options[:force]
 
     empty_directory build_dir, force: force
 
-    Dir.glob('./static/**/*').each do |file|
-      copy_file File.absolute_path(file), File.join(build_dir, file)
+    copy_static(build_dir)
+    create_index(build_dir, assets['index.html'].source, force)
+    create_js(build_dir, assets['application.js'].source, force)
+    create_css(build_dir, assets['stylesheet.css'].source, force)
+  end
+
+  no_commands do
+    def copy_static(build_dir)
+      Dir.glob('./static/**/*').each do |file|
+        copy_file File.absolute_path(file), File.join(build_dir, file)
+      end
     end
 
-    create_file File.join(build_dir, 'index.html'),     Inesita::Minify.html(html),      force: force
-    create_file File.join(build_dir, 'application.js'), Inesita::Minify.js(javascript),  force: force
-    create_file File.join(build_dir, 'stylesheet.css'), Inesita::Minify.css(stylesheet), force: force
+    def create_index(build_dir, html, force)
+      create_file File.join(build_dir, 'index.html'), Inesita::Minify.html(html), force: force
+    end
+
+    def create_js(build_dir, javascript, force)
+      create_file File.join(build_dir, 'application.js'), Inesita::Minify.js(javascript),  force: force
+    end
+
+    def create_css(build_dir, stylesheet, force)
+      create_file File.join(build_dir, 'stylesheet.css'), Inesita::Minify.css(stylesheet), force: force
+    end
   end
 end
