@@ -5,7 +5,7 @@ module Inesita
 
     def initialize
       @websockets = []
-      listener = Listen.to(Inesita::Server::APP_DIR) do |modified, added, _removed|
+      listener = Listen.to(Config::APP_DIR) do |modified, added, _removed|
         (modified + added).each do |file|
           @websockets.each do |ws|
             ws.send transform_filename(file)
@@ -27,10 +27,10 @@ module Inesita
       filename.sub!(CURRENT_DIR, '')
       path = filename.split('/')
       path.delete('')
-      path.delete(Inesita::Server::APP_DIR)
+      path.delete(Config::APP_DIR)
       path = path.join('/').split('.')
 
-      prefix = Inesita::Server::ASSETS_PREFIX
+      prefix = Config::ASSETS_PREFIX
       name = path.first
       ext = case true
             when path.include?('rb'), path.include?('js')

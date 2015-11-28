@@ -2,10 +2,6 @@ require 'rack/rewrite'
 
 module Inesita
   class Server
-    SOURCE_MAP_PREFIX = '/__OPAL_MAPS__'
-    ASSETS_PREFIX = '/__ASSETS__'
-    APP_DIR = 'app'
-
     attr_reader :assets_app
 
     def initialize
@@ -16,7 +12,7 @@ module Inesita
     end
 
     def assets_code
-      assets_prefix = Inesita.env == :development ? ASSETS_PREFIX : nil
+      assets_prefix = Inesita.env == :development ? Config::ASSETS_PREFIX : nil
       %(
         <link rel="stylesheet" type="text/css" href="#{assets_prefix}/stylesheet.css">
         #{Opal::Sprockets.javascript_include_tag('application', sprockets: @assets_app, prefix: assets_prefix, debug: Inesita.env == :development)}
@@ -28,26 +24,27 @@ module Inesita
       source_maps_app = @source_maps_app
 
       Rack::Builder.new do
+        use Rack::Static, :urls => [Config::STATIC_DIR]
+
         use Rack::Rewrite do
-          rewrite(/^(?!#{ASSETS_PREFIX}|#{SOURCE_MAP_PREFIX}).*/, ASSETS_PREFIX)
+          rewrite(/^(?!#{Config::ASSETS_PREFIX}|#{Config::SOURCE_MAP_PREFIX}).*/, Config::ASSETS_PREFIX)
         end
 
-        map ASSETS_PREFIX do
+        map Config::ASSETS_PREFIX do
           run assets_app
         end
 
-        map SOURCE_MAP_PREFIX do
+        map Config::SOURCE_MAP_PREFIX do
           run source_maps_app
         end
       end
     end
 
     def create_assets_app
-      Sprockets::Environment.new.tap do |s|
-        s.register_engine '.slim', Slim::Template
-        s.register_engine '.rb', Opal::Processor
+      Opal::Server.new do |s|
+        s.sprockets.register_engine '.slim', Slim::Template
 
-        s.append_path APP_DIR
+        s.append_path Config::APP_DIR
 
         Opal.paths.each do |p|
           s.append_path p
@@ -56,18 +53,12 @@ module Inesita
         RailsAssets.load_paths.each do |p|
           s.append_path p
         end if defined?(RailsAssets)
-
-        s.context_class.class_eval do
-          def asset_path(path, _options = {})
-            path
-          end
-        end
-      end
+      end.sprockets
     end
 
     def create_source_maps_app
-      ::Opal::Sprockets::SourceMapHeaderPatch.inject!(SOURCE_MAP_PREFIX)
-      Opal::SourceMapServer.new(@assets_app, SOURCE_MAP_PREFIX)
+      ::Opal::Sprockets::SourceMapHeaderPatch.inject!(Config::SOURCE_MAP_PREFIX)
+      Opal::SourceMapServer.new(@assets_app, Config::SOURCE_MAP_PREFIX)
     end
 
     def call(env)

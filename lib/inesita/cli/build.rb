@@ -28,6 +28,11 @@ class InesitaCLI < Thor
     force = options[:force]
 
     empty_directory build_dir, force: force
+
+    Dir.glob('./static/**/*').each do |file|
+      copy_file File.absolute_path(file), File.join(build_dir, file)
+    end
+
     create_file File.join(build_dir, 'index.html'),     Inesita::Minify.html(html),      force: force
     create_file File.join(build_dir, 'application.js'), Inesita::Minify.js(javascript),  force: force
     create_file File.join(build_dir, 'stylesheet.css'), Inesita::Minify.css(stylesheet), force: force
