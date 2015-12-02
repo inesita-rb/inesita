@@ -26,16 +26,20 @@ class InesitaCLI < Thor
 
     empty_directory build_dir, force: force
 
-    copy_static(build_dir)
+    copy_static(build_dir, force)
     create_index(build_dir, assets['index.html'].source, force)
     create_js(build_dir, assets['application.js'].source, force)
     create_css(build_dir, assets['stylesheet.css'].source, force)
   end
 
   no_commands do
-    def copy_static(build_dir)
+    def copy_static(build_dir, force)
       Dir.glob('./static/**/*').each do |file|
-        copy_file File.absolute_path(file), File.join(build_dir, file)
+        if File.directory?(file)
+          empty_directory File.join(build_dir, file), force: force
+        else
+          copy_file File.absolute_path(file), File.join(build_dir, file), force: force
+        end
       end
     end
 
