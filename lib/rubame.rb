@@ -69,12 +69,13 @@ module Rubame
       begin
         client.socket.close
       rescue
+        # closed
       end
       client.closed = true
     end
 
     def run(&blk)
-      readable, writable = IO.select(@reading, @writing)
+      readable, _writable = IO.select(@reading, @writing)
 
       if readable
         readable.each do |socket|
@@ -149,11 +150,8 @@ module Rubame
       if @closed
         begin
           blk.call
-        ensure
         end
       end
     end
   end
-
-  line = 0
 end
