@@ -68,10 +68,9 @@ module Rubame
       @clients.delete client.socket
       begin
         client.socket.close
-      rescue
-        # closed
+      ensure
+        client.closed = true
       end
-      client.closed = true
     end
 
     def run(&blk)
