@@ -1,6 +1,12 @@
 require 'rack/rewrite'
 
 module Inesita
+  module SprocketsContext
+    def asset_path(path, _options = {})
+      path
+    end
+  end
+
   class Server
     attr_reader :assets_app
 
@@ -59,9 +65,7 @@ module Inesita
     def configure_sprockets(sprockets)
       sprockets.register_engine '.slim', Slim::Template
       sprockets.context_class.class_eval do
-        def asset_path(path, _options = {})
-          path
-        end
+        include SprocketsContext
       end
     end
 
