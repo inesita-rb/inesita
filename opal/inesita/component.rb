@@ -15,6 +15,7 @@ module Inesita
       @root_node = VirtualDOM.create(@virtual_dom)
       element.inner_dom = @root_node
       @root_component.call_after_render
+      self
     end
 
     def render_if_root
