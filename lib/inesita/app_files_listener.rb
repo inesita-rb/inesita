@@ -32,10 +32,10 @@ module Inesita
 
       prefix = Config::ASSETS_PREFIX
       name = path.first
-      ext = case path
-            when /rb|js/
+      puts path
+      ext = if path.include?('rb') || path.include?('js')
               'js'
-            when /sass|css/
+            elsif path.include?('sass') || path.include?('css')
               'css'
             end
       "#{prefix}|#{name}|#{ext}"
