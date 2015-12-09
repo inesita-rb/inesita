@@ -8,15 +8,13 @@ require 'opal/browser'
 
 ENV['SPEC_OPTS'] = '--color'
 
-RSpec::Core::RakeTask.new(:spec_lib) do |t|
-  t.pattern = 'spec/lib/**/*_spec.rb'
+RSpec::Core::RakeTask.new(:spec_lib) do |task|
+  task.pattern = 'spec/lib/**/*_spec.rb'
 end
 
-Opal::RSpec::RakeTask.new(:spec_opal) do |s, t|
-  t.pattern = 'spec/opal/**/*_spec.rb'
-  RailsAssets.load_paths.each do |p|
-    s.append_path p
-  end if defined?(RailsAssets)
+Opal::RSpec::RakeTask.new(:spec_opal) do |_server, task|
+  task.pattern = 'spec/opal/**/*_spec.rb'
+  task.default_path = 'spec/opal'
 end
 
 task default: [:spec_lib, :spec_opal]
