@@ -10,3 +10,5 @@ More detailed description [here](https://inesita-rb.github.io).
 
  - [[DEMO](http://inesita-playground.netlify.com/)] [Example application](https://github.com/inesita-rb/playground)
  - [[DEMO](http://inesita-todomvc.netlify.com/)] [TodoMVC application](https://github.com/inesita-rb/todomvc)
+ - [[DEMO](http://inesita-dbmonster.netlify.com/)] [DBMonster application](https://github.com/inesita-rb/dbmonster)
+ - [[DEMO](https://inesita-asciify-me.netlify.com/)] [Asciify Me application](https://github.com/inesita-rb/asciify-me)
