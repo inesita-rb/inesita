@@ -1,4 +1,4 @@
-## 0.3.0 (edge)
+## 0.3.0 (20.12.2015)
 
 * live-reload
 * rename `update_dom` to `render!`
