@@ -1,3 +1,7 @@
+## 0.3.1 (edge)
+* add params hash to `router.url_for`
+* fix `router.current_url?`
+
 ## 0.3.0 (20.12.2015)
 
 * live-reload
