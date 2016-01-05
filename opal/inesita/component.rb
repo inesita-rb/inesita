@@ -1,6 +1,7 @@
 module Inesita
   module Component
     include VirtualDOM::DOM
+    include ComponentHelpers
     include ComponentProperties
     include ComponentVirtualDomExtension
 
