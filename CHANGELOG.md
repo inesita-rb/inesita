@@ -1,4 +1,4 @@
-## 0.3.1 (edge)
+## 0.3.1 (05.01.2016)
 * add params hash to `router.url_for`
 * fix `router.current_url?`
 * add `class_names` helper
