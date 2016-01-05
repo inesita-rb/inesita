@@ -1,6 +1,6 @@
 module Inesita
   class Routes
-    attr_reader :routes, :route_names
+    attr_reader :routes
 
     def initialize(parent = nil)
       @parent = parent

@@ -10,10 +10,10 @@ module Inesita
       fail Error, 'Add #routes method to router!' unless respond_to?(:routes)
       routes
       fail Error, 'Add #route to your #routes method!' if @routes.routes.empty?
-      add_js_listeners
+      add_listeners
     end
 
-    def add_js_listeners
+    def add_listeners
       $window.on(:popstate) { render! }
       $window.on(:hashchange) { render! }
     end
