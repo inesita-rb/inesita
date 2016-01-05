@@ -53,14 +53,18 @@ module Inesita
       params
     end
 
-    def url_for(name)
-      route = case name
-              when String
-                @routes.routes.find { |r| r[:name] == name }
-              when Object
-                @routes.routes.find { |r| r[:component] == name }
-              end
-      route ? route[:path] : fail(Error, "Route '#{name}' not found.")
+    def url_for(name, params = nil)
+      route = @routes.routes.find do |r|
+        case name
+        when String
+          r[:name] == name
+        when Object
+          r[:component] == name
+        else
+          false
+        end
+      end
+      route ? url_with_params(route, params) : fail(Error, "Route '#{name}' not found.")
     end
 
     def path
@@ -68,7 +72,15 @@ module Inesita
     end
 
     def current_url?(name)
-      path == url_for(name)
+      path == url_for(name, params)
+    end
+
+    def url_with_params(route, params)
+      path = route[:path]
+      params.each do |key, value|
+        path = path.gsub(":#{key}", "#{value}")
+      end if params
+      path
     end
   end
 end
