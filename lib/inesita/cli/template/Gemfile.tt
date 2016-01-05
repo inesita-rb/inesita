@@ -10,3 +10,8 @@ gem 'inesita', '~> 0.3.0'
 
 # bootsrap assets
 gem 'bootstrap-sass'
+
+# rails-assets are also supported
+# source 'https://rails-assets.org' do
+#   gem 'rails-assets-bootstrap'
+# end
