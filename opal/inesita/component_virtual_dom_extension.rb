@@ -16,6 +16,7 @@ module Inesita
           .with_root_component(@root_component)
           .with_router(@router)
           .with_store(@store)
+          .with_dispatcher(@dispatcher)
       end.with_props(opts[:props] || {}).render_virtual_dom
     end
   end

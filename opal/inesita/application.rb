@@ -3,6 +3,7 @@ module Inesita
     include Inesita::Component
 
     def initialize(options = {})
+      setup_dispatcher(options[:dispatcher])
       setup_router(options[:router])
       setup_layout(options[:layout])
       setup_root
@@ -44,7 +45,14 @@ module Inesita
     def setup_store(store)
       return unless store
       fail Error, "Invalid #{store} class, should mixin Inesita::Store" unless store.include?(Inesita::Store)
-      @store = store.new.with_root_component(@root).store
+      @store = store.new.with_root_component(@root).with_dispatcher(@dispatcher).store
+    end
+
+    def setup_dispatcher(dispatcher)
+      return unless dispatcher
+      fail Error, "Invalid #{dispatcher} class, should mixin Inesita::ActionDispatcher" unless dispatcher.include?(Inesita::Dispatcher)
+      @dispatcher = dispatcher.new
+      fail Error, "You must define `actions` method on #{dispatcher} class" unless @dispatcher.respond_to?(:actions)
     end
   end
 end
