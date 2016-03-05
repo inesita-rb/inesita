@@ -23,5 +23,11 @@ module Inesita
       @props = props
       self
     end
+
+    attr_reader :dispatcher
+    def with_dispatcher(dispatcher)
+      @dispatcher = dispatcher
+      self
+    end
   end
 end
