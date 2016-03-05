@@ -25,7 +25,7 @@ module Inesita
     def find_route
       @routes.routes.each do |route|
         next unless path.match(route[:regex])
-        return handle_link(route[:redirect_to]) if route[:redirect_to]
+        return handle_link(url_for(route[:redirect_to])) if route[:redirect_to]
         return route
       end
       fail Error, "Can't find route for url"
@@ -64,7 +64,7 @@ module Inesita
       route = @routes.routes.find do |r|
         case name
         when String
-          r[:name] == name
+          r[:name] == name || r[:path] == name
         when Object
           r[:component] == name
         else
