@@ -10,13 +10,14 @@ module Inesita
     def route(*params, &block)
       path = params.first.delete('/')
       path = @parent ? "#{@parent}/#{path}" : "/#{path}"
-      component = params.last[:to]
-      name = params.last[:as]
-      component_props = params.last[:props]
 
       add_subroutes(path, &block) if block_given?
-      validate_component(component)
-      add_route(name, path, component, component_props)
+
+      if params.last[:redirect_to]
+        add_redirect(path, params.last[:redirect_to])
+      else
+        add_route(params.last[:as], path, params.last[:to], params.last[:props])
+      end
     end
 
     def validate_component(component)
@@ -24,7 +25,15 @@ module Inesita
       fail Error, "Invalid #{component} class, should mixin Inesita::Component" unless component.include?(Inesita::Component)
     end
 
+    def add_redirect(path, redirect_to)
+      @routes << {
+        path: path,
+        redirect_to: redirect_to
+      }.merge(params_and_regex(path))
+    end
+
     def add_route(name, path, component, component_props)
+      validate_component(component)
       @routes << {
         path: path,
         component: component,

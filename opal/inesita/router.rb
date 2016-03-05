@@ -22,19 +22,26 @@ module Inesita
       @routes.route(*params, &block)
     end
 
-    def find_component
+    def find_route
       @routes.routes.each do |route|
-        params = path.match(route[:regex])
-        next unless params
-        @params = @url_params.merge(Hash[route[:params].zip(params[1..-1])])
-        @component_props = route[:component_props]
-        return route[:component]
+        next unless path.match(route[:regex])
+        return handle_link(url_for(route[:redirect_to])) if route[:redirect_to]
+        return route
       end
       fail Error, "Can't find route for url"
     end
 
+    def find_component(route)
+      params = path.match(route[:regex])
+      @params = @url_params.merge(Hash[route[:params].zip(params[1..-1])])
+      @component_props = route[:component_props]
+      route[:component]
+    end
+
     def render
-      component find_component, props: @component_props
+      if route = find_route
+        component find_component(route), props: @component_props
+      end
     end
 
     def handle_link(path)
@@ -57,7 +64,7 @@ module Inesita
       route = @routes.routes.find do |r|
         case name
         when String
-          r[:name] == name
+          r[:name] == name || r[:path] == name
         when Object
           r[:component] == name
         else
