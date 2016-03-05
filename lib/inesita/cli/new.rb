@@ -13,7 +13,7 @@ class InesitaCLI < Thor
                 desc: 'force overwrite'
 
   def new(project_dir)
-    directory('template', project_dir, project_name: project_dir)
+    directory('template', project_dir, project_name: project_dir, build_dir: Inesita::Config::BUILD_DIR)
 
     inside project_dir do
       run 'bundle install'
