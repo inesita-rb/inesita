@@ -14,11 +14,11 @@ class InesitaCLI < Thor
 
   method_option :destination,
                 aliases: ['-d', '-dir'],
-                default: 'public',
+                default: Inesita::Config::BUILD_DIR,
                 desc: 'build destination directory'
 
   def build
-    Inesita.env = :production
+    Inesita.dist!
     assets = Inesita::Server.new.assets_app
 
     build_dir = options[:destination]
