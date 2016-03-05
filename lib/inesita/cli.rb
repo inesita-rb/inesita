@@ -11,6 +11,7 @@ rescue Bundler::GemfileNotFound
 end
 
 require 'rack'
+require 'inesita/config'
 require 'inesita/minify'
 require 'inesita/cli/build'
 require 'inesita/cli/server'

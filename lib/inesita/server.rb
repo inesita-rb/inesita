@@ -18,10 +18,10 @@ module Inesita
     end
 
     def assets_code
-      assets_prefix = Inesita.env == :development ? Config::ASSETS_PREFIX : nil
+      assets_prefix = Inesita.dev? ? Config::ASSETS_PREFIX : nil
       %(
         <link rel="stylesheet" type="text/css" href="#{assets_prefix}/stylesheet.css">
-        #{Opal::Sprockets.javascript_include_tag('application', sprockets: @assets_app, prefix: assets_prefix, debug: Inesita.env == :development)}
+        #{Opal::Sprockets.javascript_include_tag('application', sprockets: @assets_app, prefix: assets_prefix, debug: Inesita.dev?)}
        )
     end
 
@@ -49,6 +49,8 @@ module Inesita
     def create_assets_app
       Opal::Server.new do |s|
         s.append_path Config::APP_DIR
+        s.append_path Config::APP_DIST_DIR if Inesita.dist?
+        s.append_path Config::APP_DEV_DIR if Inesita.dev?
 
         Opal.paths.each do |p|
           s.append_path p

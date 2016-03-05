@@ -1,11 +1,12 @@
 Gem::Specification.new do |s|
   s.name        = 'inesita'
-  s.version     = '0.3.1'
+  s.version     = '0.3.2'
   s.authors     = ['Michał Kalbarczyk']
   s.email       = 'fazibear@gmail.com'
   s.homepage    = 'http://github.com/inesita-rb/inesita'
   s.summary     = 'Frontend web framework for Opal'
   s.description = 'Frontent web framework for Opal'
+  s.license     = 'MIT'
 
   s.files         = `git ls-files`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
