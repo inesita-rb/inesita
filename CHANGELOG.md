@@ -1,3 +1,6 @@
+## 0.3.2 (05.03.2016)
+* add app_dist and app_dev directory support
+
 ## 0.3.1 (05.01.2016)
 * add params hash to `router.url_for`
 * fix `router.current_url?`
