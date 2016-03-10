@@ -18,18 +18,6 @@ require 'inesita/server'
 module Inesita
   module_function
 
-  def dist!
-    @env = :dist
-  end
-
-  def dev?
-    (@env || :dev) == :dev
-  end
-
-  def dist?
-    @env == :dist
-  end
-
   def assets_code
     @assets_code
   end
