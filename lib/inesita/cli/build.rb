@@ -61,7 +61,7 @@ class InesitaCLI < Thor
         if File.directory?(file)
           empty_directory File.join(destination_dir, file), force: force
         else
-          copy_file File.absolute_path(file), File.join(destination_dir, file), force: force
+          copy_file File.absolute_path(file), File.join(destination_dir, file.gsub(static_dir, 'static')), force: force
         end
       end
     end
