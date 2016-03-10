@@ -8,32 +8,31 @@ class InesitaCLI < Thor
   desc 'watch [OPTIONS]', 'Watch files and build Inesita app'
 
   method_option :force,
-                aliases: ['-f'],
+                aliases: :f,
                 default: true,
                 desc: 'force overwrite'
 
   method_option :destination_dir,
-                aliases: ['-d'],
+                aliases: :d,
                 default: Inesita::Config::BUILD_DIR,
                 desc: 'destination directory'
 
   method_option :source_dir,
-                aliases: ['-s'],
+                aliases: :s,
                 default: Inesita::Config::APP_DIR,
                 desc: 'source (app) dir'
 
   method_option :static_dir,
-                aliases: ['-st'],
+                aliases: :t,
                 default: Inesita::Config::STATIC_DIR,
                 desc: 'static dir'
 
   method_option :dist_source_dir,
-                aliases: ['-ds'],
+                aliases: :b,
                 default: Inesita::Config::APP_DIST_DIR,
-                desc: 'source (app) dir'
+                desc: 'source (app) dir for dist build'
 
   def watch
-    build
     listener = Listen.to(options[:source_dir]) do |_modified, _added, _removed|
       puts "rebuilding..."
       build

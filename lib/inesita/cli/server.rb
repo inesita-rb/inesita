@@ -5,12 +5,12 @@ class InesitaCLI < Thor
 
   desc 'server [OPTIONS]', 'Starts Inesita server'
   method_option :port,
-                aliases: '-p',
+                aliases: :p,
                 default: 9292,
                 desc: 'The port Inesita will listen on'
 
   method_option :host,
-                aliases: '-h',
+                aliases: :h,
                 default: '127.0.0.1',
                 desc: 'The host address Inesita will bind to'
 

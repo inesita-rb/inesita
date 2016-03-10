@@ -8,7 +8,7 @@ class InesitaCLI < Thor
   desc 'new PROJECT_NAME', 'Create Inesita app'
 
   method_option :force,
-                aliases: ['-f', '--force'],
+                aliases: :f,
                 default: false,
                 desc: 'force overwrite'
 
