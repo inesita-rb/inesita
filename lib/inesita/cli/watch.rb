@@ -33,6 +33,7 @@ class InesitaCLI < Thor
                 desc: 'source (app) dir'
 
   def watch
+    build
     listener = Listen.to(options[:source_dir]) do |_modified, _added, _removed|
       puts "rebuilding..."
       build
