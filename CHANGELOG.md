@@ -1,4 +1,4 @@
-## 0.3.3 (10.03.2016)
+## 0.3.4 (10.03.2016)
 * add `inesita watch`
 * add `inesita build` dir parameters
 
