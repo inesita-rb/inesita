@@ -1,6 +1,6 @@
 ## 0.3.3 (10.03.2016)
 * add `inesita watch`
-* add `inesita build dir parameters`
+* add `inesita build` dir parameters
 
 ## 0.3.2 (05.03.2016)
 * add `app_dist` and `app_dev` directory support
