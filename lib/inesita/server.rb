@@ -41,9 +41,10 @@ module Inesita
     def create_app
       assets_app = @assets_app
       source_maps_app = @source_maps_app
+      static_dir = @static_dir
 
       Rack::Builder.new do
-        use Rack::Static, :urls => [@static_dir]
+        use Rack::Static, :urls => [static_dir]
 
         use Rack::Rewrite do
           rewrite(/^(?!#{Config::ASSETS_PREFIX}|#{Config::SOURCE_MAP_PREFIX}).*/, Config::ASSETS_PREFIX)
