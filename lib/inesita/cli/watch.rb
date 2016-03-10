@@ -33,6 +33,9 @@ class InesitaCLI < Thor
                 desc: 'source (app) dir for dist build'
 
   def watch
+    puts 'building...'
+    build
+    puts 'done.'
     listener = Listen.to(options[:source_dir]) do |_modified, _added, _removed|
       puts "rebuilding..."
       build
