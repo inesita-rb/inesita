@@ -35,12 +35,13 @@ class InesitaCLI < Thor
   def build
     assets = assets_server
 
-    empty_directory build_dir, force: force
+    empty_directory options[:destination_dir], force: options[:force]
 
     copy_static
-    create_index(assets)
-    create_js(assets)
-    create_css(assets)
+
+    create_asset(assets, 'index.html',     ->(s) { Inesita::Minify.html(s) })
+    create_asset(assets, 'application.js', ->(s) { Inesita::Minify.js(s) })
+    create_asset(assets, 'stylesheet.css', ->(s) { Inesita::Minify.css(s) })
   end
 
   no_commands do
@@ -54,31 +55,24 @@ class InesitaCLI < Thor
     end
 
     def copy_static
-      Dir.glob("./#{options[:static_dir]}/**/*").each do |file|
+      destination_dir = options[:destination_dir]
+      force = options[:force]
+      static_dir = options[:static_dir]
+
+      Dir.glob("./#{static_dir}/**/*").each do |file|
         if File.directory?(file)
-          empty_directory File.join(options[:destination_dir], file), force: options[:force]
+          empty_directory File.join(destination_dir, file), force: force
         else
-          copy_file File.absolute_path(file), File.join(options[:destination_dir], file), force: options[:force]
+          copy_file File.absolute_path(file), File.join(destination_dir, file), force: force
         end
       end
     end
 
-    def create_index(assets)
-      create_file File.join(options[:destination_dir], 'index.html'),
-                  Inesita::Minify.html(assets['index.html'].source),
+    def create_asset(assets, name, minify_proc)
+      create_file File.join(options[:destination_dir], name),
+                  minify_proc.call(assets[name].source),
                   force: options[:force]
     end
 
-    def create_js(assets)
-      create_file File.join(options[:destination_dir], 'application.js'),
-                  Inesita::Minify.js( assets['application.js'].source),
-                  force: options[:force]
-    end
-
-    def create_css(assets)
-      create_file File.join(options[:destination_dir], 'stylesheet.css'),
-                  Inesita::Minify.css( assets['stylesheet.css'].source),
-                  force: options[:force]
-    end
   end
 end
