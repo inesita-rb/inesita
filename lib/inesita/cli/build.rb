@@ -12,47 +12,67 @@ class InesitaCLI < Thor
                 default: false,
                 desc: 'force overwrite'
 
-  method_option :destination,
-                aliases: ['-d', '-dir'],
+  method_option :destination_dir,
+                aliases: ['-d'],
                 default: Inesita::Config::BUILD_DIR,
-                desc: 'build destination directory'
+                desc: 'destination directory'
+
+  method_option :source_dir,
+                aliases: ['-s'],
+                default: Inesita::Config::APP_DIR,
+                desc: 'source (app) dir'
+
+  method_option :static_dir,
+                aliases: ['-st'],
+                default: Inesita::Config::STATIC_DIR,
+                desc: 'static dir'
+
+  method_option :dist_source_dir,
+                aliases: ['-ds'],
+                default: Inesita::Config::APP_DIST_DIR,
+                desc: 'source (app) dir'
 
   def build
-    Inesita.dist!
-    assets = Inesita::Server.new.assets_app
+    assets = assets_server
 
-    build_dir = options[:destination]
-    force = options[:force]
+    empty_directory options[:destination_dir], force: options[:force]
 
-    empty_directory build_dir, force: force
+    copy_static
 
-    copy_static(build_dir, force)
-    create_index(build_dir, assets['index.html'].source, force)
-    create_js(build_dir, assets['application.js'].source, force)
-    create_css(build_dir, assets['stylesheet.css'].source, force)
+    create_asset(assets, 'index.html',     ->(s) { Inesita::Minify.html(s) })
+    create_asset(assets, 'application.js', ->(s) { Inesita::Minify.js(s) })
+    create_asset(assets, 'stylesheet.css', ->(s) { Inesita::Minify.css(s) })
   end
 
   no_commands do
-    def copy_static(build_dir, force)
-      Dir.glob('./static/**/*').each do |file|
+    def assets_server
+      Inesita::Server.new({
+        dist: true,
+        static_dir: options[:static_dir],
+        app_dir: options[:app_dir],
+        app_dist_dir: options[:app_dist_dir]
+      }).assets_app
+    end
+
+    def copy_static
+      destination_dir = options[:destination_dir]
+      force = options[:force]
+      static_dir = options[:static_dir]
+
+      Dir.glob("./#{static_dir}/**/*").each do |file|
         if File.directory?(file)
-          empty_directory File.join(build_dir, file), force: force
+          empty_directory File.join(destination_dir, file), force: force
         else
-          copy_file File.absolute_path(file), File.join(build_dir, file), force: force
+          copy_file File.absolute_path(file), File.join(destination_dir, file), force: force
         end
       end
     end
 
-    def create_index(build_dir, html, force)
-      create_file File.join(build_dir, 'index.html'), Inesita::Minify.html(html), force: force
+    def create_asset(assets, name, minify_proc)
+      create_file File.join(options[:destination_dir], name),
+                  minify_proc.call(assets[name].source),
+                  force: options[:force]
     end
 
-    def create_js(build_dir, javascript, force)
-      create_file File.join(build_dir, 'application.js'), Inesita::Minify.js(javascript),  force: force
-    end
-
-    def create_css(build_dir, stylesheet, force)
-      create_file File.join(build_dir, 'stylesheet.css'), Inesita::Minify.css(stylesheet), force: force
-    end
   end
 end
