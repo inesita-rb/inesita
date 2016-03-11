@@ -34,13 +34,24 @@ class InesitaCLI < Thor
 
   def watch
     puts 'building...'
-    build
+    safe_build
     puts 'done.'
-    listener = Listen.to(options[:source_dir]) do |_modified, _added, _removed|
+    Listen.to(options[:source_dir]) do |_modified, _added, _removed|
       puts "rebuilding..."
-      build
+      safe_build
       puts "done."
     end.start
     loop { sleep 1000 }
+  end
+
+  no_commands do
+    def safe_build
+      begin
+        build
+      rescue => e
+        puts 'build error:'
+        puts e
+      end
+    end
   end
 end
