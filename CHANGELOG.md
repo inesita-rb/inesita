@@ -1,3 +1,8 @@
+## 0.3.6 (16.03.2016)
+* add `router` to `store`
+* change `handle_link` to `go_to`
+* fix routes
+
 ## 0.3.5 (10.03.2016)
 * add `inesita watch`
 * add `inesita build` dir parameters
