@@ -8,7 +8,7 @@ module Inesita
     end
 
     def route(*params, &block)
-      path = params.first.delete('/')
+      path = params.first.gsub(/^\//, '')
       path = @parent ? "#{@parent}/#{path}" : "/#{path}"
 
       add_subroutes(path, &block) if block_given?
