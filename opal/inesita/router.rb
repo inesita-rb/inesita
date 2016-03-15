@@ -25,7 +25,7 @@ module Inesita
     def find_route
       @routes.routes.each do |route|
         next unless path.match(route[:regex])
-        return handle_link(url_for(route[:redirect_to])) if route[:redirect_to]
+        return go_to(url_for(route[:redirect_to])) if route[:redirect_to]
         return route
       end
       fail Error, "Can't find route for url"
@@ -44,7 +44,7 @@ module Inesita
       end
     end
 
-    def handle_link(path)
+    def go_to(path)
       $window.history.push(path)
       render!
       false

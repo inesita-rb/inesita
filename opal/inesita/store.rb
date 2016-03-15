@@ -18,5 +18,11 @@ module Inesita
       @root_component = component
       self
     end
+
+    attr_reader :router
+    def with_router(router)
+      @router = router
+      self
+    end
   end
 end
