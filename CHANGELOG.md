@@ -1,8 +1,7 @@
 ## 0.3.6 (16.03.2016)
 * add `router` to `store`
 * change `handle_link` to `go_to`
-* fix routes
-* add `init` callback to store
+* add `init` callback to `store` and `component`
 
 ## 0.3.5 (10.03.2016)
 * add `inesita watch`
