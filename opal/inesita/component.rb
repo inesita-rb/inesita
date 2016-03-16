@@ -5,6 +5,8 @@ module Inesita
     include ComponentProperties
     include ComponentVirtualDomExtension
 
+    def init; end
+
     def render
       fail Error, "Implement #render in #{self.class} component"
     end

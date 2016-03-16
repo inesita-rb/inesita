@@ -45,6 +45,7 @@ module Inesita
       return unless store
       fail Error, "Invalid #{store} class, should mixin Inesita::Store" unless store.include?(Inesita::Store)
       @store = store.new.with_root_component(@root).with_router(@router).store
+      @store.init
     end
   end
 end

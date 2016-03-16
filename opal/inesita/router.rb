@@ -6,10 +6,11 @@ module Inesita
 
     def initialize
       @routes = Routes.new
-      @url_params = parse_url_params
       fail Error, 'Add #routes method to router!' unless respond_to?(:routes)
       routes
       fail Error, 'Add #route to your #routes method!' if @routes.routes.empty?
+      find_route
+      parse_url_params
       add_listeners
     end
 
@@ -26,38 +27,38 @@ module Inesita
       @routes.routes.each do |route|
         next unless path.match(route[:regex])
         return go_to(url_for(route[:redirect_to])) if route[:redirect_to]
-        return route
+        return @route = route
       end
       fail Error, "Can't find route for url"
     end
 
     def find_component(route)
-      params = path.match(route[:regex])
-      @params = @url_params.merge(Hash[route[:params].zip(params[1..-1])])
       @component_props = route[:component_props]
       route[:component]
     end
 
     def render
-      if route = find_route
-        component find_component(route), props: @component_props
+      if @route
+        component find_component(@route), props: @component_props
       end
     end
 
     def go_to(path)
       $window.history.push(path)
+      find_route
+      parse_url_params
       render!
       false
     end
 
     def parse_url_params
-      params = {}
+      @params = {}
       url_query = $window.location.query.to_s
       url_query[1..-1].split('&').each do |param|
         key, value = param.split('=')
         params[key.decode_uri_component] = value.decode_uri_component
       end unless url_query.length == 0
-      params
+      @route ? @params.merge(Hash[@route[:params].zip(path.match(@route[:regex])[1..-1])]) : @route
     end
 
     def url_for(name, params = nil)

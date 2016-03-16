@@ -12,6 +12,7 @@ module Inesita
       fail Error, "Component is nil in #{self.class} class" if comp.nil?
       @__virtual_nodes__ ||= []
       @__virtual_nodes__ << cache_component(comp) do
+        $console.log comp.class
         (comp.is_a?(Class) ? comp.new : comp)
           .with_root_component(@root_component)
           .with_router(@router)

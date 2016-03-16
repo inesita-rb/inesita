@@ -1,8 +1,8 @@
 module Inesita
   module Store
-    def store
-      self
-    end
+
+    def init; end
+    def store; self end
 
     def update_dom
       $console.warn "Use 'render!' instead of 'update_dom'"
