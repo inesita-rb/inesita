@@ -53,11 +53,10 @@ module Inesita
 
     def parse_url_params
       @params = {}
-      url_query = $window.location.query.to_s
-      url_query[1..-1].split('&').each do |param|
+      query[1..-1].split('&').each do |param|
         key, value = param.split('=')
         params[key.decode_uri_component] = value.decode_uri_component
-      end unless url_query.length == 0
+      end unless query.length == 0
       @route ? @params.merge(Hash[@route[:params].zip(path.match(@route[:regex])[1..-1])]) : @route
     end
 
@@ -73,6 +72,10 @@ module Inesita
         end
       end
       route ? url_with_params(route, params) : fail(Error, "Route '#{name}' not found.")
+    end
+
+    def query
+      $window.location.query.to_s
     end
 
     def path
