@@ -2,6 +2,7 @@
 * add `router` to `store`
 * change `handle_link` to `go_to`
 * fix routes
+* add `init` callback to store
 
 ## 0.3.5 (10.03.2016)
 * add `inesita watch`
