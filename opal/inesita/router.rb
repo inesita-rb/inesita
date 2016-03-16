@@ -52,12 +52,15 @@ module Inesita
     end
 
     def parse_url_params
-      @params = {}
+      @params = compotent_url_params
       query[1..-1].split('&').each do |param|
         key, value = param.split('=')
         @params[key.decode_uri_component] = value.decode_uri_component
       end unless query.length == 0
-      @params.merge(Hash[@route[:params].zip(path.match(@route[:regex])[1..-1])])
+    end
+
+    def compotent_url_params
+      Hash[@route[:params].zip(path.match(@route[:regex])[1..-1])]
     end
 
     def url_for(name, params = nil)
