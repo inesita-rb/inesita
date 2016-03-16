@@ -15,8 +15,8 @@ module Inesita
     end
 
     def add_listeners
-      $window.on(:popstate) { render! }
-      $window.on(:hashchange) { render! }
+      $window.on(:popstate) { find_route; parse_url_params; render! }
+      $window.on(:hashchange) { find_route; parse_url_params; render! }
     end
 
     def route(*params, &block)
