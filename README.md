@@ -8,7 +8,7 @@ More detailed description [here](https://inesita-rb.github.io).
 
 ## Examples
 
- - [[DEMO](http://inesita-playground.netlify.com/)] [Example application source](https://github.com/inesita-rb/playground)
- - [[DEMO](http://inesita-todomvc.netlify.com/)] [TodoMVC application source](https://github.com/inesita-rb/todomvc)
- - [[DEMO](http://inesita-dbmonster.netlify.com/)] [DBMonster application source](https://github.com/inesita-rb/dbmonster)
- - [[DEMO](https://inesita-asciify-me.netlify.com/)] [Asciify Me application source](https://github.com/inesita-rb/asciify-me)
+ - Example application: [Live demo 👀](http://inesita-playground.netlify.com/) · [source code 📖](https://github.com/inesita-rb/playground)
+ - TodoMVC: [Live demo 👀](http://inesita-todomvc.netlify.com/) · [source code 📖](https://github.com/inesita-rb/todomvc)
+ - DBMonster: [Live demo 👀](http://inesita-dbmonster.netlify.com/) · [source code 📖](https://github.com/inesita-rb/dbmonster)
+ - Asciify Me: [Live demo 👀](https://inesita-asciify-me.netlify.com/) · [source code 📖](https://github.com/inesita-rb/asciify-me)
