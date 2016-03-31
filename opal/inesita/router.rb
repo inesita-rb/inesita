@@ -6,17 +6,17 @@ module Inesita
 
     def initialize
       @routes = Routes.new
-      fail Error, 'Add #routes method to router!' unless respond_to?(:routes)
+      raise Error, 'Add #routes method to router!' unless respond_to?(:routes)
       routes
-      fail Error, 'Add #route to your #routes method!' if @routes.routes.empty?
+      raise Error, 'Add #route to your #routes method!' if @routes.routes.empty?
       find_route
       parse_url_params
       add_listeners
     end
 
     def add_listeners
-      $window.on(:popstate) { find_route; parse_url_params; render! }
-      $window.on(:hashchange) { find_route; parse_url_params; render! }
+      Browser.onpopstate { find_route; parse_url_params; render! }
+      Browser.hashchange { puts"x"; find_route; parse_url_params; render! }
     end
 
     def route(*params, &block)
@@ -29,7 +29,7 @@ module Inesita
         return go_to(url_for(route[:redirect_to])) if route[:redirect_to]
         return @route = route
       end
-      fail Error, "Can't find route for url"
+      raise Error, "Can't find route for url"
     end
 
     def find_component(route)
@@ -38,13 +38,11 @@ module Inesita
     end
 
     def render
-      if @route
-        component find_component(@route), props: @component_props
-      end
+      component find_component(@route), props: @component_props if @route
     end
 
     def go_to(path)
-      $window.history.push(path)
+      Browser.push_state(path)
       find_route
       parse_url_params
       render!
@@ -55,8 +53,8 @@ module Inesita
       @params = compotent_url_params
       query[1..-1].split('&').each do |param|
         key, value = param.split('=')
-        @params[key.decode_uri_component] = value.decode_uri_component
-      end unless query.length == 0
+        @params[Browser.decode_uri_component(key)] = Browser.decode_uri_component(value)
+      end unless query.empty?
     end
 
     def compotent_url_params
@@ -78,11 +76,11 @@ module Inesita
     end
 
     def query
-      $window.location.query.to_s
+      Browser.query
     end
 
     def path
-      $window.location.path
+      Browser.path
     end
 
     def current_url?(name)

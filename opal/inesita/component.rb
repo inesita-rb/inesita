@@ -16,7 +16,7 @@ module Inesita
       @root_component = self
       @virtual_dom = render_virtual_dom
       @root_node = VirtualDOM.create(@virtual_dom)
-      element.inner_dom = @root_node
+      Browser.append_child(element, @root_node)
       @root_component.call_after_render
       self
     end
@@ -56,7 +56,7 @@ module Inesita
     end
 
     def render!
-      animation_frame do
+      Browser.animation_frame do
         if @root_component
           @root_component.render_if_root
           @root_component.call_after_render
