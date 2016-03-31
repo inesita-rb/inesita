@@ -4,7 +4,6 @@ Bundler::GemHelper.install_tasks
 
 require 'rspec/core/rake_task'
 require 'opal/rspec/rake_task'
-require 'opal/browser'
 
 ENV['SPEC_OPTS'] = '--color'
 
