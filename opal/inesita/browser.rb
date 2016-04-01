@@ -4,13 +4,19 @@ module Inesita
 
     Window = JS.global
     Document = Window.JS[:document]
-    RequestAnimationFrame = Window.JS[:requestAnimationFrame]
     Location = Document.JS[:location]
     History = Window.JS[:history]
     AddEventListener = Window.JS[:addEventListener]
 
-    def animation_frame(&block)
-      RequestAnimationFrame.call(block)
+    RequestAnimationFrame = Window.JS[:requestAnimationFrame]
+    if RequestAnimationFrame
+      def animation_frame(&block)
+        RequestAnimationFrame.call(block)
+      end
+    else
+      def animation_frame(&block)
+        block.call
+      end
     end
 
     def path
