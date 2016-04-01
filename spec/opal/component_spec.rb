@@ -37,7 +37,7 @@ describe Inesita::Router do
   end
 
   let(:element) do
-    $document.create_element('div')
+    Inesita::Browser::Document.JS.createElement('div')
   end
 
   it 'should fail when no #render method' do
@@ -46,11 +46,11 @@ describe Inesita::Router do
 
   it 'should render html' do
     component.new.mount_to(element)
-    expect(element.inner_html).to eq '<h1 class="test">Test</h1>'
+    expect(element.JS[:innerHTML]).to eq '<h1 class="test">Test</h1>'
   end
 
   it 'should render html with nested components' do
     nested_component.new.mount_to(element)
-    expect(element.inner_html).to eq '<h1 class="test"><div>Inner</div></h1>'
+    expect(element.JS[:innerHTML]).to eq '<h1 class="test"><div>Inner</div></h1>'
   end
 end

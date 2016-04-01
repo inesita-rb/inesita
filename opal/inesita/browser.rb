@@ -8,10 +8,9 @@ module Inesita
     History = Window.JS[:history]
     AddEventListener = Window.JS[:addEventListener]
 
-    RequestAnimationFrame = Window.JS[:requestAnimationFrame]
-    if RequestAnimationFrame
+    if Native(Window.JS[:requestAnimationFrame])
       def animation_frame(&block)
-        RequestAnimationFrame.call(block)
+        Window.JS.requestAnimationFrame(block)
       end
     else
       def animation_frame(&block)
