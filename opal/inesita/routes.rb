@@ -59,6 +59,10 @@ module Inesita
         if part[0] == ':'
           params << part[1..-1]
           regex << '([^\/]+)'
+        elsif part[0] == '*'
+          params << part[1..-1]
+          regex << '(.+)'
+          break
         else
           regex << part
         end
