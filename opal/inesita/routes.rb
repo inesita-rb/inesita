@@ -21,8 +21,8 @@ module Inesita
     end
 
     def validate_component(component)
-      fail Error, 'Component not exists' unless component
-      fail Error, "Invalid #{component} class, should mixin Inesita::Component" unless component.include?(Inesita::Component)
+      raise Error, 'Component not exists' unless component
+      raise Error, "Invalid #{component} class, should mixin Inesita::Component" unless component.include?(Inesita::Component)
     end
 
     def add_redirect(path, redirect_to)

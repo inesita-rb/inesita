@@ -72,7 +72,7 @@ module Inesita
           false
         end
       end
-      route ? url_with_params(route, params) : fail(Error, "Route '#{name}' not found.")
+      route ? url_with_params(route, params) : raise(Error, "Route '#{name}' not found.")
     end
 
     def query

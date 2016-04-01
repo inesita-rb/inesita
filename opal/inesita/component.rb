@@ -8,11 +8,11 @@ module Inesita
     def init; end
 
     def render
-      fail Error, "Implement #render in #{self.class} component"
+      raise Error, "Implement #render in #{self.class} component"
     end
 
     def mount_to(element)
-      fail Error, "Can't mount #{self.class}, target element not found!" unless element
+      raise Error, "Can't mount #{self.class}, target element not found!" unless element
       @root_component = self
       @virtual_dom = render_virtual_dom
       @root_node = VirtualDOM.create(@virtual_dom)
