@@ -46,7 +46,13 @@ module Inesita
     end
 
     def append_child(node, new_node)
+      node = node.to_n unless native?(node)
+      new_node = new_node.to_n unless native?(new_node)
       node.JS.appendChild(new_node)
+    end
+
+    def query_element(css)
+      Document.JS.querySelector(css)
     end
   end
 end
