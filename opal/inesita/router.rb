@@ -16,7 +16,7 @@ module Inesita
 
     def add_listeners
       Browser.onpopstate { find_route; parse_url_params; render! }
-      Browser.hashchange { puts"x"; find_route; parse_url_params; render! }
+      Browser.hashchange { find_route; parse_url_params; render! }
     end
 
     def route(*params, &block)
