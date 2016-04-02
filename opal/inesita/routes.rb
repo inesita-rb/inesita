@@ -56,10 +56,11 @@ module Inesita
       parts.each do |part|
         next if part.empty?
         regex << '\/'
-        if part[0] == ':'
+        case part[0]
+        when ':'
           params << part[1..-1]
           regex << '([^\/]+)'
-        elsif part[0] == '*'
+        when '*'
           params << part[1..-1]
           regex << '(.*)'
           break
