@@ -61,13 +61,14 @@ module Inesita
           regex << '([^\/]+)'
         elsif part[0] == '*'
           params << part[1..-1]
-          regex << '(.+)'
+          regex << '(.*)'
           break
         else
           regex << part
         end
       end
       regex << '$'
+      puts regex.join
       {
         regex: Regexp.new(regex.join),
         params: params
