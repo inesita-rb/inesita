@@ -29,7 +29,7 @@ module Inesita
       @routes << {
         path: path,
         redirect_to: redirect_to
-      }.merge(params_and_regex(path))
+      }.merge(build_params_and_regex(path))
     end
 
     def add_route(name, path, component, component_props)
@@ -39,7 +39,7 @@ module Inesita
         component: component,
         component_props: component_props,
         name: name || component.to_s.gsub(/(.)([A-Z])/, '\1_\2').downcase
-      }.merge(params_and_regex(path))
+      }.merge(build_params_and_regex(path))
     end
 
     def add_subroutes(path, &block)
@@ -48,7 +48,7 @@ module Inesita
       @routes += subroutes.routes
     end
 
-    def params_and_regex(path)
+    def build_params_and_regex(path)
       regex = ['^']
       params = []
       parts = path.split('/')
@@ -68,7 +68,6 @@ module Inesita
         end
       end
       regex << '$'
-      puts regex.join
       {
         regex: Regexp.new(regex.join),
         params: params
