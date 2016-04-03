@@ -17,7 +17,6 @@ module Inesita
       @virtual_dom = render_virtual_dom
       @root_node = VirtualDOM.create(@virtual_dom)
       Browser.append_child(element, @root_node)
-      @root_component.call_after_render
       self
     end
 
@@ -30,8 +29,6 @@ module Inesita
     end
 
     def render_virtual_dom
-      @after_render_callbacks = []
-      @root_component.add_after_render(method(:after_render)) if respond_to?(:after_render)
       @cache_component_counter = 0
       @__virtual_nodes__ = []
       render
@@ -40,14 +37,6 @@ module Inesita
       else
         VirtualDOM::VirtualNode.new('div', {}, @__virtual_nodes__).to_n
       end
-    end
-
-    def add_after_render(block)
-      @after_render_callbacks << block
-    end
-
-    def call_after_render
-      @after_render_callbacks.reverse_each(&:call)
     end
 
     def update_dom
@@ -59,7 +48,6 @@ module Inesita
       Browser.animation_frame do
         if @root_component
           @root_component.render_if_root
-          @root_component.call_after_render
         end
       end
     end
