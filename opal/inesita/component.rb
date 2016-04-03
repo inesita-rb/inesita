@@ -58,5 +58,13 @@ module Inesita
       @cache_component_counter += 1
       @cache_component["#{component}-#{@cache_component_counter}"] || @cache_component["#{component}-#{@cache_component_counter}"] = block.call
     end
+
+    def hook(mthd)
+      VirtualDOM::Hook.method(method(mthd))
+    end
+
+    def unhook(mthd)
+      VirtualDOM::UnHook.method(method(mthd))
+    end
   end
 end
