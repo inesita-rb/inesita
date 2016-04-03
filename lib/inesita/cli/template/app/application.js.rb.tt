@@ -10,11 +10,11 @@ require 'layout'
 require_tree './components'
 
 # when document is ready render application to <body>
-$document.ready do
+Inesita::Browser.ready? do
   # setup Inesita application
   Inesita::Application.new(
     router: Router,
     store: Store,
     layout: Layout
-  ).mount_to($document.body)
+  ).mount_to(Inesita::Browser.body)
 end

@@ -21,15 +21,15 @@ module Inesita
     end
 
     def validate_component(component)
-      fail Error, 'Component not exists' unless component
-      fail Error, "Invalid #{component} class, should mixin Inesita::Component" unless component.include?(Inesita::Component)
+      raise Error, 'Component not exists' unless component
+      raise Error, "Invalid #{component} class, should mixin Inesita::Component" unless component.include?(Inesita::Component)
     end
 
     def add_redirect(path, redirect_to)
       @routes << {
         path: path,
         redirect_to: redirect_to
-      }.merge(params_and_regex(path))
+      }.merge(build_params_and_regex(path))
     end
 
     def add_route(name, path, component, component_props)
@@ -39,7 +39,7 @@ module Inesita
         component: component,
         component_props: component_props,
         name: name || component.to_s.gsub(/(.)([A-Z])/, '\1_\2').downcase
-      }.merge(params_and_regex(path))
+      }.merge(build_params_and_regex(path))
     end
 
     def add_subroutes(path, &block)
@@ -48,7 +48,7 @@ module Inesita
       @routes += subroutes.routes
     end
 
-    def params_and_regex(path)
+    def build_params_and_regex(path)
       regex = ['^']
       params = []
       parts = path.split('/')
@@ -56,9 +56,14 @@ module Inesita
       parts.each do |part|
         next if part.empty?
         regex << '\/'
-        if part[0] == ':'
+        case part[0]
+        when ':'
           params << part[1..-1]
           regex << '([^\/]+)'
+        when '*'
+          params << part[1..-1]
+          regex << '(.*)'
+          break
         else
           regex << part
         end

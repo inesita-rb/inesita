@@ -8,15 +8,15 @@ module Inesita
     def init; end
 
     def render
-      fail Error, "Implement #render in #{self.class} component"
+      raise Error, "Implement #render in #{self.class} component"
     end
 
     def mount_to(element)
-      fail Error, "Can't mount #{self.class}, target element not found!" unless element
+      raise Error, "Can't mount #{self.class}, target element not found!" unless element
       @root_component = self
       @virtual_dom = render_virtual_dom
       @root_node = VirtualDOM.create(@virtual_dom)
-      element.inner_dom = @root_node
+      Browser.append_child(element, @root_node)
       @root_component.call_after_render
       self
     end
@@ -35,7 +35,7 @@ module Inesita
       @cache_component_counter = 0
       @__virtual_nodes__ = []
       render
-      if @__virtual_nodes__.length == 1
+      if @__virtual_nodes__.one?
         @__virtual_nodes__.first
       else
         VirtualDOM::VirtualNode.new('div', {}, @__virtual_nodes__).to_n
@@ -56,7 +56,7 @@ module Inesita
     end
 
     def render!
-      animation_frame do
+      Browser.animation_frame do
         if @root_component
           @root_component.render_if_root
           @root_component.call_after_render

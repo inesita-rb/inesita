@@ -9,7 +9,7 @@ module Inesita
     end
 
     def component(comp, opts = {})
-      fail Error, "Component is nil in #{self.class} class" if comp.nil?
+      raise Error, "Component is nil in #{self.class} class" if comp.nil?
       @__virtual_nodes__ ||= []
       @__virtual_nodes__ << cache_component(comp) do
         comp = (comp.is_a?(Class) ? comp.new : comp)

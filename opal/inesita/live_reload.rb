@@ -38,7 +38,7 @@ module Inesita
       when 'css'
         replace_css(filename)
       else
-        fail Error, "Don't know how to reload #{ext} file!"
+        raise Error, "Don't know how to reload #{ext} file!"
       end
     end
 
