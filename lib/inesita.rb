@@ -5,9 +5,7 @@ require 'opal-virtual-dom'
 require 'slim'
 require 'sass'
 
-require 'singleton'
 require 'listen'
-require 'rubame'
 
 require 'inesita/config'
 require 'inesita/server'
