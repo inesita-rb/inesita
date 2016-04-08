@@ -2,4 +2,4 @@
 
 require 'inesita/cli'
 
-InesitaCLI.start(ARGV)
+Inesita::CLI.start(ARGV)

@@ -1,26 +1,28 @@
-class InesitaCLI < Thor
-  include Thor::Actions
+module Inesita
+  class CLI < Thor
+    include Thor::Actions
 
-  check_unknown_options!
+    check_unknown_options!
 
-  namespace :new
+    namespace :new
 
-  desc 'new PROJECT_NAME', 'Create Inesita app'
+    desc 'new PROJECT_NAME', 'Create Inesita app'
 
-  method_option :force,
-                aliases: :f,
-                default: false,
-                desc: 'force overwrite'
+    method_option :force,
+                  aliases: :f,
+                  default: false,
+                  desc: 'force overwrite'
 
-  def new(project_dir)
-    directory('template', project_dir, project_name: project_dir, build_dir: Inesita::Config::BUILD_DIR)
+    def new(project_dir)
+      directory('template', project_dir, project_name: project_dir, build_dir: Inesita::Config::BUILD_DIR)
 
-    inside project_dir do
-      run 'bundle install'
+      inside project_dir do
+        run 'bundle install'
+      end
     end
-  end
 
-  def self.source_root
-    File.dirname(__FILE__)
+    def self.source_root
+      File.dirname(__FILE__)
+    end
   end
 end
