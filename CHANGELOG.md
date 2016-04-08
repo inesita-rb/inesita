@@ -5,6 +5,7 @@
 * `router` support `*param` to catch rest of url
 * make `opal-browser` optional
 * add `Inesita::Browser` minimal browser support
+* extract livereload to `inesita-livereload`
 
 ## 0.3.5 (10.03.2016)
 * add `inesita watch`
