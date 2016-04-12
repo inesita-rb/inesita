@@ -6,6 +6,8 @@
 * make `opal-browser` optional
 * add `Inesita::Browser` minimal browser support
 * extract livereload to `inesita-livereload`
+* removed `after_render`
+* add `virtual-dom` hooks (instead of `after_render`)
 
 ## 0.3.5 (10.03.2016)
 * add `inesita watch`
