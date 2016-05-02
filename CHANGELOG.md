@@ -1,4 +1,4 @@
-## 0.4.0 (16.03.2016)
+## 0.4.0 (02.05.2016)
 * add `router` to `store`
 * change `handle_link` to `go_to`
 * add `init` callback to `store` and `component`
