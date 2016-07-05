@@ -13,11 +13,16 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_paths = ['lib']
 
-  s.add_dependency 'opal', '~> 0.9'
+  s.add_dependency 'opal', '>= 0.9', '< 0.11'
   s.add_dependency 'opal-virtual-dom', '~> 0.4.0'
   s.add_dependency 'slim', '~> 3.0'
   s.add_dependency 'sass', '~> 3.4'
   s.add_dependency 'thor', '~> 0.19'
   s.add_dependency 'rack-rewrite', '~> 1.5'
   s.add_dependency 'listen', '~> 3.0'
+
+  s.add_development_dependency 'bundler', '~> 1.0'
+  s.add_development_dependency 'rspec', '~> 3.0'
+  s.add_development_dependency 'opal-rspec', '~> 0.5.0'
+  s.add_development_dependency 'rake', '~> 11.0'
 end
