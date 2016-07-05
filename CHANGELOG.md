@@ -1,33 +1,61 @@
-## 0.4.0 (02.05.2016)
-* add `router` to `store`
-* change `handle_link` to `go_to`
-* add `init` callback to `store` and `component`
-* `router` support `*param` to catch rest of url
-* make `opal-browser` optional
-* add `Inesita::Browser` minimal browser support
-* extract livereload to `inesita-livereload`
-* removed `after_render`
-* add `virtual-dom` hooks (instead of `after_render`)
+## [Unreleased]
 
-## 0.3.5 (10.03.2016)
-* add `inesita watch`
-* add `inesita build` dir parameters
+## [0.4.0] - 2016.05.02
 
-## 0.3.2 (05.03.2016)
-* add `app_dist` and `app_dev` directory support
-* add `redirect_to` to `route` options
+### Added
+- `router` to `store`
+- `init` callback to `Store` and `Component`
+- `Inesita::Browser` minimal browser support
+- `router` support `*param` to catch rest of url
 
-## 0.3.1 (05.01.2016)
-* add params hash to `router.url_for`
-* fix `router.current_url?`
-* add `class_names` helper
+### Changed
+- `virtual-dom` hooks (instead of `after_render`)
+- rename `Router#handle_link` to `Router#go_to`
+- extract livereload to `inesita-livereload`
+- `opal-browser` is now optional
 
-## 0.3.0 (20.12.2015)
+### Removed
+- `Component#after_render`
 
-* live-reload
-* rename `update_dom` to `render!`
-* include `opal-browser`
-* `after_render` component method - executes after component is rendered
-* add minification support
-* specs added
-* add static support - for serving images
+
+## [0.3.5] - 2016.03.10
+- add `inesita watch`
+- add `inesita build` dir parameters
+
+
+## [0.3.2] - 2016-03-05
+
+### Added
+- add `app_dist` and `app_dev` directory support
+- add `redirect_to` to `route` options
+
+
+## [0.3.1] - 2016-01-05
+
+### Added
+- `class_names` helper
+- params hash in `Router#url_for`
+
+### Fixed
+- fix `router.current_url?`
+
+
+## [0.3.0] - 2015-12-20
+
+### Added
+- live-reload
+- `after_render` component method - executes after component is rendered
+- specs
+- static support - for serving images
+- minification support
+
+### Changed
+- rename `update_dom` to `render!`
+- use `opal-browser` instead of pure javascript
+
+[Unreleased]: https://github.com/inesita-rb/inesita/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/inesita-rb/inesita/compare/v0.3.5...v0.4.0
+[0.3.5]: https://github.com/inesita-rb/inesita/compare/v0.3.2...v0.3.5
+[0.3.2]: https://github.com/inesita-rb/inesita/compare/v0.3.1...v0.3.2
+[0.3.1]: https://github.com/inesita-rb/inesita/compare/v0.3.0...v0.3.1
+[0.3.0]: https://github.com/inesita-rb/inesita/compare/v0.0.0...v0.3.1
