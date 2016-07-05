@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Changed
+- update `opal` to `0.10.0`
+
+
 ## [0.4.0] - 2016.05.02
 
 ### Added
