@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Inesita::Router do
+describe Inesita::Component do
   let(:empty_component) { Class.new { include Inesita::Component }}
   let(:component) do
     Class.new do
