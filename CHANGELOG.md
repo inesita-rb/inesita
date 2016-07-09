@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+### Added
+- nice changelog
+
 ### Changed
 - update `opal` to `0.10.0`
 
@@ -7,19 +10,19 @@
 ## [0.4.0] - 2016.05.02
 
 ### Added
-- `router` to `store`
+- `router` is accessible from `store`
 - `init` callback to `Store` and `Component`
 - `Inesita::Browser` minimal browser support
 - `router` support `*param` to catch rest of url
+- `virtual-dom` hooks (instead of `after_render`)
 
 ### Changed
-- `virtual-dom` hooks (instead of `after_render`)
 - rename `Router#handle_link` to `Router#go_to`
-- extract livereload to `inesita-livereload`
-- `opal-browser` is now optional
 
 ### Removed
 - `Component#after_render`
+- `opal-browser` is now optional
+- extract livereload to `inesita-livereload`
 
 
 ## [0.3.5] - 2016.03.10
