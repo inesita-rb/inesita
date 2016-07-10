@@ -6,6 +6,8 @@
 ### Changed
 - update `opal` to `0.10.0`
 
+### Removed
+- deprecated `update_dom`
 
 ## [0.4.0] - 2016.05.02
 
