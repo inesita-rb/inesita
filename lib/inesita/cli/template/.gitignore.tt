@@ -1,1 +1,1 @@
-/<%= config[:build_dir] %>
+<%= config[:build_dir] %>
