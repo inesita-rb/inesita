@@ -31,7 +31,7 @@ module Inesita
     end
 
     def assets_code
-      assets_prefix = @dist ? nil : Config::ASSETS_PREFIX
+      assets_prefix = @dist ? '' : Config::ASSETS_PREFIX
       %(
         <link rel="stylesheet" type="text/css" href="#{assets_prefix}/stylesheet.css">
         #{Opal::Sprockets.javascript_include_tag('application', sprockets: @assets_app, prefix: assets_prefix, debug: !@dist)}
