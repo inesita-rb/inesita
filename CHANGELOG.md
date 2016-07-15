@@ -1,4 +1,4 @@
-## [Unreleased]
+## [0.4.1] - 2016.07.15
 
 ### Added
 - nice changelog
@@ -8,6 +8,9 @@
 
 ### Removed
 - deprecated `update_dom`
+
+### Fixed
+- prefix bug in opal 0.10
 
 ## [0.4.0] - 2016.05.02
 
