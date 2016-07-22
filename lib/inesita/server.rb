@@ -82,7 +82,15 @@ module Inesita
     end
 
     def configure_sprockets(sprockets)
-      sprockets.register_engine '.slim', Slim::Template
+      if sprockets.respond_to?(:register_transformer)
+          sprockets.register_mime_type 'text/slim', extensions: ['.slim']
+          sprockets.register_engine '.slim', Slim::Template, mime_type: 'text/slim'
+          sprockets.register_preprocessor 'text/html', Sprockets::DirectiveProcessor.new
+          sprockets.register_preprocessor 'text/slim', Sprockets::DirectiveProcessor.new
+      elsif sprockets.respond_to?(:register_engine)
+        sprockets.register_engine '.slim', Slim::Template
+      end
+
       sprockets.context_class.class_eval do
         include SprocketsContext
       end
