@@ -16,7 +16,7 @@ module Inesita
       if params.last[:redirect_to]
         add_redirect(path, params.last[:redirect_to])
       else
-        add_route(params.last[:as], path, params.last[:to], params.last[:props])
+        add_route(params.last[:as], path, params.last[:to], params.last[:props], params.last[:on_enter])
       end
     end
 
@@ -32,12 +32,13 @@ module Inesita
       }.merge(build_params_and_regex(path))
     end
 
-    def add_route(name, path, component, component_props)
+    def add_route(name, path, component, component_props, on_enter)
       validate_component(component)
       @routes << {
         path: path,
         component: component,
         component_props: component_props,
+        on_enter: on_enter,
         name: name || component.to_s.gsub(/(.)([A-Z])/, '\1_\2').downcase
       }.merge(build_params_and_regex(path))
     end
