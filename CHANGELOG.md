@@ -1,6 +1,11 @@
 ## [Unreleased]
 
-...
+### Added
+- `on_enter` callback to Router
+
+### Fixed
+- sprockets deprecation warning
+
 
 ## [0.4.1] - 2016.07.15
 
