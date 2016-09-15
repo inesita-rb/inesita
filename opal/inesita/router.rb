@@ -34,14 +34,7 @@ module Inesita
 
     def find_component(route)
       @component_props = route[:component_props]
-      call_on_enter_callback(route[:on_enter])
       route[:component]
-    end
-
-    def call_on_enter_callback(callback)
-      if callback && callback.respond_to?(:call)
-        callback.call
-      end
     end
 
     def render
@@ -52,8 +45,16 @@ module Inesita
       Browser.push_state(path)
       find_route
       parse_url_params
+      call_on_enter_callback
       render!
       false
+    end
+
+    def call_on_enter_callback
+      return unless @route[:on_enter]
+      if @route[:on_enter].respond_to?(:call)
+        @route[:on_enter].call
+      end
     end
 
     def parse_url_params
