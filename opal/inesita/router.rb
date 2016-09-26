@@ -9,14 +9,12 @@ module Inesita
       raise Error, 'Add #routes method to router!' unless respond_to?(:routes)
       routes
       raise Error, 'Add #route to your #routes method!' if @routes.routes.empty?
-      find_route
-      parse_url_params
       add_listeners
     end
 
     def add_listeners
-      Browser.onpopstate { find_route; parse_url_params; render! }
-      Browser.hashchange { find_route; parse_url_params; render! }
+      Browser.onpopstate { render! }
+      Browser.hashchange { render! }
     end
 
     def route(*params, &block)
@@ -25,9 +23,18 @@ module Inesita
 
     def find_route
       @routes.routes.each do |route|
-        next unless path.match(route[:regex])
+        current_path = path
+        next unless current_path.match(route[:regex])
         return go_to(url_for(route[:redirect_to])) if route[:redirect_to]
-        return @route = route
+
+        call_on_enter_callback(route)
+
+        if current_path == path
+          @route = route
+        else
+          find_route
+        end
+        return
       end
       raise Error, "Can't find route for url"
     end
@@ -38,22 +45,21 @@ module Inesita
     end
 
     def render
+      find_route
+      parse_url_params
       component find_component(@route), props: @component_props if @route
     end
 
-    def go_to(path)
-      Browser.push_state(path)
-      find_route
-      parse_url_params
-      call_on_enter_callback
+    def go_to(p)
+      Browser.push_state(p)
       render!
       false
     end
 
-    def call_on_enter_callback
-      return unless @route[:on_enter]
-      if @route[:on_enter].respond_to?(:call)
-        @route[:on_enter].call
+    def call_on_enter_callback(route)
+      return unless route[:on_enter]
+      if route[:on_enter].respond_to?(:call)
+        route[:on_enter].call
       end
     end
 
