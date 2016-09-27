@@ -9,12 +9,14 @@ module Inesita
       raise Error, 'Add #routes method to router!' unless respond_to?(:routes)
       routes
       raise Error, 'Add #route to your #routes method!' if @routes.routes.empty?
+      find_route
+      parse_url_params
       add_listeners
     end
 
     def add_listeners
-      Browser.onpopstate { render! }
-      Browser.hashchange { render! }
+      Browser.onpopstate { parse_url_params; render! }
+      Browser.hashchange { parse_url_params; render! }
     end
 
     def route(*params, &block)
@@ -40,18 +42,18 @@ module Inesita
     end
 
     def find_component(route)
+      find_route
       @component_props = route[:component_props]
       route[:component]
     end
 
     def render
-      find_route
-      parse_url_params
       component find_component(@route), props: @component_props if @route
     end
 
     def go_to(p)
       Browser.push_state(p)
+      parse_url_params
       render!
       false
     end
