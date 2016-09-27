@@ -1,4 +1,4 @@
-## [0.4.2] - 2016.09.27
+## [0.4.3] - 2016.09.27
 
 ### Added
 - `on_enter` callback to Router
@@ -74,8 +74,8 @@
 - rename `update_dom` to `render!`
 - use `opal-browser` instead of pure javascript
 
-[Unreleased]: https://github.com/inesita-rb/inesita/compare/v0.4.2...HEAD
-[0.4.2]: https://github.com/inesita-rb/inesita/compare/v0.4.1...v0.4.2
+[Unreleased]: https://github.com/inesita-rb/inesita/compare/v0.4.3...HEAD
+[0.4.3]: https://github.com/inesita-rb/inesita/compare/v0.4.1...v0.4.3
 [0.4.1]: https://github.com/inesita-rb/inesita/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/inesita-rb/inesita/compare/v0.3.5...v0.4.0
 [0.4.0]: https://github.com/inesita-rb/inesita/compare/v0.3.5...v0.4.0
