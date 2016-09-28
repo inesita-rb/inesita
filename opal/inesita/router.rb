@@ -15,8 +15,8 @@ module Inesita
     end
 
     def add_listeners
-      Browser.onpopstate { parse_url_params; render! }
-      Browser.hashchange { parse_url_params; render! }
+      Browser.onpopstate { find_route; parse_url_params; render! }
+      Browser.hashchange { find_route; parse_url_params; render! }
     end
 
     def route(*params, &block)
@@ -25,24 +25,15 @@ module Inesita
 
     def find_route
       @routes.routes.each do |route|
-        current_path = path
-        next unless current_path.match(route[:regex])
+        next unless path.match(route[:regex])
         return go_to(url_for(route[:redirect_to])) if route[:redirect_to]
-
-        call_on_enter_callback(route)
-
-        if current_path == path
-          @route = route
-        else
-          find_route
-        end
-        return
+        return @route = route
       end
       raise Error, "Can't find route for url"
     end
 
     def find_component(route)
-      find_route
+      call_on_enter_callback(route)
       @component_props = route[:component_props]
       route[:component]
     end
@@ -51,18 +42,19 @@ module Inesita
       component find_component(@route), props: @component_props if @route
     end
 
-    def go_to(p)
-      Browser.push_state(p)
-      parse_url_params
-      render!
-      false
-    end
-
     def call_on_enter_callback(route)
       return unless route[:on_enter]
       if route[:on_enter].respond_to?(:call)
         route[:on_enter].call
       end
+    end
+
+    def go_to(path)
+      Browser.push_state(path)
+      find_route
+      parse_url_params
+      render!
+      false
     end
 
     def parse_url_params
