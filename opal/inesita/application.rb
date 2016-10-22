@@ -41,28 +41,12 @@ module Inesita
       end
     end
 
-    def setup_store(store)
-      dupa = "sdfsf"
-      Inesita::Component.class_eval do
-        define_method(:xxx) do
-          puts dupa
-        end
-      end
-      return unless store
-      raise Error, "Invalid #{store} class, should mixin Inesita::Store" unless store.include?(Inesita::Store)
-      @store = store.new.with_root_component(@root).with_router(@router).store
-      @store.init
-    end
-
     def setup_injections(injections)
       return unless injections
       return unless injections.is_a?(Hash)
-      @injections = {}
       injections.each do |key, value|
-        @injections[key] = value.new
+        inject(key, value.new)
       end
     end
-
-
   end
 end

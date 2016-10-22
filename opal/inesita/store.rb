@@ -1,21 +1,9 @@
 module Inesita
   module Store
-    def store; self end
-
-    def render!
-      root_component.render!
-    end
-
-    attr_reader :root_component
-    def with_root_component(component)
-      @root_component = component
-      self
-    end
-
-    attr_reader :router
-    def with_router(router)
-      @router = router
-      self
+    # TODO: Remove it.
+    def self.included(base)
+      $console.warn('"include Inesita::Store" is deprecated. Use "include Inesita::Injection" insted.')
+      include Injection
     end
   end
 end
