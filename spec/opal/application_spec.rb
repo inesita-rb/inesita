@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Inesita::Application do
   let(:application) { Inesita::Application }
   let(:layout) { Class.new { include Inesita::Layout } }
-  let(:store) { Class.new { include Inesita::Store } }
+  let(:injection) { Class.new { include Inesita::Injection } }
   let(:router) do
     Class.new do
       include Inesita::Router
@@ -38,11 +38,11 @@ describe Inesita::Application do
     expect { application.new(layout: layout) }.not_to raise_error
   end
 
-  it 'should fail with wrong :store class' do
-    expect { application.new(store: Class) }.to raise_error Inesita::Error
-  end
-
   it 'should not fail with :layout class' do
     expect { application.new(router: router) }.not_to raise_error
+  end
+
+  it 'should not fail with any class for injection' do
+    expect { application.new(test: injection) }.not_to raise_error
   end
 end
