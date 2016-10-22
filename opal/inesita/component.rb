@@ -2,10 +2,8 @@ module Inesita
   module Component
     include VirtualDOM::DOM
     include ComponentHelpers
-    include ComponentProperties
     include ComponentVirtualDomExtension
-
-    def init; end
+    include Injection
 
     def render
       raise Error, "Implement #render in #{self.class} component"
@@ -13,7 +11,7 @@ module Inesita
 
     def mount_to(element)
       raise Error, "Can't mount #{self.class}, target element not found!" unless element
-      @root_component = self
+      inject(:root_component, self)
       @virtual_dom = render_virtual_dom
       @root_node = VirtualDOM.create(@virtual_dom)
       Browser.append_child(element, @root_node)
@@ -39,14 +37,6 @@ module Inesita
       end
     end
 
-    def render!
-      Browser.animation_frame do
-        if @root_component
-          @root_component.render_if_root
-        end
-      end
-    end
-
     def cache_component(component, &block)
       @cache_component ||= {}
       @cache_component_counter ||= 0
@@ -60,6 +50,12 @@ module Inesita
 
     def unhook(mthd)
       VirtualDOM::UnHook.method(method(mthd))
+    end
+
+    attr_reader :props
+    def with_props(props)
+      @props = props
+      self
     end
   end
 end

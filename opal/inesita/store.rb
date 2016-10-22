@@ -1,7 +1,5 @@
 module Inesita
   module Store
-
-    def init; end
     def store; self end
 
     def render!

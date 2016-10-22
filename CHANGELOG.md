@@ -1,4 +1,13 @@
-## [0.4.4] - 2016.10.4
+## [0.5.0] - 2016.10.22
+
+### Added
+- incjections
+
+### Removed
+- `Store`, use `Injection`
+
+
+## [0.4.4] - 2016.10.04
 
 ### Added
 - `on_enter` callback to Router
