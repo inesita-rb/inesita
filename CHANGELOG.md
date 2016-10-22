@@ -1,10 +1,13 @@
 ## [0.5.0] - 2016.10.22
 
 ### Added
-- incjections
+- Injection
+- `before_render` callback to `Component`
+
+### Changed
+- Store is deprecated, use Injection
 
 ### Removed
-- `Store`, use `Injection`
 - `init` callback, use `initialize` instead
 
 ## [0.4.4] - 2016.10.04

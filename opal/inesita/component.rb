@@ -26,7 +26,10 @@ module Inesita
       @virtual_dom = new_virtual_dom
     end
 
+    def before_render; end;
+
     def render_virtual_dom
+      before_render
       @cache_component_counter = 0
       @__virtual_nodes__ = []
       render
