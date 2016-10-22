@@ -5,7 +5,7 @@
 
 ### Removed
 - `Store`, use `Injection`
-
+- `init` callback, use `initialize` instead
 
 ## [0.4.4] - 2016.10.04
 
