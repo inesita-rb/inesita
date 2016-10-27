@@ -1,5 +1,5 @@
 class Store
-  include Inesita::Store
+  include Inesita::Injection
 
   def initialize
     @store = {}
