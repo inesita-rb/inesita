@@ -3,7 +3,7 @@ module Inesita
     def self.included(base)
       base.alias_method :__a, :a
       base.define_method(:a) do |params, &block|
-        params = { onclick: -> { router.go_to(params[:href]) } }.merge(params) if params[:href] && router
+        params = { onclick: -> { router.go_to(params[:href]) } }.merge(params) if params[:href] && respond_to?(:router)
         __a(params, &block)
       end
     end
