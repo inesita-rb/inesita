@@ -1,7 +1,7 @@
 ## [0.5.0] - 2016.10.22
 
 ### Added
-- Injection
+- Injection (you can inject any object)
 - `before_render` callback to `Component`
 
 ### Changed
