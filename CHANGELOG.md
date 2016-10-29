@@ -1,3 +1,9 @@
+## [0.5.1] - 2016.10.29
+
+### Fixes
+- Error when router not exists
+
+
 ## [0.5.0] - 2016.10.29
 
 ### Added
@@ -86,7 +92,8 @@
 - rename `update_dom` to `render!`
 - use `opal-browser` instead of pure javascript
 
-[Unreleased]: https://github.com/inesita-rb/inesita/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/inesita-rb/inesita/compare/v0.5.1...HEAD
+[0.5.1]: https://github.com/inesita-rb/inesita/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/inesita-rb/inesita/compare/v0.4.1...v0.5.0
 [0.4.4]: https://github.com/inesita-rb/inesita/compare/v0.4.1...v0.4.4
 [0.4.1]: https://github.com/inesita-rb/inesita/compare/v0.4.0...v0.4.1
