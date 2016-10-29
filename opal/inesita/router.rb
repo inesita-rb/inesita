@@ -5,6 +5,7 @@ module Inesita
     attr_reader :params
 
     def initialize
+      patch_a_element
       @routes = Routes.new
       raise Error, 'Add #routes method to router!' unless respond_to?(:routes)
       routes
@@ -12,6 +13,16 @@ module Inesita
       find_route
       parse_url_params
       add_listeners
+    end
+
+    def patch_a_element
+      Component.module_eval do
+        alias_method :__a, :a
+        define_method(:a) do |params, &block|
+          params = { onclick: -> { router.go_to(params[:href]) } }.merge(params)
+          __a(params, &block)
+        end
+      end
     end
 
     def add_listeners
