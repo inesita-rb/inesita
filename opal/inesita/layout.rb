@@ -3,7 +3,7 @@ module Inesita
     include Component
 
     def outlet
-      router
+      #router
     end
   end
 end

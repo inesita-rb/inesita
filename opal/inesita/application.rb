@@ -3,7 +3,7 @@ module Inesita
     include Inesita::Component
 
     def initialize(options = {})
-      setup_router(options.delete(:router))
+      #setup_router(options.delete(:router))
       setup_layout(options.delete(:layout))
       setup_root
       setup_injections(options)
@@ -15,16 +15,18 @@ module Inesita
 
     private
 
-    def setup_router(router)
-      if router
-        raise Error, "Invalid #{router} class, should mixin Inesita::Router" unless router.include?(Inesita::Router)
-        @router = inject(:router, router.new)
-      else
-        @router = Class.new { define_method(:method_missing) { raise 'Router missing' } }.new
-      end
-    end
+    # def setup_router(router)
+    #   if router
+    #     raise Error, "Invalid #{router} class, should mixin Inesita::Router" unless router.include?(Inesita::Router)
+    #     @router = inject(:router, router.new)
+    #   else
+    #     @router = Class.new { define_method(:method_missing) { raise 'Router missing' } }.new
+    #   end
+    # end
 
     def setup_layout(layout)
+      $console.log "setyp:"
+      $console.log layout.inspect
       if layout
         raise Error, "Invalid #{layout} class, should mixin Inesita::Layout" unless layout.include?(Inesita::Layout)
         @layout = inject(:layout, layout.new)

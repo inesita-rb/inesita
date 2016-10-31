@@ -4,8 +4,6 @@ module Inesita
 
     Window = JS.global
     Document = Window.JS[:document]
-    Location = Document.JS[:location]
-    History = Window.JS[:history]
     AddEventListener = Window.JS[:addEventListener]
 
     if Native(Window.JS[:requestAnimationFrame])
@@ -16,30 +14,6 @@ module Inesita
       def animation_frame(&block)
         block.call
       end
-    end
-
-    def path
-      Location.JS[:pathname]
-    end
-
-    def query
-      Location.JS[:search]
-    end
-
-    def decode_uri_component(value)
-      JS.decodeURIComponent(value)
-    end
-
-    def push_state(path)
-      History.JS.pushState({}, nil, path)
-    end
-
-    def onpopstate(&block)
-      Window.JS[:onpopstate] = block
-    end
-
-    def hashchange(&block)
-      AddEventListener.call(:hashchange, block)
     end
 
     def ready?(&block)
