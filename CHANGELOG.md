@@ -1,3 +1,9 @@
+## [Unreleased]
+
+### Removed
+ - `router` - moved to separate gem
+
+
 ## [0.5.1] - 2016.10.29
 
 ### Fixes
@@ -15,6 +21,7 @@
 
 ### Removed
 - `init` callback, use `initialize` instead
+
 
 ## [0.4.4] - 2016.10.04
 
@@ -38,6 +45,7 @@
 
 ### Fixed
 - prefix bug in opal 0.10
+
 
 ## [0.4.0] - 2016.05.02
 
