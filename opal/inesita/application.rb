@@ -25,8 +25,6 @@ module Inesita
     # end
 
     def setup_layout(layout)
-      $console.log "setyp:"
-      $console.log layout.inspect
       if layout
         raise Error, "Invalid #{layout} class, should mixin Inesita::Layout" unless layout.include?(Inesita::Layout)
         @layout = inject(:layout, layout.new)
