@@ -6,6 +6,7 @@ module Inesita
       @__virtual_nodes__ << cache_component(comp) do
         comp.is_a?(Class) ? comp.new : comp
       end.with_props(opts[:props] || {}).render_virtual_dom
+      self
     end
   end
 end
