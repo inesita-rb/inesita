@@ -1,6 +1,5 @@
 module Inesita
   module ComponentVirtualDomExtension
-
     def component(comp, opts = {})
       raise Error, "Component is nil in #{self.class} class" if comp.nil?
       @__virtual_nodes__ ||= []

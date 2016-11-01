@@ -32,12 +32,7 @@ module Inesita
       before_render
       @cache_component_counter = 0
       @__virtual_nodes__ = []
-      render
-      if @__virtual_nodes__.one?
-        @__virtual_nodes__.first
-      else
-        VirtualDOM::VirtualNode.new('div', {}, @__virtual_nodes__).to_n
-      end
+      render.to_vnode
     end
 
     def cache_component(component, &block)
