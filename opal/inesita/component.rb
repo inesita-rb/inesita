@@ -2,6 +2,7 @@ module Inesita
   module Component
     include VirtualDOM::DOM
     include ComponentVirtualDomExtension
+    include Injection
 
     def render
       raise Error, "Implement #render in #{self.class} component"
@@ -13,8 +14,8 @@ module Inesita
 
     def mount_to(element)
       raise Error, "Can't mount #{self.class}, target element not found!" unless element
-      init_injections
       @root_component = self
+      init_injections
       inject
       @virtual_dom = render_virtual_dom
       @root_node = VirtualDOM.create(@virtual_dom)
@@ -58,34 +59,6 @@ module Inesita
     def with_props(props)
       @props = props
       self
-    end
-
-    def with_root_component(component)
-      @root_component = component
-      self
-    end
-
-    def render!
-      Browser.animation_frame do
-        @root_component.render_if_root
-      end
-    end
-
-    def inject
-      @root_component.injections.each do |name, instance|
-        define_singleton_method(name) do
-          instance
-        end
-      end
-      self
-    end
-
-    attr_reader :injections
-    def init_injections
-      self.class.injections.each do |name, instance|
-        @injections ||= {}
-        @injections[name] = instance.new
-      end
     end
   end
 end

@@ -6,6 +6,7 @@ require 'virtual_dom'
 
 require 'inesita/browser'
 require 'inesita/error'
+require 'inesita/injection'
 require 'inesita/component_virtual_dom_extension'
 require 'inesita/component_class_methods'
 require 'inesita/component'
