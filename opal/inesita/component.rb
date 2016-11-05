@@ -1,7 +1,7 @@
 module Inesita
   module Component
     include VirtualDOM::DOM
-    include ComponentVirtualDomExtension
+    include VirtualDomExtension
     include Injection
 
     def render
@@ -9,7 +9,7 @@ module Inesita
     end
 
     def self.included(base)
-      base.extend Inesita::ComponentClassMethods
+      base.extend Inesita::Component::ClassMethods
     end
 
     def mount_to(element)
