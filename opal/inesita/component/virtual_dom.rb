@@ -1,6 +1,6 @@
 module Inesita
   module Component
-    module VirtualDomExtension
+    module VirtualDom
       def component(comp, opts = {})
         raise Error, "Component is nil in #{self.class} class" if comp.nil?
         @__virtual_nodes__ ||= []
@@ -12,6 +12,14 @@ module Inesita
           comp
         end.with_props(opts[:props] || {}).render_virtual_dom
         self
+      end
+
+      def hook(mthd)
+        VirtualDOM::Hook.method(method(mthd))
+      end
+
+      def unhook(mthd)
+        VirtualDOM::UnHook.method(method(mthd))
       end
     end
   end
