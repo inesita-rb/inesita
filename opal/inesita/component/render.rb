@@ -19,7 +19,8 @@ module Inesita
         before_render
         @cache_component_counter = 0
         @__virtual_nodes__ = []
-        render.to_vnode
+        render
+        to_vnode
       end
     end
   end
