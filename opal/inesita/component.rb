@@ -1,9 +1,7 @@
 module Inesita
   module Component
     include VirtualDOM::DOM
-    include ComponentHelpers
     include ComponentVirtualDomExtension
-    include Injection
 
     def render
       raise Error, "Implement #render in #{self.class} component"
