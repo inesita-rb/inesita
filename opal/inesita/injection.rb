@@ -26,7 +26,7 @@ module Inesita
             .with_root_component(@root_component)
             .inject
         else
-          $console.warn "Invalid #{instance} class, should mixin Inesita::Injection"
+          raise Error, "Invalid #{clazz} class, should mixin Inesita::Injection"
         end
       end
       @injections.each do |key, instance|
