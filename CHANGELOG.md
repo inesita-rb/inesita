@@ -1,8 +1,14 @@
 ## [Unreleased]
 
-### Removed
- - `router` - moved to separate gem
+### Added
+- `inject` class method for `Component`
+- `init` callbacks
 
+### Removed
+- `router` - moved to separate gem
+- `Store` - use `Injection`
+- `Application` - use `Component` and `inject`
+- `Layout` - use component instead
 
 ## [0.5.1] - 2016.10.29
 
