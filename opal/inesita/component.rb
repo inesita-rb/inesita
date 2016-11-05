@@ -9,9 +9,15 @@ module Inesita
       raise Error, "Implement #render in #{self.class} component"
     end
 
+    def self.included(base)
+      base.extend Inesita::ComponentClassMethods
+    end
+
     def mount_to(element)
       raise Error, "Can't mount #{self.class}, target element not found!" unless element
+      init_injections
       @root_component = self
+      inject
       @virtual_dom = render_virtual_dom
       @root_node = VirtualDOM.create(@virtual_dom)
       Browser.append_child(element, @root_node)
@@ -64,6 +70,23 @@ module Inesita
     def render!
       Browser.animation_frame do
         @root_component.render_if_root
+      end
+    end
+
+    def inject
+      @root_component.injections.each do |name, instance|
+        define_singleton_method(name) do
+          instance
+        end
+      end
+      self
+    end
+
+    attr_reader :injections
+    def init_injections
+      self.class.injections.each do |name, instance|
+        @injections ||= {}
+        @injections[name] = instance.new
       end
     end
   end
