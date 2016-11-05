@@ -24,12 +24,12 @@ module Inesita
           @injections[name] = clazz
             .new
             .with_root_component(@root_component)
-            .inject
         else
           raise Error, "Invalid #{clazz} class, should mixin Inesita::Injection"
         end
       end
       @injections.each do |key, instance|
+        instance.inject
         instance.init
       end
     end
