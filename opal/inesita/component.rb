@@ -11,7 +11,7 @@ module Inesita
 
     def mount_to(element)
       raise Error, "Can't mount #{self.class}, target element not found!" unless element
-      inject(:root_component, self)
+      @root_component = self
       @virtual_dom = render_virtual_dom
       @root_node = VirtualDOM.create(@virtual_dom)
       Browser.append_child(element, @root_node)
@@ -54,6 +54,17 @@ module Inesita
     def with_props(props)
       @props = props
       self
+    end
+
+    def with_root_component(component)
+      @root_component = component
+      self
+    end
+
+    def render!
+      Browser.animation_frame do
+        @root_component.render_if_root
+      end
     end
   end
 end
