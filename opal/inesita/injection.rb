@@ -1,5 +1,7 @@
 module Inesita
   module Injection
+    def init; end
+
     def with_root_component(component)
       @root_component = component
       self
@@ -16,16 +18,19 @@ module Inesita
 
     attr_reader :injections
     def init_injections
-      self.class.injections.each do |name, instance|
-        @injections ||= {}
-        if instance.include(Inesita::Injection)
-          @injections[name] = instance
+      @injections ||= {}
+      self.class.injections.each do |name, clazz|
+        if clazz.included_modules.include?(Inesita::Injection)
+          @injections[name] = clazz
             .new
             .with_root_component(@root_component)
             .inject
         else
-          $console.warn "Bla"
+          $console.warn "Invalid #{instance} class, should mixin Inesita::Injection"
         end
+      end
+      @injections.each do |key, instance|
+        instance.init
       end
     end
 
