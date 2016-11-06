@@ -23,7 +23,7 @@ class Counter
       end
       input type: "text", class: "form-control", value: store.counter, disabled: true
       span class: 'input-group-btn' do
-        button class: 'btn btn-default', onclick: -> { :inc } do
+        button class: 'btn btn-default', onclick: -> { inc } do
           text '+'
         end
       end
