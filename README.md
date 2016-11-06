@@ -6,7 +6,7 @@ Inesita is a web frontend framework for fast building browser application using 
 
 ## Description
 
-More detailed description [here](https://inesita-rb.github.io).
+More detailed description [here](https://inesita.fazibear.me).
 
 ## Examples
 
