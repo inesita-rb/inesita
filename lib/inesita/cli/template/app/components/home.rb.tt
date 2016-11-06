@@ -2,14 +2,12 @@ class Home
   include Inesita::Component
 
   def render
-    div class: 'jumbotron text-center' do
+    div.jumbotron class: 'text-center' do
       img src: '/static/inesita-rb.png'
       h1 do
         text "Hello I'm Inesita"
       end
-      h4 do
-        text 'This is a sample component'
-      end
+      component Counter, props: {header: 'This is a sample counter'}
     end
   end
 end

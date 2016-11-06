@@ -1,15 +1,17 @@
 class Store
   include Inesita::Injection
 
-  def initialize
-    @store = {}
+  attr_accessor :counter
+
+  def init
+    @counter = 0
   end
 
-  def set(key, value)
-    @store[key] = value
+  def increase
+    @counter += 1
   end
 
-  def get(key)
-    @store[key]
+  def decrease
+    @counter -= 1
   end
 end

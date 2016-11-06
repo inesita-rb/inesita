@@ -1,5 +1,6 @@
 # require Inesita
 require 'inesita'
+require 'inesita-router'
 
 # require main parts of application
 require 'router'
