@@ -10,6 +10,7 @@ module Inesita
 
     method_option :force,
                   aliases: :f,
+                  type: :boolean,
                   default: false,
                   desc: 'force overwrite'
 

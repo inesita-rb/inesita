@@ -10,26 +10,31 @@ module Inesita
 
     method_option :force,
                   aliases: :f,
+                  type: :boolean,
                   default: true,
                   desc: 'force overwrite'
 
     method_option :destination_dir,
                   aliases: :d,
+                  type: :string,
                   default: Inesita::Config::BUILD_DIR,
                   desc: 'destination directory'
 
     method_option :source_dir,
                   aliases: :s,
+                  type: :string,
                   default: Inesita::Config::APP_DIR,
                   desc: 'source (app) dir'
 
     method_option :static_dir,
                   aliases: :t,
+                  type: :string,
                   default: Inesita::Config::STATIC_DIR,
                   desc: 'static dir'
 
     method_option :dist_source_dir,
                   aliases: :b,
+                  type: :string,
                   default: Inesita::Config::APP_DIST_DIR,
                   desc: 'source (app) dir for dist build'
 
