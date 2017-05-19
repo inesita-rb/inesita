@@ -1,3 +1,13 @@
+## [0.7.0] -
+
+### Fixes
+- `thor` warrnings
+
+### Removed
+- remove `slim` dependency
+- remove `sass` dependency
+
+
 ## [0.6.1] - 2016.11.07
 
 ### Added

@@ -5,8 +5,6 @@ begin
   Bundler.require
 rescue Bundler::GemfileNotFound
   require 'opal-virtual-dom'
-  require 'slim'
-  require 'sass'
   require 'inesita/server'
 end
 

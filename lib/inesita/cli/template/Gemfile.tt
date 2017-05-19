@@ -1,5 +1,9 @@
 source "https://rubygems.org"
 
+# templates gems
+gem 'slim'
+gem 'sass'
+
 # inesita gem
 gem 'inesita', '~> 0.6.0'
 gem 'inesita-livereload', '~> 0.1.0'

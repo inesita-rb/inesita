@@ -7,16 +7,11 @@ module Inesita
     end
   end
 
-	class SlimTransformer
-		def self.call(input)
-			Slim::Template.new(input[:name]) { input[:data] }.render(nil)
-		end
-	end
-
-	class Server
+  class Server
     attr_reader :assets_app
 
     def initialize(opts = {})
+      @setup_sprockets = opts.delete(:setup_sprockets)
       setup_dirs(opts)
       setup_env(opts)
       @assets_app = create_assets_app
@@ -83,21 +78,12 @@ module Inesita
           s.append_path p
         end if defined?(RailsAssets)
 
-        configure_sprockets(s.sprockets)
+        s.sprockets.context_class.class_eval do
+          include SprocketsContext
+        end
+
+        @setup_sprockets.call(s.sprockets) if @setup_sprockets
       end.sprockets
-    end
-
-		def configure_sprockets(sprockets)
-			if sprockets.respond_to?(:register_transformer)
-				sprockets.register_mime_type 'text/html', extensions: ['.slim', '.html.slim', '.slim.html']
-				sprockets.register_preprocessor 'text/html', SlimTransformer
-			elsif sprockets.respond_to?(:register_engine)
-				sprockets.register_engine '.slim', Slim::Template
-			end
-
-      sprockets.context_class.class_eval do
-        include SprocketsContext
-      end
     end
 
     def create_source_maps_app
