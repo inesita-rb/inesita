@@ -18,7 +18,16 @@ module Inesita
       @virtual_dom = render_virtual_dom
       @root_node = VirtualDOM.create(@virtual_dom)
       Browser.append_child(element, @root_node)
+      @root_component.call_on_mounted
       self
+    end
+
+    def add_on_mounted_callback(block)
+      @on_mounted_callbacks << block
+    end
+
+    def call_on_mounted
+      @on_mounted_callbacks.reverse_each(&:call)
     end
 
     attr_reader :props

@@ -3,6 +3,7 @@
 ### Added
 - `inject` class method for `Component`
 - `init` callbacks
+- `Component#on_mounted` callback added. Triggers when the component has been mounted to the DOM.
 
 ### Removed
 - `router` - moved to separate gem
