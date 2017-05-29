@@ -24,5 +24,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'bundler', '~> 1.0'
   s.add_development_dependency 'rspec', '~> 3.0'
   s.add_development_dependency 'opal-rspec', '~> 0.6.0.beta'
-  s.add_development_dependency 'rake', '~> 11.0'
+  s.add_development_dependency 'rake', '~> 12.0'
 end
