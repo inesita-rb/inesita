@@ -37,6 +37,7 @@ module Inesita
     def render!
       Browser.animation_frame do
         @root_component.render_if_root
+        @root_component.call_on_mounted
       end
     end
   end

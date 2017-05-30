@@ -17,6 +17,8 @@ module Inesita
 
       def render_virtual_dom
         before_render
+        @on_mounted_callbacks = []
+        @root_component.add_on_mounted_callback(method(:on_mounted)) if respond_to?(:on_mounted)
         @cache_component_counter = 0
         @__virtual_nodes__ = []
         render
