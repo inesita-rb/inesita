@@ -62,7 +62,7 @@ module Inesita
     end
 
     def create_assets_app
-      Opal::Server.new do |s|
+      Opal::Sprockets::Server.new do |s|
         s.append_path @app_dir
         if @dist
           s.append_path @app_dist_dir

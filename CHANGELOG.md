@@ -3,6 +3,9 @@
 ### Fixes
 - `thor` warrnings
 
+### Changed
+- Update `opal` to `0.11`
+
 ### Removed
 - remove `slim` dependency
 - remove `sass` dependency

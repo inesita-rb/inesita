@@ -1,4 +1,4 @@
-require 'opal'
+require 'opal-sprockets'
 Opal.append_path File.expand_path('../../opal', __FILE__)
 
 require 'opal-virtual-dom'
