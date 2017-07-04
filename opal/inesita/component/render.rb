@@ -13,14 +13,16 @@ module Inesita
         @virtual_dom = new_virtual_dom
       end
 
+      def should_render?; true; end;
       def before_render; end;
 
       def render_virtual_dom
+        return @__virtual_nodes__ unless should_render?
         before_render
         @cache_component_counter = 0
         @__virtual_nodes__ = []
         render
-        to_vnode
+        to_vnode # Defined in opal-virtual-dom and takes @__virtual_nodes__
       end
     end
   end

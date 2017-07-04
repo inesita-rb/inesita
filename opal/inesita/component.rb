@@ -21,8 +21,9 @@ module Inesita
       self
     end
 
-    attr_reader :props
+    attr_reader :props, :prev_props
     def with_props(props)
+      @prev_props = @props
       @props = props
       self
     end
