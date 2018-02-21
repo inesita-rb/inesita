@@ -14,7 +14,7 @@ gem 'sass'
 # gem 'htmlcompressor'
 
 # bootsrap assets
-gem 'bootstrap-sass'
+gem 'bootstrap'
 
 # rails-assets are also supported
 # source 'https://rails-assets.org' do

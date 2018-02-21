@@ -2,7 +2,7 @@ class Description
   include Inesita::Component
 
   def render
-    div class: 'jumbotron text-center' do
+    div class: 'jumbotron text-center bg-light' do
       p do
         text %{
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

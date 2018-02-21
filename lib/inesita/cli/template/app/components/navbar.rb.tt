@@ -2,22 +2,20 @@ class NavBar
   include Inesita::Component
 
   def render
-    nav class: 'navbar navbar-default' do
-      div class: 'container' do
-        div class: 'navbar-header' do
-          span class: 'navbar-brand' do
-            text '<%= config[:project_name] %>'
-          end
-          ul class: 'nav navbar-nav' do
-            li class: "#{"active" if router.current_url?(:home)}" do
-              a href: router.url_for(:home) do
-                text 'Home'
-              end
+    nav class: 'navbar navbar-expand-lg navbar-light bg-light' do
+      span class: 'navbar-brand' do
+        text '<%= config[:project_name] %>'
+      end
+      div class: 'collapse navbar-collapse' do
+        ul class: 'nav navbar-nav mr-auto' do
+          li class: "nav-item #{"active" if router.current_url?(:home)}" do
+            a class: 'nav-link', href: router.url_for(:home) do
+              text 'Home'
             end
-            li class: "#{"active" if router.current_url?(:description)}" do
-              a href: router.url_for(:description) do
-                text 'Description'
-              end
+          end
+          li class: "nav-item #{"active" if router.current_url?(:description)}" do
+            a class: 'nav-link', href: router.url_for(:description) do
+              text 'Description'
             end
           end
         end
