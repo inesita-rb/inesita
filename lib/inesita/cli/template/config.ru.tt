@@ -4,7 +4,11 @@ Bundler.require
 
 # setup slim templates
 def setup(sprockets)
-  sprockets.register_engine '.slim', Slim::Template
+  sprockets.register_engine(
+    '.slim',
+    Slim::Template,
+    silence_deprecation: true
+  )
 end
 
 # you can comment this line to disable live-reload
