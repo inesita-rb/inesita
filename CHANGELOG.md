@@ -2,9 +2,11 @@
 
 ### Fixes
 - `thor` warrnings
+- 'sprockets' warrnings
 
 ### Changed
 - Update `opal` to `0.11`
+- Move templates configuration to `config.ru`
 
 ### Removed
 - remove `slim` dependency
