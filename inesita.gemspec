@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'opal', '>= 0.10.4', '< 0.12'
   s.add_dependency 'opal-sprockets'
-  s.add_dependency 'opal-virtual-dom', '~> 0.5.0'
+  s.add_dependency 'opal-virtual-dom', '~> 0.6.0'
   s.add_dependency 'thor', '~> 0.19'
   s.add_dependency 'rack-rewrite', '~> 1.5'
   s.add_dependency 'listen', '~> 3.0'

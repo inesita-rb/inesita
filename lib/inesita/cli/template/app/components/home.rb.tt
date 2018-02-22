@@ -2,7 +2,7 @@ class Home
   include Inesita::Component
 
   def render
-    div.jumbotron class: 'text-center bg-light' do
+    div.jumbotron.text_center.bg_light do
       img src: '/static/inesita-rb.png'
       h1 do
         text "Hello I'm Inesita"
