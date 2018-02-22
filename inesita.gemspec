@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_dependency 'opal', '>= 0.10.4', '< 0.12'
-  s.add_dependency 'opal-sprockets'
+  s.add_dependency 'opal-sprockets', '~> 0'
   s.add_dependency 'opal-virtual-dom', '~> 0.6.0'
   s.add_dependency 'thor', '~> 0.19'
   s.add_dependency 'rack-rewrite', '~> 1.5'
@@ -24,6 +24,6 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'bundler', '~> 1.0'
   s.add_development_dependency 'rspec', '~> 3.0'
-  s.add_development_dependency 'opal-rspec', '~> 0.6.0.beta'
+  s.add_development_dependency 'opal-rspec', '~> 0.6.0'
   s.add_development_dependency 'rake', '~> 12.0'
 end
