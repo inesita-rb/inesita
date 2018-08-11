@@ -11,3 +11,7 @@ More detailed description [here](https://inesita.fazibear.me).
 ## Examples
 
 For list of examples go [here](https://github.com/inesita-rb/awesome-inesita)
+
+## Thank you!
+
+[![Become Patreon](https://c5.patreon.com/external/logo/become_a_patron_button.png)](https://www.patreon.com/bePatron?u=6912974)
