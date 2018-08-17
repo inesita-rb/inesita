@@ -11,12 +11,12 @@ module Inesita
     attr_reader :assets_app
 
     def initialize(opts = {})
-      @setup_sprockets = opts.delete(:setup_sprockets)
       setup_dirs(opts)
       setup_env(opts)
       @assets_app = create_assets_app
       @source_maps_app = create_source_maps_app
       @app = create_app
+      @setup_sprockets = opts.delete(:setup_sprockets) || './.sprockets.rb'
       Inesita.assets_code = assets_code
     end
 
@@ -82,8 +82,12 @@ module Inesita
           include SprocketsContext
         end
 
-        @setup_sprockets.call(s.sprockets) if @setup_sprockets
+        setup_sprockets(@setup_sprockets, s.sprockets)
       end.sprockets
+    end
+
+    def setup_sprockets(dir, sprockets)
+      self.instance_eval(File.read(dir)) if File.exists?(dir)
     end
 
     def create_source_maps_app

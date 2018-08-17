@@ -1,4 +1,10 @@
-## [0.7.0] -
+## [0.7.1] - 17.08.2018
+
+### Changed
+- sprockets setup moved from `config.ru` into `.sprockets.rb` file
+
+
+## [0.7.0] - 22.02.2018
 
 ### Fixes
 - `thor` warrnings
