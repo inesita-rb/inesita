@@ -1,4 +1,4 @@
-## [0.8.0] - 17.08.2018
+## [0.8.1] - 17.08.2018
 
 ### Changed
 - sprockets setup moved from `config.ru` into `.sprockets.rb` file
