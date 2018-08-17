@@ -6,4 +6,4 @@ Bundler.require
 use Inesita::LiveReload
 
 # run inesita server
-run Inesita::Server.new()
+run Inesita::Server.new
