@@ -13,10 +13,10 @@ module Inesita
     def initialize(opts = {})
       setup_dirs(opts)
       setup_env(opts)
+      @setup_sprockets = opts.delete(:setup_sprockets) || './.sprockets.rb'
       @assets_app = create_assets_app
       @source_maps_app = create_source_maps_app
       @app = create_app
-      @setup_sprockets = opts.delete(:setup_sprockets) || './.sprockets.rb'
       Inesita.assets_code = assets_code
     end
 
