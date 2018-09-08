@@ -12,7 +12,7 @@ module Inesita
 
     def js(source)
       if defined?(Uglifier)
-        Uglifier.compile(source)
+        Uglifier.compile(source, harmony: true)
       else
         source
       end
