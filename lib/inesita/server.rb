@@ -15,7 +15,6 @@ module Inesita
       setup_env(opts)
       @setup_sprockets = opts.delete(:setup_sprockets) || './.sprockets.rb'
       @assets_app = create_assets_app
-      @source_maps_app = create_source_maps_app
       @app = create_app
       Inesita.assets_code = assets_code
     end
@@ -41,22 +40,17 @@ module Inesita
 
     def create_app
       assets_app = @assets_app
-      source_maps_app = @source_maps_app
       static_dir = @static_dir
 
       Rack::Builder.new do
         use Rack::Static, :urls => [static_dir]
 
         use Rack::Rewrite do
-          rewrite(/^(?!#{Config::ASSETS_PREFIX}|#{Config::SOURCE_MAP_PREFIX}).*/, Config::ASSETS_PREFIX)
+          rewrite(/^(?!#{Config::ASSETS_PREFIX}).*/, Config::ASSETS_PREFIX)
         end
 
         map Config::ASSETS_PREFIX do
           run assets_app
-        end
-
-        map Config::SOURCE_MAP_PREFIX do
-          run source_maps_app
         end
       end
     end
@@ -88,11 +82,6 @@ module Inesita
 
     def setup_sprockets(dir, sprockets)
       self.instance_eval(File.read(dir)) if File.exists?(dir)
-    end
-
-    def create_source_maps_app
-      ::Opal::Sprockets::SourceMapHeaderPatch.inject!(Config::SOURCE_MAP_PREFIX)
-      Opal::SourceMapServer.new(@assets_app, Config::SOURCE_MAP_PREFIX)
     end
 
     def call(env)
