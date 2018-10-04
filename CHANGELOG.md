@@ -1,3 +1,9 @@
+## [0.8.2] - 04.10.2018
+
+### Changed
+- fix inesita server to work with newest `opal-sprockets`
+
+
 ## [0.8.1] - 17.08.2018
 
 ### Changed
