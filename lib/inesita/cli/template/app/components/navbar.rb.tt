@@ -18,6 +18,11 @@ class NavBar
               text 'Description'
             end
           end
+          li.nav_item class: class_names(active: router.current_url?(:counters)) do
+            a.nav_link href: router.url_for(:counters) do
+              text 'Example Counters'
+            end
+          end
         end
       end
     end
