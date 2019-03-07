@@ -24,6 +24,6 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'bundler', '~> 1.0'
   s.add_development_dependency 'rspec', '~> 3.0'
-  s.add_development_dependency 'opal-rspec', '~> 0.7.0.rc'
+  s.add_development_dependency 'opal-rspec', '~> 0.7.1'
   s.add_development_dependency 'rake', '~> 12.0'
 end
