@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.summary     = 'Frontend web framework for Opal'
   s.description = 'Frontent web framework for Opal'
   s.license     = 'MIT'
-  s.post_install_message = 'Notice! Inesita 0.6.0 includes lots of breaking changes. See documentaion: https://inesita.fazibear.me/'
+  s.post_install_message = 'Thanks for using princess Inesita. See documentaion: https://inesita.fazibear.me/'
 
 
   s.files         = `git ls-files`.split("\n")
