@@ -17,13 +17,13 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'opal', '~> 1.0'
   s.add_dependency 'opal-sprockets', '~> 0'
-  s.add_dependency 'opal-virtual-dom', '~> 0.7.0'
+  s.add_dependency 'opal-virtual-dom', '~> 0.6.1'
   s.add_dependency 'thor', '~> 0.19'
   s.add_dependency 'rack-rewrite', '~> 1.5'
   s.add_dependency 'listen', '~> 3.0'
 
   s.add_development_dependency 'bundler', '~> 1.0'
   s.add_development_dependency 'rspec', '~> 3.0'
-  s.add_development_dependency 'opal-rspec', '~> 0.6.0'
+  s.add_development_dependency 'opal-rspec', '~> 0.8.0.alpha1'
   s.add_development_dependency 'rake', '~> 12.0'
 end
