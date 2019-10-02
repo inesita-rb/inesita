@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'inesita'
-  s.version     = '0.8.2'
+  s.version     = '0.9.0'
   s.authors     = ['Michał Kalbarczyk']
   s.email       = 'fazibear@gmail.com'
   s.homepage    = 'http://github.com/inesita-rb/inesita'
@@ -15,15 +15,15 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_paths = ['lib']
 
-  s.add_dependency 'opal', '>= 0.10.4', '< 0.12'
+  s.add_dependency 'opal', '~> 1.0'
   s.add_dependency 'opal-sprockets', '~> 0'
-  s.add_dependency 'opal-virtual-dom', '~> 0.6.0'
+  s.add_dependency 'opal-virtual-dom', '~> 0.6.1'
   s.add_dependency 'thor', '~> 0.19'
   s.add_dependency 'rack-rewrite', '~> 1.5'
   s.add_dependency 'listen', '~> 3.0'
 
   s.add_development_dependency 'bundler', '~> 1.0'
   s.add_development_dependency 'rspec', '~> 3.0'
-  s.add_development_dependency 'opal-rspec', '~> 0.7.1'
+  s.add_development_dependency 'opal-rspec', '~> 0.8.0.alpha1'
   s.add_development_dependency 'rake', '~> 12.0'
 end
