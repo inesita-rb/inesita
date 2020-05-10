@@ -1,7 +1,15 @@
+## [0.9.1] - 10.05.2020
+
+### Fixes
+- update new application template to use fresh gem
+- update new application counter component
+
+
 ## [0.9.0] - 02.10.2019
 
 ### Changed
 - update opal to 1.0
+
 
 ## [0.8.2] - 04.10.2018
 
