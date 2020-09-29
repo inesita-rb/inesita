@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'inesita'
-  s.version     = '0.9.1'
+  s.version     = '0.9.2'
   s.authors     = ['Michał Kalbarczyk']
   s.email       = 'fazibear@gmail.com'
   s.homepage    = 'http://github.com/inesita-rb/inesita'
@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_dependency 'opal', '~> 1.0'
-  s.add_dependency 'opal-sprockets', '~> 0'
+  s.add_dependency 'opal-sprockets', '~> 0.4.9'
   s.add_dependency 'opal-virtual-dom', '~> 0.6.1'
   s.add_dependency 'thor', '~> 0.19'
   s.add_dependency 'rack-rewrite', '~> 1.5'
