@@ -1,3 +1,8 @@
+## [0.9.2] - 14.10.2020
+
+### Fixes
+- Fix `opal-sprockets` version
+
 ## [0.9.1] - 10.05.2020
 
 ### Fixes
