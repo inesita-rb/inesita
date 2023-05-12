@@ -1,8 +1,7 @@
-require 'opal-sprockets'
+require 'opal'
 Opal.append_path File.expand_path('../../opal', __FILE__)
 
 require 'opal-virtual-dom'
-
 require 'listen'
 
 require 'inesita/config'
