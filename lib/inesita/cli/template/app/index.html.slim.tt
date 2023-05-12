@@ -1,7 +1,0 @@
-doctype html
-html
-  head
-    meta charset="UTF-8"
-    title <%= config[:project_name] %>
-    == Inesita.assets_code
-  body

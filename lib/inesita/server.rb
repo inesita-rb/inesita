@@ -1,91 +1,34 @@
-require 'rack/rewrite'
-
 module Inesita
-  module SprocketsContext
-    def asset_path(path, _options = {})
-      path
-    end
-  end
-
   class Server
-    attr_reader :assets_app
+    def initialize(*args, &block)
+      require 'rack/rewrite'
+      server = server(*args, &block)
+      @rack = Rack::Builder.new do
+        use Rack::Static, urls: [Inesita::Config::STATIC_DIR]
+        run server
+      end
 
-    def initialize(opts = {})
-      setup_dirs(opts)
-      setup_env(opts)
-      @setup_sprockets = opts.delete(:setup_sprockets) || './.sprockets.rb'
-      @assets_app = create_assets_app
-      @app = create_app
+      Opal.append_path 'app'
       Inesita.assets_code = assets_code
     end
 
-    def setup_env(opts)
-      @dist = opts[:dist] || false
+    def call(*args)
+      @rack.call(*args)
     end
 
-    def setup_dirs(opts)
-      @static_dir = opts[:static_dir] || Config::STATIC_DIR
-      @app_dir = opts[:app_dir] || Config::APP_DIR
-      @app_dist_dir = opts[:app_dist_dir] || Config::APP_DIST_DIR
-      @app_dev_dir = opts[:app_dev_dir] || Config::APP_DEV_DIR
+    def assets_code(path = 'application')
+      @server.javascript_include_tag(path)
     end
 
-    def assets_code
-      assets_prefix = @dist ? '' : Config::ASSETS_PREFIX
-      %(
-        <link rel="stylesheet" type="text/css" href="#{assets_prefix}/stylesheet.css">
-        #{Opal::Sprockets.javascript_include_tag('application', sprockets: @assets_app, prefix: assets_prefix, debug: !@dist)}
-       )
-    end
-
-    def create_app
-      assets_app = @assets_app
-      static_dir = @static_dir
-
-      Rack::Builder.new do
-        use Rack::Static, :urls => [static_dir]
-
-        use Rack::Rewrite do
-          rewrite(/^(?!#{Config::ASSETS_PREFIX}).*/, Config::ASSETS_PREFIX)
-        end
-
-        map Config::ASSETS_PREFIX do
-          run assets_app
-        end
-      end
-    end
-
-    def create_assets_app
-      Opal::Sprockets::Server.new do |s|
-        s.append_path @app_dir
-        if @dist
-          s.append_path @app_dist_dir
-        else
-          s.append_path @app_dev_dir
-        end
-
-        Opal.paths.each do |p|
-          s.append_path p
-        end
-
-        RailsAssets.load_paths.each do |p|
-          s.append_path p
-        end if defined?(RailsAssets)
-
-        s.sprockets.context_class.class_eval do
-          include SprocketsContext
-        end
-
-        setup_sprockets(@setup_sprockets, s.sprockets)
-      end.sprockets
-    end
-
-    def setup_sprockets(dir, sprockets)
-      self.instance_eval(File.read(dir)) if File.exists?(dir)
-    end
-
-    def call(env)
-      @app.call(env)
+    def server(*args, &block)
+      @server = if block_given?
+                  Opal::SimpleServer.new(*args, &block)
+                else
+                  Opal::SimpleServer.new(*args) do |server|
+                    server.main = ::Inesita::Config::SERVER_MAIN
+                    server.index_path = ::Inesita::Config::SERVER_INDEX_PATH
+                  end
+                end
     end
   end
 end

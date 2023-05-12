@@ -4,19 +4,3 @@ source "https://rubygems.org"
 gem 'inesita', '~> 0.9.0'
 gem 'inesita-livereload', '~> 0.1.0'
 gem 'inesita-router', '~> 0.3.0'
-
-# templates gems
-gem 'slim'
-gem 'sass'
-
-# minification gems
-# gem 'uglifier'
-# gem 'htmlcompressor'
-
-# bootsrap assets
-gem 'bootstrap'
-
-# rails-assets are also supported
-# source 'https://rails-assets.org' do
-#   gem 'rails-assets-bootstrap'
-# end
