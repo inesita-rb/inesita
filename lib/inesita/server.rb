@@ -1,8 +1,8 @@
 module Inesita
   class Server
     def initialize(*args, &block)
-      require 'rack/rewrite'
       server = server(*args, &block)
+
       @rack = Rack::Builder.new do
         use Rack::Static, urls: [Inesita::Config::STATIC_DIR]
         run server

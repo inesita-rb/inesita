@@ -32,30 +32,25 @@ module Inesita
                   default: Inesita::Config::STATIC_DIR,
                   desc: 'static dir'
 
-    method_option :dist_source_dir,
-                  aliases: :b,
-                  type: :string,
-                  default: Inesita::Config::APP_DIST_DIR,
-                  desc: 'source (app) dir for dist build'
-
     def build
-      assets = assets_server
       empty_directory options[:destination_dir], force: options[:force]
-
+      generate_files
       copy_static
-      create_asset(assets, 'index.html',     ->(s) { Inesita::Minify.html(s) })
-      create_asset(assets, 'application.js', ->(s) { Inesita::Minify.js(s) })
-      create_asset(assets, 'stylesheet.css', ->(s) { Inesita::Minify.css(s) })
     end
 
-    no_commands do
-      def assets_server
-        Inesita::Server.new({
-          dist: true,
-          static_dir: options[:static_dir],
-          app_dir: options[:source_dir],
-          app_dist_dir: options[:app_dist_dir]
-        }).assets_app
+  no_commands do
+    def generate_files
+      rack = Rack::Server.new(config: 'config.ru', Port: options['port'], Host: options['host'])
+      builder = Inesita::Builder.new(app: rack.app, destination_dir: options[:destination_dir])
+
+      [
+        '/index.html',
+        Inesita.assets_code.match(/src="([^\"]*?)[?"]/)[1]
+      ].each do |url|
+          create_file File.join(options[:destination_dir], url),
+            builder.fetch(url),
+            force: options[:force]
+        end
       end
 
       def copy_static
@@ -70,12 +65,6 @@ module Inesita
             copy_file File.absolute_path(file), File.join(destination_dir, file.gsub(static_dir, 'static')), force: force
           end
         end
-      end
-
-      def create_asset(assets, name, minify_proc)
-        create_file File.join(options[:destination_dir], name),
-                    minify_proc.call(assets[name].source),
-                    force: options[:force]
       end
     end
   end

@@ -32,12 +32,6 @@ module Inesita
                   default: Inesita::Config::STATIC_DIR,
                   desc: 'static dir'
 
-    method_option :dist_source_dir,
-                  aliases: :b,
-                  type: :string,
-                  default: Inesita::Config::APP_DIST_DIR,
-                  desc: 'source (app) dir for dist build'
-
     def watch
       puts 'building...'
       safe_build

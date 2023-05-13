@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'inesita'
-  s.version     = '1.0.pre.3'
+  s.version     = '1.0.pre.4'
   s.authors     = ['Michał Kalbarczyk']
   s.email       = 'fazibear@gmail.com'
   s.homepage    = 'http://github.com/inesita-rb/inesita'
@@ -18,8 +18,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'opal-virtual-dom', '~> 0.6.1'
   s.add_dependency 'thor', '~> 1.2'
   s.add_dependency 'rack', '~> 2.0'
-
-  s.add_dependency 'rack-rewrite', '~> 1.5'
   s.add_dependency 'listen', '~> 3.0'
 
   s.add_development_dependency 'bundler', '~> 2.0'
