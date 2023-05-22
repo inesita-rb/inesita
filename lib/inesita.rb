@@ -6,7 +6,6 @@ require 'listen'
 
 require 'inesita/config'
 require 'inesita/server'
-require 'inesita/builder'
 
 module Inesita
   module_function
