@@ -41,7 +41,7 @@ module Inesita
   no_commands do
     def generate_files
       rack = Rack::Server.new(config: 'config.ru', Port: options['port'], Host: options['host'])
-      builder = Inesita::Builder.new(app: rack.app, destination_dir: options[:destination_dir])
+      builder = Inesita::Builder.new(rack.app)
 
       [
         '/index.html',

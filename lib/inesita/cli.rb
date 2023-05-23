@@ -11,7 +11,7 @@ end
 require 'rack'
 require 'rack/server'
 require 'inesita/config'
-require 'inesita/minify'
+require 'inesita/builder'
 require 'inesita/cli/build'
 require 'inesita/cli/server'
 require 'inesita/cli/new'
